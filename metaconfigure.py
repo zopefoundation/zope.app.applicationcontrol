@@ -13,12 +13,11 @@
 ##############################################################################
 """ Register ServerControl configuration directives.
 
-$Id: metaconfigure.py,v 1.4 2003/08/03 21:22:29 philikon Exp $
+$Id: metaconfigure.py,v 1.5 2003/08/17 06:05:20 philikon Exp $
 """
 
 from zope.component import getUtility
 from zope.app.interfaces.applicationcontrol import IServerControl
-from zope.configuration.action import Action
 
 def registerShutdownHook(_context, call, name, priority):
     """Register a shutdown hook with the current server control utility"""
