@@ -24,7 +24,7 @@ class ZODBControlTest(BrowserTestCase):
 
     def testZODBControlOverview(self):
         response = self.publish('/++etc++process/@@ZODBControl.html',
-                                basic='mgr:mgrpw',
+                                basic='globalmgr:globalmgrpw',
                                 form={'days': u'3'})
         body = response.getBody()
         self.assert_('value="3"' in body)

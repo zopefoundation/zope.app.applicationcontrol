@@ -23,16 +23,16 @@ class ZODBControlTest(BrowserTestCase):
     def testDomainOverview(self):
         response = self.publish(
             '/++etc++process/@@TranslationDomain.html',
-            basic='mgr:mgrpw')
+            basic='globalmgr:globalmgrpw')
 
         body = response.getBody()
         self.checkForBrokenLinks(body,
                                  '/++etc++process/@@TranslationDomain.html',
-                                 basic='mgr:mgrpw')
+                                 basic='globalmgr:globalmgrpw')
         
     def testReload(self):
         response = self.publish('/++etc++process/@@TranslationDomain.html',
-                                basic='mgr:mgrpw',
+                                basic='globalmgr:globalmgrpw',
                                 form={'language': u'de',
                                       'domain': u'zope',
                                       'RELOAD': u'Reload'})
