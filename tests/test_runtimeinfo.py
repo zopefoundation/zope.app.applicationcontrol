@@ -12,7 +12,7 @@
 ##############################################################################
 """Runtime Info Tests
 
-$Id: test_runtimeinfo.py,v 1.9 2004/03/24 11:13:15 hdima Exp $
+$Id: test_runtimeinfo.py,v 1.10 2004/03/25 14:37:08 hdima Exp $
 """
 import unittest
 import os, sys, time
@@ -48,9 +48,12 @@ class Test(PlacefulSetup, unittest.TestCase):
         return RuntimeInfo(applicationController)
 
     def _getPreferredEncoding(self):
-        if locale is None:
-            return sys.getdefaultencoding()
-        return locale.getpreferredencoding()
+        if locale is not None:
+            try:
+                return locale.getpreferredencoding()
+            except locale.Error:
+                pass
+        return sys.getdefaultencoding()
 
     def _getFileSystemEncoding(self):
         enc = sys.getfilesystemencoding()
