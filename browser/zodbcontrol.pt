@@ -1,4 +1,4 @@
-<html metal:use-macro="views/standard_macros/page">
+<html metal:use-macro="views/standard_macros/view">
   <head>
     <title i18n:translate="">ZODB Controller</title>
   </head>

@@ -1,4 +1,4 @@
-<html metal:use-macro="views/standard_macros/page" i18n:domain="zope">
+<html metal:use-macro="views/standard_macros/view" i18n:domain="zope">
 <head>
   <title i18n:translate="">Zope Stub Server Controller</title>
 </head>
