@@ -22,7 +22,6 @@ from zope.app import zapi
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
-from zope.app.servicenames import Utilities
 from zope.app.component.testing import PlacefulSetup
 
 class ServerControlStub(object):
