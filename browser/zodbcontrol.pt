@@ -1,0 +1,41 @@
+<html metal:use-macro="context/@@standard_macros/view">
+  <head>
+    <title i18n:translate="">ZODB Controller</title>
+  </head>
+  <body>
+    <div metal:fill-slot="body">
+
+      <div style="font-size: 120%" i18n:translate="">
+        Name of database: <em tal:content="view/getName" 
+                              i18n:name="name">My Database</em>
+      </div>
+
+      <div style="font-size: 120%" i18n:translate="">
+        Size of database: <em tal:content="view/getSize" 
+                              i18n:name="size">1.1 MB</em>
+      </div>
+
+      <p tal:define="status view/pack"
+         tal:condition="status"
+         tal:content="status" />
+
+      <form action="." method="post" tal:attributes="action request/URL">
+        <div class="row">
+          <div class="label" i18n:translate="">Keep up to:</div>
+          <div class="view">
+            <input type="text" size="4" name="days" value="0" 
+                   tal:attributes="value request/days|string:0" />
+            <span tal:omit-tag="" i18n:translate="">days</span>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="control">
+            <input type="submit" name="PACK" value="Pack" 
+                i18n:attributes="value pack-button"/>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </body>
+</html>
