@@ -13,7 +13,7 @@
 ##############################################################################
 """Zope version
 
-$Id: zopeversion.py,v 1.7 2004/04/30 14:30:42 fdrake Exp $"""
+$Id: zopeversion.py,v 1.8 2004/04/30 14:58:35 fdrake Exp $"""
 
 import os
 
@@ -25,19 +25,26 @@ class ZopeVersion:
 
     implements(IZopeVersion)
 
+    def __init__(self, path=None):
+        if path is None:
+            path = os.path.dirname(os.path.abspath(zope.__file__))
+        self.path = path
+        self.result = None
+
     def getZopeVersion(self):
         """See zope.app.applicationcontrol.interfaces.IZopeVersion"""
+        if self.result is not None:
+            return self.result
 
         version_id = "Development/Unknown"
         version_tag = ""
-        is_cvs = 0
-
-        zopedir = os.path.dirname(zope.__file__)
+        is_cvs = False
 
         # is this a CVS checkout?
-        cvsdir = os.path.join(zopedir, "CVS" )
+        # XXX need to change this when we move to Subversion
+        cvsdir = os.path.join(self.path, "CVS" )
         if os.path.isdir(cvsdir):
-            is_cvs = 1
+            is_cvs = True
             tagfile = os.path.join(cvsdir, "Tag")
 
             # get the tag information
@@ -49,13 +56,13 @@ class ZopeVersion:
                     version_tag = " (%s)" % tag[1]
 
         # try to get official Zope release information
-        versionfile = os.path.join(zopedir, "version.txt")
+        versionfile = os.path.join(self.path, "version.txt")
         if os.path.isfile(versionfile) and not is_cvs:
             f = open(versionfile)
             version_id = f.readline().strip() or version_id
             f.close()
 
-        version = "%s%s" % (version_id, version_tag)
-        return version
+        self.result = "%s%s" % (version_id, version_tag)
+        return self.result
 
 ZopeVersionUtility = ZopeVersion()
