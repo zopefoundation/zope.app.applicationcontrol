@@ -13,10 +13,9 @@
 ##############################################################################
 """ Application Control
 
-$Id: applicationcontrol.py,v 1.4 2003/06/07 06:37:18 stevea Exp $"""
+$Id: applicationcontrol.py,v 1.5 2003/07/31 21:37:18 srichter Exp $"""
 
-from zope.app.interfaces.applicationcontrol.applicationcontrol \
-     import IApplicationControl
+from zope.app.interfaces.applicationcontrol import IApplicationControl
 from zope.app.content.folder import RootFolder
 from zope.security.checker import ProxyFactory, NamesChecker
 from zope.interface import implements

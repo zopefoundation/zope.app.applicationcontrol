@@ -13,12 +13,12 @@
 ##############################################################################
 """Zope version
 
-$Id: zopeversion.py,v 1.4 2003/06/07 06:37:18 stevea Exp $"""
+$Id: zopeversion.py,v 1.5 2003/07/31 21:37:18 srichter Exp $"""
 
 import os
 
 import zope
-from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
+from zope.app.interfaces.applicationcontrol import IZopeVersion
 from zope.interface import implements
 
 class ZopeVersion:
@@ -26,6 +26,7 @@ class ZopeVersion:
     implements(IZopeVersion)
 
     def getZopeVersion(self):
+        """See zope.app.interfaces.applicationcontrol.IZopeVersion"""
 
         version_id = "Development/Unknown"
         version_tag = ""
@@ -50,7 +51,7 @@ class ZopeVersion:
         versionfile = os.path.join(zopedir, "version.txt")
         if os.path.isfile(versionfile) and not is_cvs:
             f = open(versionfile)
-            version_id = f.read().split("\n")[0] or version_id
+            version_id = f.readlines()[0] or version_id
 
         version = "%s%s" % (version_id, version_tag)
         return version

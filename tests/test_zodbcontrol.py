@@ -10,33 +10,29 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 ##############################################################################
-"""Application Control Tests
+"""Runtime Info Tests
 
-$Id: test_applicationcontrol.py,v 1.4 2003/07/31 21:37:23 srichter Exp $
+$Id: test_zodbcontrol.py,v 1.1 2003/07/31 21:37:23 srichter Exp $
 """
 import unittest
-from zope.interface.verify import verifyObject
+import os
 
-import time
-from zope.app.applicationcontrol.applicationcontrol import ApplicationControl
-from zope.app.interfaces.applicationcontrol import IApplicationControl
+from zodb.storage.file import FileStorage
+from zodb.db import DB
+from zope.app.applicationcontrol import tests 
+from zope.app.applicationcontrol.zodbcontrol import ZODBControl 
+from zope.app.applicationcontrol.applicationcontrol import applicationController
 
-# seconds, time values may differ in order to be assumed equal
-time_tolerance = 2
 
 class Test(unittest.TestCase):
 
-    def _Test__new(self):
-        return ApplicationControl()
+    def setUp(self):
+        db_file = os.path.join(os.path.dirname(tests.__file__), 'zodb.fs')
+        self.db = DB(FileStorage(db_file), '')
+        self.control = ZODBControl(applicationController)
 
-    def test_IVerify(self):
-        verifyObject(IApplicationControl, self._Test__new())
-
-    def test_startTime(self):
-        assert_time = time.time()
-        test_time = self._Test__new().getStartTime()
-
-        self.failUnless(abs(assert_time - test_time) < time_tolerance)
+    def test_getDatabaseSize(self):
+        self.assertEqual(self.control.getDatabaseSize(self.db), 1183)
 
 
 def test_suite():

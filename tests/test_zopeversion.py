@@ -11,39 +11,23 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""
+"""Zope Version Tests
 
-Revision information:
-$Id: test_zopeversion.py,v 1.3 2003/04/30 23:37:48 faassen Exp $
+$Id: test_zopeversion.py,v 1.4 2003/07/31 21:37:23 srichter Exp $
 """
-
-from unittest import TestCase, main, makeSuite
+import unittest
 from zope.interface.verify import verifyObject
-
-from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
+from zope.app.interfaces.applicationcontrol import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 import os
 
-
-#############################################################################
-# If your tests change any global registries, then uncomment the
-# following import and include CleanUp as a base class of your
-# test. It provides a setUp and tearDown that clear global data that
-# has registered with the test cleanup framework.  Don't use this
-# tests outside the Zope package.
-
-# from zope.testing.cleanup import CleanUp # Base class w registry cleanup
-
-#############################################################################
-
-class Test(TestCase):
+class Test(unittest.TestCase):
 
     def _Test__new(self):
         return ZopeVersion()
 
     def _getZopeVersion(self):
-        """example zope version implementation
-        """
+        """example zope version implementation"""
         version_id = "Development/Unknown"
         version_tag = ""
         is_cvs = 0
@@ -81,9 +65,10 @@ class Test(TestCase):
         self.assertEqual(zope_version.getZopeVersion(), self._getZopeVersion())
 
 
-
 def test_suite():
-    return makeSuite(Test)
+    return unittest.TestSuite((
+        unittest.makeSuite(Test),
+        ))
 
-if __name__=='__main__':
-    main(defaultTest='test_suite')
+if __name__ == '__main__':
+    unittest.main()

@@ -10,28 +10,15 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 ##############################################################################
-"""
+"""IServerControl tests
 
-$Id: test_iservercontrol.py,v 1.3 2003/04/30 23:37:48 faassen Exp $
+$Id: test_iservercontrol.py,v 1.4 2003/07/31 21:37:23 srichter Exp $
 """
-
-from unittest import TestCase, main, makeSuite
+import unittest
 from zope.interface.verify import verifyObject
 
-from zope.app.interfaces.applicationcontrol.servercontrol import \
+from zope.app.interfaces.applicationcontrol import \
  IServerControl, DoublePriorityError, NotCallableError
-
-
-#############################################################################
-# If your tests change any global registries, then uncomment the
-# following import and include CleanUp as a base class of your
-# test. It provides a setUp and tearDown that clear global data that
-# has registered with the test cleanup framework.  Don't use this
-# tests outside the Zope package.
-
-# from zope.testing.cleanup import CleanUp # Base class w registry cleanup
-
-#############################################################################
 
 def stub_callback():
     """stupid callable object"""
@@ -62,14 +49,16 @@ class BaseTestIServerControl:
         self.assertRaises(DoublePriorityError,
               server_control.registerShutdownHook, stub_callback, 10, "test2")
 
-class Test(BaseTestIServerControl, TestCase):
+class Test(BaseTestIServerControl, unittest.TestCase):
     def _Test__new(self):
-        from zope.app.applicationcontrol.servercontrol \
-           import ServerControl
+        from zope.app.applicationcontrol.servercontrol import ServerControl
         return ServerControl()
 
-def test_suite():
-    return makeSuite(Test)
 
-if __name__=='__main__':
-    main(defaultTest='test_suite')
+def test_suite():
+    return unittest.TestSuite((
+        unittest.makeSuite(Test),
+        ))
+
+if __name__ == '__main__':
+    unittest.main()

@@ -10,22 +10,19 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 ##############################################################################
+"""Runtime Info Tests
+
+$Id: test_runtimeinfo.py,v 1.5 2003/07/31 21:37:23 srichter Exp $
 """
-
-Revision information:
-$Id: test_runtimeinfo.py,v 1.4 2003/06/07 06:37:19 stevea Exp $
-"""
-
-from unittest import TestCase, main, makeSuite
-from zope.interface.verify import verifyObject
-
+import unittest
 import os, sys, time
+
 from zope.component import getService
-from zope.app.interfaces.applicationcontrol.runtimeinfo import IRuntimeInfo
-from zope.app.applicationcontrol.applicationcontrol import \
-  applicationController
-from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
 from zope.interface import implements
+from zope.interface.verify import verifyObject
+from zope.app.applicationcontrol.applicationcontrol import applicationController
+from zope.app.interfaces.applicationcontrol import IRuntimeInfo, IZopeVersion
+from zope.app.services.tests.placefulsetup import PlacefulSetup
 
 # seconds, time values may differ in order to be assumed equal
 time_tolerance = 2
@@ -39,17 +36,11 @@ class TestZopeVersion:
     def getZopeVersion(self):
         return stupid_version_string
 
-from zope.app.services.tests.placefulsetup\
-           import PlacefulSetup
-
-class Test(PlacefulSetup, TestCase):
+class Test(PlacefulSetup, unittest.TestCase):
 
     def _Test__new(self):
         from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
         return RuntimeInfo(applicationController)
-
-    ############################################################
-    # Interface-driven tests:
 
     def testIRuntimeInfoVerify(self):
         verifyObject(IRuntimeInfo, self._Test__new())
@@ -95,8 +86,11 @@ class Test(PlacefulSetup, TestCase):
 
         self.failUnless(abs(asserted_uptime - test_uptime) < time_tolerance)
 
-def test_suite():
-    return makeSuite(Test)
 
-if __name__=='__main__':
-    main(defaultTest='test_suite')
+def test_suite():
+    return unittest.TestSuite((
+        unittest.makeSuite(Test),
+        ))
+
+if __name__ == '__main__':
+    unittest.main()

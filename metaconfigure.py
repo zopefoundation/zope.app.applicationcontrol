@@ -13,11 +13,11 @@
 ##############################################################################
 """ Register ServerControl configuration directives.
 
-$Id: metaconfigure.py,v 1.2 2002/12/25 14:12:25 jim Exp $
+$Id: metaconfigure.py,v 1.3 2003/07/31 21:37:18 srichter Exp $
 """
 
 from zope.component import getUtility
-from zope.app.interfaces.applicationcontrol.servercontrol import IServerControl
+from zope.app.interfaces.applicationcontrol import IServerControl
 from zope.configuration.action import Action
 
 
