@@ -6,8 +6,13 @@
     <div metal:fill-slot="body">
 
       <div style="font-size: 120%" i18n:translate="">
-        Size of file: <em tal:content="view/getDatabaseSize" 
-                          i18n:name="size">1.1 MB</em>
+        Name of database: <em tal:content="view/getName" 
+                              i18n:name="name">My Database</em>
+      </div>
+
+      <div style="font-size: 120%" i18n:translate="">
+        Size of database: <em tal:content="view/getSize" 
+                              i18n:name="size">1.1 MB</em>
       </div>
 
       <p tal:define="status view/pack"
@@ -18,7 +23,9 @@
         <div class="row">
           <div class="label" i18n:translate="">Keep up to:</div>
           <div class="view">
-            <input type="text" size="4" name="days" value="0" /><span tal:omit-tag="" i18n:translate="">days</span>
+            <input type="text" size="4" name="days" value="0" 
+                   tal:attributes="value request/days|string:0" />
+            <span tal:omit-tag="" i18n:translate="">days</span>
           </div> 
         </div>
         <div class="row">

@@ -13,19 +13,20 @@
 ##############################################################################
 """ Server Control View
 
-$Id: zodbcontrol.py,v 1.2 2004/03/06 16:50:12 jim Exp $
+$Id: zodbcontrol.py,v 1.3 2004/03/23 15:52:00 srichter Exp $
 """
 from ZODB.FileStorage.FileStorage import FileStorageError
-from zope.app.applicationcontrol.interfaces import IZODBControl
-
 from zope.app.i18n import ZopeMessageIDFactory as _
 
 class ZODBControlView:
 
-    def getDatabaseSize(self):
+    def getName(self):
+        """Get the database name."""
+        return self.request.publication.db.getName()
+
+    def getSize(self):
         """Get the database size in a human readable format."""
-        zodbcontrol = IZODBControl(self.context)
-        size = zodbcontrol.getDatabaseSize(self.request.publication.db)
+        size = self.request.publication.db.getSize()
         if size > 1024**2:
             size_str = _("${size} MB")
             size_str.mapping = {'size': "%.1f" %(float(size)/1024**2)}
@@ -41,13 +42,11 @@ class ZODBControlView:
 
     def pack(self):
         """Do the packing!"""
+        days = int(self.request.form.get('days', 0))
         status = ''
-        
         if 'PACK' in self.request:
-            zodbcontrol = IZODBControl(self.context)
             try:
-                zodbcontrol.pack(self.request.publication.db,
-                                 int(self.request.get('days', 0)))
+                self.request.publication.db.pack(days=days)
                 status = _('ZODB successfully packed.')
             except FileStorageError, err:
                 status = _(err)
