@@ -14,6 +14,7 @@
 """Application Control
 
 $Id$"""
+__docformat__ = 'restructuredtext'
 
 from zope.app.applicationcontrol.interfaces import IApplicationControl
 from zope.app.location import Location

@@ -15,6 +15,8 @@
 
 $Id$
 """
+__docformat__ = 'restructuredtext'
+
 from zope.interface import Interface
 
 class IApplicationControl(Interface):
@@ -81,23 +83,23 @@ class IServerControl(Interface):
     def shutdown(time=0):
         """Shutdown the server.
 
-        The time should be greater-equal 0.
+        The `time` should be greater-equal 0.
 
-        If the time is 0, the we do a hard shutdown, i.e. closing all sockets
+        If the `time` is 0, the we do a hard shutdown, i.e. closing all sockets
         without waiting for tasks to complete.
 
-        If the time is not 0, then we will give the tasks 'time' seconds to
+        If the `time` is not 0, then we will give the tasks `time` seconds to
         finish before shutting down.
         """
 
     def restart(time=0):
         """Restart the server.
 
-        The time should be greater-equal 0.
+        The `time` should be greater-equal 0.
 
-        If the time is 0, the we do a hard shutdown, i.e. closing all sockets
+        If the `time` is 0, the we do a hard shutdown, i.e. closing all sockets
         without waiting for tasks to complete.
 
-        If the time is not 0, then we will give the tasks 'time' seconds to
+        If the `time` is not 0, then we will give the tasks `time` seconds to
         finish before shutting down.
         """
