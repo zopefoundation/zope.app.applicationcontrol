@@ -13,7 +13,7 @@
 ##############################################################################
 """Runtime View tests
 
-$Id: test_runtimeinfoview.py,v 1.2 2004/03/13 15:21:07 srichter Exp $
+$Id: test_runtimeinfoview.py,v 1.3 2004/03/23 13:35:09 hdima Exp $
 """
 import unittest
 from types import DictType
@@ -49,7 +49,7 @@ class Test(PlacefulSetup, unittest.TestCase):
         test_keys.sort()
         self.failUnless(assert_keys == test_keys)
 
-        self.failUnless(test_format["ZopeVersion"] != "N/A")
+        self.failUnless(test_format["ZopeVersion"] != "n/a")
 
     def test_RuntimeInfoFailureView(self):
         test_runtimeinfoview = self._TestView__newView(applicationController)
@@ -65,7 +65,7 @@ class Test(PlacefulSetup, unittest.TestCase):
         test_keys.sort()
         self.failUnless(assert_keys == test_keys)
 
-        self.failUnless(test_format["ZopeVersion"] == "N/A")
+        self.failUnless(test_format["ZopeVersion"] == "n/a")
 
 
 def test_suite():

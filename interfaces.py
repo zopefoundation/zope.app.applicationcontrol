@@ -13,7 +13,7 @@
 ##############################################################################
 """Application Control Interface
 
-$Id: interfaces.py,v 1.2 2004/03/08 23:33:38 srichter Exp $
+$Id: interfaces.py,v 1.3 2004/03/23 13:35:07 hdima Exp $
 """
 from zope.interface import Interface
 
@@ -38,21 +38,25 @@ class IApplicationControl(Interface):
 class IRuntimeInfo(Interface):
     """ Runtime Information Adapter for Application Control """
 
+    def getPreferredEncoding():
+        """Return the encoding used for text data, according
+           to user system preferences"""
+
     def getZopeVersion():
         """Return a string containing the descriptive version of the
            current zope installation"""
 
     def getPythonVersion():
-        """Return a string containing verbose description of the python
-           interpreter"""
+        """Return an unicode string containing verbose description
+           of the python interpreter"""
 
     def getPythonPath():
         """Return a tuple containing the lookup paths of the python interpreter
         """
 
     def getSystemPlatform():
-        """Return the system platform name in a 5 tuple of
-           (sysname, nodename, release, version, machine)"""
+        """Return an unicode string containing the system platform name
+        """
 
     def getCommandLine():
         """Return the command line string Zope was invoked with"""
@@ -62,8 +66,7 @@ class IRuntimeInfo(Interface):
         """
 
     def getUptime():
-        """Return a string containing the Zope server uptime in unix uptime
-           format with seconds ([NN days, ]HH:MM:SS)"""
+        """Return the Zope server uptime in seconds."""
 
 
 class IZopeVersion(Interface):
@@ -96,7 +99,7 @@ class IServerControl(Interface):
 
     def registerShutdownHook(call, priority, name):
         """Register a function that will be callen on server shutdown.
-        
+
         The function needs to takes no argument at all."""
 
 

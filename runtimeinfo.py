@@ -13,9 +13,14 @@
 ##############################################################################
 """ Runtime Information
 
-$Id: runtimeinfo.py,v 1.5 2004/03/01 13:43:24 philikon Exp $
+$Id: runtimeinfo.py,v 1.6 2004/03/23 13:35:07 hdima Exp $
 """
 import sys, os, time
+
+try:
+    import locale
+except ImportError:
+    locale = None
 
 from zope.app.applicationcontrol.interfaces import \
      IRuntimeInfo, IApplicationControl, IZopeVersion
@@ -30,6 +35,13 @@ class RuntimeInfo:
     def __init__(self, context):
         self.context = context
 
+    def getPreferredEncoding(self):
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
+        if locale is None:
+            # XXX: sys.getdefaultencoding()?
+            return "Latin1"
+        return locale.getpreferredencoding()
+
     def getZopeVersion(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         try:
@@ -40,7 +52,7 @@ class RuntimeInfo:
 
     def getPythonVersion(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
-        return sys.version
+        return unicode(sys.version, self.getPreferredEncoding())
 
     def getPythonPath(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
@@ -49,13 +61,14 @@ class RuntimeInfo:
     def getSystemPlatform(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         if hasattr(os, "uname"):
-            return os.uname()
+            info = os.uname()
         else:
-            return (sys.platform,)
+            info = (sys.platform,)
+        return unicode(" ".join(info), self.getPreferredEncoding())
 
     def getCommandLine(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
-        return sys.argv
+        return " ".join(sys.argv)
 
     def getProcessId(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""

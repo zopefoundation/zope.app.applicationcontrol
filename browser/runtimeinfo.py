@@ -13,7 +13,7 @@
 ##############################################################################
 """Define runtime information view component for Application Control
 
-$Id: runtimeinfo.py,v 1.2 2004/03/06 16:50:12 jim Exp $
+$Id: runtimeinfo.py,v 1.3 2004/03/23 13:35:07 hdima Exp $
 """
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 from zope.component import ComponentLookupError
@@ -30,23 +30,15 @@ class RuntimeInfoView:
             formatted['ZopeVersion'] = runtime_info.getZopeVersion()
             formatted['PythonVersion'] = runtime_info.getPythonVersion()
             formatted['PythonPath'] = runtime_info.getPythonPath()
-            formatted['SystemPlatform'] = " ".join(
-                runtime_info.getSystemPlatform())
-            formatted['CommandLine'] = " ".join(runtime_info.getCommandLine())
+            formatted['SystemPlatform'] = runtime_info.getSystemPlatform()
+            formatted['CommandLine'] = runtime_info.getCommandLine()
             formatted['ProcessId'] = runtime_info.getProcessId()
 
             # make a unix "uptime" uptime format
-            uptime = runtime_info.getUptime()
-            days = int(uptime / (60*60*24))
-            uptime = uptime - days * (60*60*24)
-
-            hours = int(uptime / (60*60))
-            uptime = uptime - hours * (60*60)
-
-            minutes = int(uptime / 60)
-            uptime = uptime - minutes * 60
-
-            seconds = uptime
+            uptime = long(runtime_info.getUptime())
+            minutes, seconds = divmod(uptime, 60)
+            hours, minutes = divmod(minutes, 60)
+            days, hours = divmod(hours, 24)
 
             uptime = _('${days} day(s) ${hours}:${minutes}:${seconds}')
             uptime.mapping = {'days': '%d' %days,
@@ -59,14 +51,15 @@ class RuntimeInfoView:
         except TypeError:
             # We avoid having errors in the ApplicationController,
             # because all those things need to stay accessible.
-            formatted['ZopeVersion'] = "N/A"
-            formatted['PythonVersion'] = "N/A"
-            formatted['PythonPath'] = "N/A"
-            formatted['SystemPlatform'] = "N/A"
-            formatted['CommandLine'] = "N/A"
-            formatted['ProcessId'] = "N/A"
-            formatted['Uptime'] = "N/A"
-            formatted['Hint'] = "Could not retrieve runtime information."
+            na = _("n/a")
+            formatted['ZopeVersion'] = na
+            formatted['PythonVersion'] = na
+            formatted['PythonPath'] = (na,)
+            formatted['SystemPlatform'] = na
+            formatted['CommandLine'] = na
+            formatted['ProcessId'] = na
+            formatted['Uptime'] = na
+            formatted['Hint'] = _("Could not retrieve runtime information.")
 
         return formatted
 

@@ -12,10 +12,15 @@
 ##############################################################################
 """Runtime Info Tests
 
-$Id: test_runtimeinfo.py,v 1.7 2004/03/13 15:21:07 srichter Exp $
+$Id: test_runtimeinfo.py,v 1.8 2004/03/23 13:35:09 hdima Exp $
 """
 import unittest
 import os, sys, time
+
+try:
+    import locale
+except ImportError:
+    locale = None
 
 from zope.component import getService
 from zope.interface import implements
@@ -42,8 +47,18 @@ class Test(PlacefulSetup, unittest.TestCase):
         from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
         return RuntimeInfo(applicationController)
 
+    def _getPreferredEncoding(self):
+        if locale is None:
+            return "Latin1"
+        return locale.getpreferredencoding()
+
     def testIRuntimeInfoVerify(self):
         verifyObject(IRuntimeInfo, self._Test__new())
+
+    def test_PreferredEncoding(self):
+        runtime_info = self._Test__new()
+        enc = self._getPreferredEncoding()
+        self.assertEqual(runtime_info.getPreferredEncoding(), enc)
 
     def test_ZopeVersion(self):
         runtime_info = self._Test__new()
@@ -57,18 +72,22 @@ class Test(PlacefulSetup, unittest.TestCase):
                                          stupid_version_string)
     def test_PythonVersion(self):
         runtime_info = self._Test__new()
-        self.assertEqual(runtime_info.getPythonVersion(), sys.version)
+        enc = self._getPreferredEncoding()
+        self.assertEqual(runtime_info.getPythonVersion(),
+                unicode(sys.version, enc))
 
     def test_SystemPlatform(self):
         runtime_info = self._Test__new()
         test_platform = (sys.platform,)
         if hasattr(os, "uname"):
             test_platform = os.uname()
-        self.assertEqual(runtime_info.getSystemPlatform(), test_platform)
+        enc = self._getPreferredEncoding()
+        self.assertEqual(runtime_info.getSystemPlatform(),
+                unicode(" ".join(test_platform), enc))
 
     def test_CommandLine(self):
         runtime_info = self._Test__new()
-        self.assertEqual(runtime_info.getCommandLine(), sys.argv)
+        self.assertEqual(runtime_info.getCommandLine(), " ".join(sys.argv))
 
     def test_ProcessId(self):
         runtime_info = self._Test__new()
