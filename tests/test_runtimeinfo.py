@@ -13,10 +13,10 @@
 """
 
 Revision information:
-$Id: test_runtimeinfo.py,v 1.2 2002/12/25 14:12:26 jim Exp $
+$Id: test_runtimeinfo.py,v 1.3 2003/04/30 23:37:48 faassen Exp $
 """
 
-from unittest import TestCase, TestSuite, main, makeSuite
+from unittest import TestCase, main, makeSuite
 from zope.interface.verify import verifyObject
 
 import os, sys, time

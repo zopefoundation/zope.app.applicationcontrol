@@ -13,14 +13,13 @@
 ##############################################################################
 """Server Control Implementation
 
-$Id: servercontrol.py,v 1.3 2003/01/02 15:48:46 bwarsaw Exp $
+$Id: servercontrol.py,v 1.4 2003/04/30 23:37:47 faassen Exp $
 """
 
-import sys
 import logging
 
 from zope.app.interfaces.applicationcontrol.servercontrol import \
-     IServerControl, ServerControlError, DoublePriorityError, NotCallableError
+     IServerControl, DoublePriorityError, NotCallableError
 
 
 class ServerControl:
