@@ -13,17 +13,19 @@
 ##############################################################################
 __doc__ = """ Runtime Information
 
-$Id: runtimeinfo.py,v 1.2 2002/12/25 14:12:25 jim Exp $"""
+$Id: runtimeinfo.py,v 1.3 2003/06/07 06:37:18 stevea Exp $"""
 
 from zope.app.interfaces.applicationcontrol.runtimeinfo import IRuntimeInfo
-from zope.app.interfaces.applicationcontrol.applicationcontrol import IApplicationControl
+from zope.app.interfaces.applicationcontrol.applicationcontrol \
+    import IApplicationControl
 from zope.component import getUtility, ComponentLookupError
 from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
+from zope.interface import implements
 import sys, os, time
 
 class RuntimeInfo:
 
-    __implements__ =  IRuntimeInfo
+    implements(IRuntimeInfo)
     __used_for__ = IApplicationControl
 
     def __init__(self, context):

@@ -13,7 +13,7 @@
 """
 
 Revision information:
-$Id: test_runtimeinfo.py,v 1.3 2003/04/30 23:37:48 faassen Exp $
+$Id: test_runtimeinfo.py,v 1.4 2003/06/07 06:37:19 stevea Exp $
 """
 
 from unittest import TestCase, main, makeSuite
@@ -25,6 +25,7 @@ from zope.app.interfaces.applicationcontrol.runtimeinfo import IRuntimeInfo
 from zope.app.applicationcontrol.applicationcontrol import \
   applicationController
 from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
+from zope.interface import implements
 
 # seconds, time values may differ in order to be assumed equal
 time_tolerance = 2
@@ -33,7 +34,7 @@ stupid_version_string = "3085t0klvn93850voids"
 class TestZopeVersion:
     """A fallback implementation for the ZopeVersion utility."""
 
-    __implements__ = IZopeVersion
+    implements(IZopeVersion)
 
     def getZopeVersion(self):
         return stupid_version_string

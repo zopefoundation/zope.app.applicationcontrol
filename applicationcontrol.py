@@ -13,18 +13,19 @@
 ##############################################################################
 """ Application Control
 
-$Id: applicationcontrol.py,v 1.3 2002/12/30 21:41:57 jeremy Exp $"""
+$Id: applicationcontrol.py,v 1.4 2003/06/07 06:37:18 stevea Exp $"""
 
 from zope.app.interfaces.applicationcontrol.applicationcontrol \
      import IApplicationControl
 from zope.app.content.folder import RootFolder
 from zope.security.checker import ProxyFactory, NamesChecker
+from zope.interface import implements
 
 import time
 
 class ApplicationControl:
 
-    __implements__ = IApplicationControl
+    implements(IApplicationControl)
 
     def __init__(self):
         self.start_time = time.time()

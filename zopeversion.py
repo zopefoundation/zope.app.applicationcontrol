@@ -13,16 +13,17 @@
 ##############################################################################
 """Zope version
 
-$Id: zopeversion.py,v 1.3 2002/12/30 21:42:06 jeremy Exp $"""
+$Id: zopeversion.py,v 1.4 2003/06/07 06:37:18 stevea Exp $"""
 
 import os
 
 import zope
 from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
+from zope.interface import implements
 
 class ZopeVersion:
 
-    __implements__ =  IZopeVersion
+    implements(IZopeVersion)
 
     def getZopeVersion(self):
 

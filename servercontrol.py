@@ -13,18 +13,18 @@
 ##############################################################################
 """Server Control Implementation
 
-$Id: servercontrol.py,v 1.4 2003/04/30 23:37:47 faassen Exp $
+$Id: servercontrol.py,v 1.5 2003/06/07 06:37:18 stevea Exp $
 """
 
 import logging
 
 from zope.app.interfaces.applicationcontrol.servercontrol import \
      IServerControl, DoublePriorityError, NotCallableError
-
+from zope.interface import implements
 
 class ServerControl:
 
-    __implements__ = IServerControl
+    implements(IServerControl)
 
     def __init__(self):
         # This is the actual shutdown registry.  It will hold the hooks
