@@ -41,7 +41,7 @@ class TranslationDomainControlView:
             language = self.request.get('language')
             domain = self.request.get('domain')
 
-            domain = zapi.getUtility(None, ITranslationDomain, domain)
+            domain = zapi.getUtility(ITranslationDomain, domain)
             for lang, fileNames in domain.getCatalogsInfo().items():
                 if lang == language:
                     domain.reloadCatalogs(fileNames)
