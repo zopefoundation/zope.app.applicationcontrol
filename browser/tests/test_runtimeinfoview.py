@@ -17,14 +17,14 @@ $Id$
 """
 import unittest
 from types import DictType
-from zope.app.tests import ztapi
+from zope.app.testing import ztapi
 
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
 from zope.app.applicationcontrol.browser.runtimeinfo import RuntimeInfoView
 from zope.app.applicationcontrol.interfaces import \
      IApplicationControl, IRuntimeInfo
-from zope.app.site.tests.placefulsetup import PlacefulSetup
+from zope.app.component.testing import PlacefulSetup
 
 class Test(PlacefulSetup, unittest.TestCase):
 

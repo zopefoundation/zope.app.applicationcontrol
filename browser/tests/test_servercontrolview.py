@@ -22,8 +22,7 @@ from zope.app import zapi
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
-from zope.app.servicenames import Utilities
-from zope.app.site.tests.placefulsetup import PlacefulSetup
+from zope.app.component.testing import PlacefulSetup
 
 class ServerControlStub(object):
     implements(IServerControl)
@@ -47,8 +46,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
     def test_ServerControlView(self):
         control = ServerControlStub()
-        zapi.getGlobalService(Utilities).provideUtility(
-            IServerControl, control)
+        zapi.getGlobalSiteManager().provideUtility(IServerControl, control)
 
         test_serverctrl = self._TestView__newView(
             applicationController,

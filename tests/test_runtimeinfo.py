@@ -22,12 +22,12 @@ try:
 except ImportError:
     locale = None
 
-from zope.component import getService
+from zope.app import zapi
 from zope.interface import implements
 from zope.interface.verify import verifyObject
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo, IZopeVersion
-from zope.app.site.tests.placefulsetup import PlacefulSetup
+from zope.app.component.testing import PlacefulSetup
 
 # seconds, time values may differ in order to be assumed equal
 time_tolerance = 2
@@ -80,8 +80,7 @@ class Test(PlacefulSetup, unittest.TestCase):
         # we expect that there is no utility
         self.assertEqual(runtime_info.getZopeVersion(), "")
 
-        getService('Utilities').provideUtility(IZopeVersion,
-                                               TestZopeVersion())
+        zapi.getSiteManager().provideUtility(IZopeVersion, TestZopeVersion())
         self.assertEqual(runtime_info.getZopeVersion(),
                                          stupid_version_string)
     def test_PythonVersion(self):
