@@ -13,7 +13,7 @@
 ##############################################################################
 """Zope Version Tests
 
-$Id: test_zopeversion.py,v 1.7 2004/05/03 14:18:25 fdrake Exp $
+$Id: test_zopeversion.py,v 1.8 2004/05/03 15:13:03 fdrake Exp $
 """
 import os
 import shutil
@@ -53,12 +53,31 @@ class Test(unittest.TestCase):
     def test_IVerify(self):
         verifyObject(IZopeVersion, self._Test__new())
 
+    # CVS/Tag lines can start with different characters, each of which
+    # has some meaning:
+    #   D - checked out with a date; format is YYYY.MM.DD.HH.MM.SS
+    #       where HH.MM.SS indicates timezone (04.00.00 is GMT - 4 hours)
+    #   N - checked out with a non-branch tag; format is Ntagname
+    #   T - checked out with a branch tag; format is Ttagname
+
     def test_ZopeVersion(self):
         self.prepare(None, None)
         zope_version = self._Test__new()
         self.assertEqual(zope_version.getZopeVersion(), "Development/Unknown")
 
+    def test_ZopeVersion_cvsdate(self):
+        self.prepare(None, "D2004.04.30.04.00.00")
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Development/Unknown (2004.04.30.04.00.00)")
+
     def test_ZopeVersion_cvstag(self):
+        self.prepare(None, "Nsome-tag")
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Development/Unknown (some-tag)")
+
+    def test_ZopeVersion_cvsbranchtag(self):
         self.prepare(None, "Tsome-tag")
         zope_version = self._Test__new()
         self.assertEqual(zope_version.getZopeVersion(),
@@ -70,7 +89,23 @@ class Test(unittest.TestCase):
         self.assertEqual(zope_version.getZopeVersion(),
                          "Zope X3 1.0.1a1")
 
+    def test_ZopeVersion_release_cvsdate(self):
+        # demonstrate that the version.txt data is discarded if
+        # there's revision-control metadata:
+        self.prepare("Zope X3 1.0.1a1", "D2004.04.30.04.00.00")
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Development/Unknown (2004.04.30.04.00.00)")
+
     def test_ZopeVersion_release_cvstag(self):
+        # demonstrate that the version.txt data is discarded if
+        # there's revision-control metadata:
+        self.prepare("Zope X3 1.0.1a1", "Nsome-tag")
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Development/Unknown (some-tag)")
+
+    def test_ZopeVersion_release_cvsbranchtag(self):
         # demonstrate that the version.txt data is discarded if
         # there's revision-control metadata:
         self.prepare("Zope X3 1.0.1a1", "Tsome-tag")
