@@ -13,7 +13,7 @@
 ##############################################################################
 """Translation Domain Control Tests
 
-$Id: test_translationdomaincontrol.py,v 1.2 2004/04/06 20:58:04 jim Exp $
+$Id$
 """
 import unittest
 from zope.app.tests.functional import BrowserTestCase

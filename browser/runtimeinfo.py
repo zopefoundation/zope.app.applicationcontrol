@@ -13,7 +13,7 @@
 ##############################################################################
 """Define runtime information view component for Application Control
 
-$Id: runtimeinfo.py,v 1.4 2004/03/24 11:13:14 hdima Exp $
+$Id$
 """
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 

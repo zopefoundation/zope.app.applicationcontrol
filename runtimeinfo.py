@@ -13,7 +13,7 @@
 ##############################################################################
 """ Runtime Information
 
-$Id: runtimeinfo.py,v 1.9 2004/05/10 06:39:57 philikon Exp $
+$Id$
 """
 import sys, os, time
 

@@ -12,7 +12,7 @@
 ##############################################################################
 """Runtime Info Tests
 
-$Id: test_runtimeinfo.py,v 1.10 2004/03/25 14:37:08 hdima Exp $
+$Id$
 """
 import unittest
 import os, sys, time

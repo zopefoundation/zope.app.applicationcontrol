@@ -13,7 +13,7 @@
 ##############################################################################
 """Server Control View Tests
 
-$Id: test_servercontrolview.py,v 1.4 2004/03/23 15:52:12 srichter Exp $
+$Id$
 """
 import unittest
 

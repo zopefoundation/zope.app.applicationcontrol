@@ -13,7 +13,7 @@
 ##############################################################################
 """ Server Control View
 
-$Id: zodbcontrol.py,v 1.3 2004/03/23 15:52:00 srichter Exp $
+$Id$
 """
 from ZODB.FileStorage.FileStorage import FileStorageError
 from zope.app.i18n import ZopeMessageIDFactory as _

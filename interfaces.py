@@ -13,7 +13,7 @@
 ##############################################################################
 """Application Control Interface
 
-$Id: interfaces.py,v 1.5 2004/03/24 11:13:13 hdima Exp $
+$Id$
 """
 from zope.interface import Interface
 

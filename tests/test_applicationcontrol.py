@@ -12,7 +12,7 @@
 ##############################################################################
 """Application Control Tests
 
-$Id: test_applicationcontrol.py,v 1.5 2004/03/01 13:43:26 philikon Exp $
+$Id$
 """
 import unittest
 from zope.interface.verify import verifyObject

@@ -13,7 +13,7 @@
 ##############################################################################
 """Zope Version Tests
 
-$Id: test_zopeversion.py,v 1.8 2004/05/03 15:13:03 fdrake Exp $
+$Id$
 """
 import os
 import shutil

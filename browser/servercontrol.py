@@ -13,7 +13,7 @@
 ##############################################################################
 """Server Control View
 
-$Id: servercontrol.py,v 1.2 2004/03/23 15:52:11 srichter Exp $
+$Id$
 """
 from zope.app import zapi
 from zope.app.applicationcontrol.interfaces import IServerControl

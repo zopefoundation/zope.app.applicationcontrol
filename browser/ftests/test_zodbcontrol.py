@@ -13,7 +13,7 @@
 ##############################################################################
 """ZODB Control Tests
 
-$Id: test_zodbcontrol.py,v 1.2 2004/04/06 20:58:04 jim Exp $
+$Id$
 """
 import unittest
 

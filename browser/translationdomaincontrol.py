@@ -13,7 +13,7 @@
 ##############################################################################
 """ Server Control View
 
-$Id: translationdomaincontrol.py,v 1.2 2004/03/23 15:52:06 srichter Exp $
+$Id$
 """
 from zope.i18n.interfaces import ITranslationDomain
 from zope.app import zapi

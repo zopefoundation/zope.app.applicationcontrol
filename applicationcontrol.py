@@ -13,7 +13,7 @@
 ##############################################################################
 """Application Control
 
-$Id: applicationcontrol.py,v 1.10 2004/03/23 15:52:07 srichter Exp $"""
+$Id$"""
 
 import time
 

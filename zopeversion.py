@@ -13,7 +13,7 @@
 ##############################################################################
 """Utility to retrieve the Zope version.
 
-$Id: zopeversion.py,v 1.12 2004/05/10 06:39:57 philikon Exp $
+$Id$
 """
 import os
 

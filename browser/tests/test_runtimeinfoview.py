@@ -13,7 +13,7 @@
 ##############################################################################
 """Runtime View tests
 
-$Id: test_runtimeinfoview.py,v 1.4 2004/03/24 11:13:14 hdima Exp $
+$Id$
 """
 import unittest
 from types import DictType
