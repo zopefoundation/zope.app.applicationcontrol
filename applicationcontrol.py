@@ -11,9 +11,9 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-""" Application Control
+"""Application Control
 
-$Id: applicationcontrol.py,v 1.9 2004/03/01 13:43:24 philikon Exp $"""
+$Id: applicationcontrol.py,v 1.10 2004/03/23 15:52:07 srichter Exp $"""
 
 import time
 
