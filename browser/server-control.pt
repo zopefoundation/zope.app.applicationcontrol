@@ -12,7 +12,7 @@
 
     <p i18n:translate="">
       If you specify a time of 0 seconds, then the server will do a hard
-      sutdown.
+      shutdown.
     </p> 
 
     <input type="submit" name="restart" value="Restart server" 
