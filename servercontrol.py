@@ -13,7 +13,7 @@
 ##############################################################################
 """Server Control Implementation
 
-$Id: servercontrol.py,v 1.5 2003/06/07 06:37:18 stevea Exp $
+$Id: servercontrol.py,v 1.6 2003/06/30 18:28:24 jeremy Exp $
 """
 
 import logging
@@ -34,7 +34,6 @@ class ServerControl:
         self._shutdown_reg = {}
 
     def shutdown(self):
-        text = ""
         order = self._shutdown_reg.keys()
         order.sort()
 
@@ -43,7 +42,7 @@ class ServerControl:
             hook[0]()
 
     def restart(self):
-        'XXX'
+        pass
 
     def registerShutdownHook(self, call, priority, name):
         priority = float(priority)
