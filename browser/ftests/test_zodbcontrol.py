@@ -28,8 +28,8 @@ class ZODBControlTest(BrowserTestCase):
                                 form={'days': u'3'})
         body = response.getBody()
         self.assert_('value="3"' in body)
-        self.assert_('<em>Demo Storage</em>' in body)
-        self.assert_('<em>100 Bytes</em>' in body)
+        self.assert_('>Demo Storage</' in body)
+        self.assert_('>100 Bytes</' in body)
 
 
 def test_suite():

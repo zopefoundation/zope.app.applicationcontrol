@@ -6,26 +6,37 @@
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
       permission="zope.ManageApplication"
       class=".servercontrol.ServerControlView">
-    
-    <page name="ServerControlForm.html" template="server-control.pt" 
-          menu="zmi_views" title="Server Control" />
+
+    <page name="ServerControlForm.html" template="server-control.pt" />
     <page name="ServerControl.html" attribute="action" />
   </pages>
- 
+
    <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
       name="index.html"
-      menu="zmi_views"
-      title="Runtime Information"       
       template="runtimeinfo.pt"
-      class=".runtimeinfo.RuntimeInfoView" 
+      class=".runtimeinfo.RuntimeInfoView"
       permission="zope.ManageApplication"/>
+
+  <menuItems
+      menu="zmi_views"
+      for="zope.app.applicationcontrol.interfaces.IApplicationControl">
+
+    <menuItem
+        order="-2"
+        title="Runtime Information"
+        action="index.html" />
+    <menuItem
+        order="-1"
+        title="Server Control"
+        action="ServerControlForm.html" />
+  </menuItems>
 
   <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
       name="ZODBControl.html"
       template="zodbcontrol.pt"
-      class=".zodbcontrol.ZODBControlView" 
+      class=".zodbcontrol.ZODBControlView"
       permission="zope.ManageApplication"
       menu="zmi_views" title="ZODB Control"/>
 
@@ -33,15 +44,15 @@
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
       name="TranslationDomain.html"
       template="translationdomaincontrol.pt"
-      class=".translationdomaincontrol.TranslationDomainControlView" 
+      class=".translationdomaincontrol.TranslationDomainControlView"
       permission="zope.ManageApplication"
       menu="zmi_views" title="Translation Domains"/>
 
   <!-- add a action tab to the root folder for navigation -->
-  <menuItem 
+  <menuItem
       menu="zmi_actions"
       for="zope.app.traversing.interfaces.IContainmentRoot"
-      title="Manage Process" 
+      title="Manage Process"
       action="++etc++process/index.html" />
 
 </zope:configure>
