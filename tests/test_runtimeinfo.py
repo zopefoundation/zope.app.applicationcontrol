@@ -78,7 +78,7 @@ class Test(PlacefulSetup, unittest.TestCase):
         runtime_info = self._Test__new()
 
         # we expect that there is no utility
-        self.assertEqual(runtime_info.getZopeVersion(), "")
+        self.assertEqual(runtime_info.getZopeVersion(), u"Unavailable")
 
         zapi.getSiteManager().provideUtility(IZopeVersion, TestZopeVersion())
         self.assertEqual(runtime_info.getZopeVersion(),

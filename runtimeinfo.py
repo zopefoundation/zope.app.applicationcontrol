@@ -17,24 +17,30 @@ $Id$
 """
 __docformat__ = 'restructuredtext'
 
-import sys, os, time
+import sys
+import os
+import time
 
 try:
     import locale
 except ImportError:
     locale = None
 
-try:
-    import platform
-except ImportError:
-    platform = None
+import platform
 
-from zope.app.applicationcontrol.interfaces import \
-     IRuntimeInfo, IApplicationControl, IZopeVersion
 from zope.component import getUtility, ComponentLookupError
 from zope.interface import implements
 
+from zope.app.i18n import ZopeMessageIDFactory as _
+
+from zope.app.applicationcontrol.interfaces import IRuntimeInfo
+from zope.app.applicationcontrol.interfaces import IApplicationControl
+from zope.app.applicationcontrol.interfaces import IZopeVersion
+
+
 class RuntimeInfo(object):
+    """Runtime information."""
+
     implements(IRuntimeInfo)
     __used_for__ = IApplicationControl
 
@@ -62,7 +68,7 @@ class RuntimeInfo(object):
         try:
             version_utility = getUtility(IZopeVersion)
         except ComponentLookupError:
-            return ""
+            return _("Unavailable")
         return version_utility.getZopeVersion()
 
     def getPythonVersion(self):
@@ -76,21 +82,23 @@ class RuntimeInfo(object):
 
     def getSystemPlatform(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
-        if platform is not None:
-            info = " ".join(platform.uname())
-        elif hasattr(os, "uname"):
-            info = " ".join(os.uname())
+        info = []
+        enc = self.getPreferredEncoding()
+        for i in platform.uname():
+            try:
+                t = unicode(i, enc)
+            except ValueError:
+                continue
+            info.append(t)
+        if info:
+            info = u" ".join(info)
         else:
-            info = sys.platform
-        try:
-            return unicode(info, self.getPreferredEncoding())
-        except ValueError:
-            pass
-        return unicode(info, "latin1")
+            info = unicode(sys.platform, enc)
+        return info
 
     def getCommandLine(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
-        return " ".join(sys.argv)
+        return unicode(" ".join(sys.argv), self.getPreferredEncoding())
 
     def getProcessId(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""

@@ -6,52 +6,57 @@
 <body>
 <div metal:fill-slot="body">
 
-  <ul tal:define="runtime_info view/runtimeInfo">
-     <li>
-       <span i18n:translate="">Zope version</span>:
-       <span tal:replace="runtime_info/ZopeVersion" />
-     </li>
-     <li>
-       <span i18n:translate="">Python version</span>:
-       <span tal:replace="runtime_info/PythonVersion" />
-     </li>
-     <li>
-       <span i18n:translate="">System platform</span>:
-       <span tal:replace="runtime_info/SystemPlatform" />
-     </li>
-     <li>
-       <span i18n:translate="">Preferred encoding</span>:
-       <span tal:replace="runtime_info/PreferredEncoding" />
-     </li>
-     <li>
-       <span i18n:translate="">FileSytem encoding</span>:
-       <span tal:replace="runtime_info/FileSystemEncoding" />
-     </li>
-     <li>
-       <span i18n:translate="">Command line</span>:
-       <span tal:replace="runtime_info/CommandLine" />
-     </li>
-     <li>
-       <span i18n:translate="">Process id</span>:
-       <span tal:replace="runtime_info/ProcessId" />
-     </li>
-     <li>
-       <span i18n:translate="">Uptime</span>:
-       <span tal:replace="runtime_info/Uptime" />
-     </li>
-     <li>
-       <span i18n:translate="">Python path</span>:
-       <ul>
+  <tal:block tal:define="runtime_info view/runtimeInfo">
+     <div class="row">
+       <div class="label" i18n:translate="">Uptime</div>
+       <div class="field"
+            tal:content="runtime_info/Uptime">Time</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">System platform</div>
+       <div class="field"
+            tal:content="runtime_info/SystemPlatform">Platform</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">Zope version</div>
+       <div class="field"
+            tal:content="runtime_info/ZopeVersion">Version</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">Python version</div>
+       <div class="field"
+            tal:content="runtime_info/PythonVersion">Version</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">Command line</div>
+       <div class="field"
+            tal:content="runtime_info/CommandLine">Command line</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">Preferred encoding</div>
+       <div class="field"
+            tal:content="runtime_info/PreferredEncoding">Encoding</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">FileSytem encoding</div>
+       <div class="field"
+            tal:content="runtime_info/FileSystemEncoding">Encoding</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">Process id</div>
+       <div class="field"
+            tal:content="runtime_info/ProcessId">ID</div>
+     </div>
+     <div class="row">
+       <div class="label" i18n:translate="">Python path</div>
+       <div class="field">
+        <ul>
          <li tal:repeat="path runtime_info/PythonPath" 
              tal:content="path">path</li>
-       </ul>
-     </li>
-
-     <!-- # XXX UI folks: following line wants special attention. The
-            hardcoding should be removed someday. -->
-     <li tal:condition="runtime_info/Hint | nothing" style="color:red;"
-         tal:content="runtime_info/Hint" i18n:translate="" />
-  </ul>
+        </ul>
+       </div>
+     </div>
+  </tal:block>
 
 </div>
 </body>

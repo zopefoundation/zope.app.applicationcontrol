@@ -48,9 +48,9 @@ class Test(PlacefulSetup, unittest.TestCase):
 
         assert_keys.sort()
         test_keys.sort()
-        self.failUnless(assert_keys == test_keys)
+        self.failUnlessEqual(assert_keys, test_keys)
 
-        self.failUnless(test_format["ZopeVersion"] != "n/a")
+        self.failUnlessEqual("Unavailable", test_format["ZopeVersion"])
 
     def test_RuntimeInfoFailureView(self):
         test_runtimeinfoview = self._TestView__newView(applicationController)
@@ -60,14 +60,15 @@ class Test(PlacefulSetup, unittest.TestCase):
 
         assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
               'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
-              'CommandLine', 'ProcessId', 'Uptime', 'Hint']
+              'CommandLine', 'ProcessId', 'Uptime']
         test_keys = test_format.keys()
 
         assert_keys.sort()
         test_keys.sort()
-        self.failUnless(assert_keys == test_keys)
+        self.failUnlessEqual(assert_keys, test_keys)
 
-        self.failUnless(test_format["ZopeVersion"] == "n/a")
+        for key in assert_keys:
+            self.failUnlessEqual("Unavailable", test_format[key])
 
 
 def test_suite():
