@@ -13,16 +13,24 @@
 ##############################################################################
 """ Server Control View
 
-$Id: translationdomaincontrol.py,v 1.1 2004/03/08 23:33:39 srichter Exp $
+$Id: translationdomaincontrol.py,v 1.2 2004/03/23 15:52:06 srichter Exp $
 """
-from zope.app.applicationcontrol.interfaces import ITranslationDomainControl
+from zope.i18n.interfaces import ITranslationDomain
+from zope.app import zapi
 from zope.app.i18n import ZopeMessageIDFactory as _
 
 class TranslationDomainControlView:
 
     def getCatalogsInfo(self):
-        control = ITranslationDomainControl(self.context)
-        return control.getCatalogsInfo()
+        info = []
+        for name, domain in zapi.getUtilitiesFor(None, ITranslationDomain):
+            if not hasattr(domain, 'getCatalogsInfo'):
+                continue
+            for language, fileNames in domain.getCatalogsInfo().items():
+                info.append({'domain': name,
+                             'language': language,
+                             'fileNames': fileNames})
+        return info
 
 
     def reloadCatalogs(self):
@@ -32,7 +40,12 @@ class TranslationDomainControlView:
         if 'RELOAD' in self.request:
             language = self.request.get('language')
             domain = self.request.get('domain')
-            control = ITranslationDomainControl(self.context)
-            control.reloadCatalogs(domain, language)
+
+            domain = zapi.getUtility(None, ITranslationDomain, domain)
+            for lang, fileNames in domain.getCatalogsInfo().items():
+                if lang == language:
+                    domain.reloadCatalogs(fileNames)
+
             status = _('Message Catalog successfully reloaded.')
+
         return status
