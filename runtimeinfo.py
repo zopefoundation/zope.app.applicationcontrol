@@ -53,7 +53,7 @@ class RuntimeInfo(object):
     def getZopeVersion(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         try:
-            version_utility = getUtility(IZopeVersion, context=self.context)
+            version_utility = getUtility(IZopeVersion)
         except ComponentLookupError:
             return ""
         return version_utility.getZopeVersion()

@@ -23,7 +23,7 @@ from zope.app.i18n import ZopeMessageIDFactory as _
 class ServerControlView:
 
     def serverControl(self):
-        return zapi.getUtility(IServerControl, context=self.context)
+        return zapi.getUtility(IServerControl)
 
     def action(self, time=0):
         """Do the shutdown/restart!"""

@@ -80,7 +80,7 @@ class Test(PlacefulSetup, unittest.TestCase):
         # we expect that there is no utility
         self.assertEqual(runtime_info.getZopeVersion(), "")
 
-        getService(None,'Utilities').provideUtility(IZopeVersion,
+        getService('Utilities').provideUtility(IZopeVersion,
                                                TestZopeVersion())
         self.assertEqual(runtime_info.getZopeVersion(),
                                          stupid_version_string)

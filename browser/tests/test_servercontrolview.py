@@ -24,7 +24,6 @@ from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
 from zope.app.servicenames import Utilities
 from zope.app.site.tests.placefulsetup import PlacefulSetup
-from zope.component import getService
 
 class ServerControlStub(object):
     implements(IServerControl)
