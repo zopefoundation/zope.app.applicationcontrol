@@ -19,6 +19,14 @@
        <span tal:replace="runtime_info/SystemPlatform" />
      </li>
      <li>
+       <span i18n:translate="">Preferred encoding</span>:
+       <span tal:replace="runtime_info/PreferredEncoding" />
+     </li>
+     <li>
+       <span i18n:translate="">FileSytem encoding</span>:
+       <span tal:replace="runtime_info/FileSystemEncoding" />
+     </li>
+     <li>
        <span i18n:translate="">Command line</span>:
        <span tal:replace="runtime_info/CommandLine" />
      </li>

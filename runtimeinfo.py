@@ -13,7 +13,7 @@
 ##############################################################################
 """ Runtime Information
 
-$Id: runtimeinfo.py,v 1.6 2004/03/23 13:35:07 hdima Exp $
+$Id: runtimeinfo.py,v 1.7 2004/03/24 11:13:13 hdima Exp $
 """
 import sys, os, time
 
@@ -38,9 +38,18 @@ class RuntimeInfo:
     def getPreferredEncoding(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         if locale is None:
-            # XXX: sys.getdefaultencoding()?
-            return "Latin1"
-        return locale.getpreferredencoding()
+            return sys.getdefaultencoding()
+        try:
+            return locale.getpreferredencoding()
+        except locale.Error:
+            return sys.getdefaultencoding()
+
+    def getFileSystemEncoding(self):
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
+        enc = sys.getfilesystemencoding()
+        if enc is None:
+            enc = self.getPreferredEncoding()
+        return enc
 
     def getZopeVersion(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
@@ -56,10 +65,12 @@ class RuntimeInfo:
 
     def getPythonPath(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
-        return tuple(map(str, sys.path))
+        enc = self.getFileSystemEncoding()
+        return tuple([unicode(path, enc) for path in sys.path])
 
     def getSystemPlatform(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
+        # FIXME: platform.platform()?
         if hasattr(os, "uname"):
             info = os.uname()
         else:

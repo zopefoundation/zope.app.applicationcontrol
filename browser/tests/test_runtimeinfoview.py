@@ -13,7 +13,7 @@
 ##############################################################################
 """Runtime View tests
 
-$Id: test_runtimeinfoview.py,v 1.3 2004/03/23 13:35:09 hdima Exp $
+$Id: test_runtimeinfoview.py,v 1.4 2004/03/24 11:13:14 hdima Exp $
 """
 import unittest
 from types import DictType
@@ -42,7 +42,8 @@ class Test(PlacefulSetup, unittest.TestCase):
         self.failUnless(isinstance(test_format, DictType))
 
         assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
-              'SystemPlatform', 'CommandLine', 'ProcessId', 'Uptime' ]
+              'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
+              'CommandLine', 'ProcessId', 'Uptime' ]
         test_keys = test_format.keys()
 
         assert_keys.sort()
@@ -58,7 +59,8 @@ class Test(PlacefulSetup, unittest.TestCase):
         self.failUnless(isinstance(test_format, DictType))
 
         assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
-              'SystemPlatform', 'CommandLine', 'ProcessId', 'Uptime', 'Hint']
+              'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
+              'CommandLine', 'ProcessId', 'Uptime', 'Hint']
         test_keys = test_format.keys()
 
         assert_keys.sort()

@@ -12,7 +12,7 @@
 ##############################################################################
 """Runtime Info Tests
 
-$Id: test_runtimeinfo.py,v 1.8 2004/03/23 13:35:09 hdima Exp $
+$Id: test_runtimeinfo.py,v 1.9 2004/03/24 11:13:15 hdima Exp $
 """
 import unittest
 import os, sys, time
@@ -49,8 +49,14 @@ class Test(PlacefulSetup, unittest.TestCase):
 
     def _getPreferredEncoding(self):
         if locale is None:
-            return "Latin1"
+            return sys.getdefaultencoding()
         return locale.getpreferredencoding()
+
+    def _getFileSystemEncoding(self):
+        enc = sys.getfilesystemencoding()
+        if enc is None:
+            enc = self._getPreferredEncoding()
+        return enc
 
     def testIRuntimeInfoVerify(self):
         verifyObject(IRuntimeInfo, self._Test__new())
@@ -59,6 +65,11 @@ class Test(PlacefulSetup, unittest.TestCase):
         runtime_info = self._Test__new()
         enc = self._getPreferredEncoding()
         self.assertEqual(runtime_info.getPreferredEncoding(), enc)
+
+    def test_FileSystemEncoding(self):
+        runtime_info = self._Test__new()
+        enc = self._getFileSystemEncoding()
+        self.assertEqual(runtime_info.getFileSystemEncoding(), enc)
 
     def test_ZopeVersion(self):
         runtime_info = self._Test__new()

@@ -13,7 +13,7 @@
 ##############################################################################
 """Application Control Interface
 
-$Id: interfaces.py,v 1.4 2004/03/23 15:52:10 srichter Exp $
+$Id: interfaces.py,v 1.5 2004/03/24 11:13:13 hdima Exp $
 """
 from zope.interface import Interface
 
@@ -26,11 +26,15 @@ class IApplicationControl(Interface):
 
 
 class IRuntimeInfo(Interface):
-    """ Runtime Information Adapter for Application Control """
+    """Runtime Information Adapter for Application Control"""
 
     def getPreferredEncoding():
         """Return the encoding used for text data, according
            to user system preferences"""
+
+    def getFileSystemEncoding():
+        """Return the name of the encoding used to convert
+           Unicode filenames into system file names"""
 
     def getZopeVersion():
         """Return a string containing the descriptive version of the
@@ -41,8 +45,8 @@ class IRuntimeInfo(Interface):
            of the python interpreter"""
 
     def getPythonPath():
-        """Return a tuple containing the lookup paths of the python interpreter
-        """
+        """Return a tuple containing an unicode strings containing
+           the lookup paths of the python interpreter"""
 
     def getSystemPlatform():
         """Return an unicode string containing the system platform name
@@ -52,11 +56,10 @@ class IRuntimeInfo(Interface):
         """Return the command line string Zope was invoked with"""
 
     def getProcessId():
-        """Return the process id number currently serving the request
-        """
+        """Return the process id number currently serving the request"""
 
     def getUptime():
-        """Return the Zope server uptime in seconds."""
+        """Return the Zope server uptime in seconds"""
 
 
 class IZopeVersion(Interface):

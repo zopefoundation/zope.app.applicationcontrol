@@ -13,10 +13,9 @@
 ##############################################################################
 """Define runtime information view component for Application Control
 
-$Id: runtimeinfo.py,v 1.3 2004/03/23 13:35:07 hdima Exp $
+$Id: runtimeinfo.py,v 1.4 2004/03/24 11:13:14 hdima Exp $
 """
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
-from zope.component import ComponentLookupError
 
 from zope.app.i18n import ZopeMessageIDFactory as _
 
@@ -31,6 +30,8 @@ class RuntimeInfoView:
             formatted['PythonVersion'] = runtime_info.getPythonVersion()
             formatted['PythonPath'] = runtime_info.getPythonPath()
             formatted['SystemPlatform'] = runtime_info.getSystemPlatform()
+            formatted['PreferredEncoding'] = runtime_info.getPreferredEncoding()
+            formatted['FileSystemEncoding'] = runtime_info.getFileSystemEncoding()
             formatted['CommandLine'] = runtime_info.getCommandLine()
             formatted['ProcessId'] = runtime_info.getProcessId()
 
@@ -48,7 +49,7 @@ class RuntimeInfoView:
 
             formatted['Uptime'] = uptime
 
-        except TypeError:
+        except (TypeError, UnicodeError):
             # We avoid having errors in the ApplicationController,
             # because all those things need to stay accessible.
             na = _("n/a")
@@ -56,6 +57,8 @@ class RuntimeInfoView:
             formatted['PythonVersion'] = na
             formatted['PythonPath'] = (na,)
             formatted['SystemPlatform'] = na
+            formatted['PreferredEncoding'] = na
+            formatted['FileSystemEncoding'] = na
             formatted['CommandLine'] = na
             formatted['ProcessId'] = na
             formatted['Uptime'] = na
