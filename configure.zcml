@@ -1,6 +1,8 @@
-<zopeConfigure 
+<configure 
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:server-control="http://namespaces.zope.org/server-control">
+    xmlns:server-control="http://namespaces.zope.org/server-control"
+    i18n_domain="zope"
+    >
 
   <content
       class="zope.app.applicationcontrol.applicationcontrol.ApplicationControl">
@@ -37,4 +39,4 @@
        call=".servercontrol.shutdownLogger"
        />
 
-</zopeConfigure>
+</configure>
