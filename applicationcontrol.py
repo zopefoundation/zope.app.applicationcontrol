@@ -13,14 +13,13 @@
 ##############################################################################
 """ Application Control
 
-$Id: applicationcontrol.py,v 1.7 2004/02/24 16:51:50 philikon Exp $"""
+$Id: applicationcontrol.py,v 1.8 2004/02/25 22:26:47 faassen Exp $"""
 
 import time
 
 from zope.security.checker import ProxyFactory, NamesChecker
 from zope.interface import implements
 
-from zope.app import zapi
 from zope.app.location import Location
 from zope.app.folder import rootFolder
 from zope.app.interfaces.applicationcontrol import IApplicationControl

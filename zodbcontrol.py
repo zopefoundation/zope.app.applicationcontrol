@@ -13,9 +13,8 @@
 ##############################################################################
 """ZODB Control
 
-$Id: zodbcontrol.py,v 1.3 2004/02/16 21:38:51 srichter Exp $
+$Id: zodbcontrol.py,v 1.4 2004/02/25 22:26:47 faassen Exp $
 """
-import os
 from zope.interface import implements
 from zope.app.interfaces.applicationcontrol import \
      IApplicationControl, IZODBControl
