@@ -20,7 +20,7 @@ __docformat__ = 'restructuredtext'
 import os
 import re
 
-import zope
+import zope.app
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implements
 
@@ -32,7 +32,7 @@ class ZopeVersion(object):
 
     def __init__(self, path=None):
         if path is None:
-            path = os.path.dirname(os.path.abspath(zope.__file__))
+            path = os.path.dirname(os.path.abspath(zope.app.__file__))
         self.path = path
         self.result = None
 
