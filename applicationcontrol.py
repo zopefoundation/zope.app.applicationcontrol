@@ -13,16 +13,17 @@
 ##############################################################################
 """ Application Control
 
-$Id: applicationcontrol.py,v 1.5 2003/07/31 21:37:18 srichter Exp $"""
+$Id: applicationcontrol.py,v 1.6 2003/09/21 17:30:16 jim Exp $"""
 
 from zope.app.interfaces.applicationcontrol import IApplicationControl
-from zope.app.content.folder import RootFolder
+from zope.app.content.folder import rootFolder
 from zope.security.checker import ProxyFactory, NamesChecker
 from zope.interface import implements
+from zope.app.location import Location
 
 import time
 
-class ApplicationControl:
+class ApplicationControl(Location):
 
     implements(IApplicationControl)
 
@@ -33,5 +34,7 @@ class ApplicationControl:
         return self.start_time
 
 applicationController = ApplicationControl()
-applicationControllerRoot = ProxyFactory(RootFolder(),
+applicationControllerRoot = ProxyFactory(rootFolder(),
                                          NamesChecker("__class__"))
+applicationController.__parent__ = applicationControllerRoot
+applicationController.__name__ = '++etc++process'
