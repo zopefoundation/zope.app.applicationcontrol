@@ -22,7 +22,8 @@
             <td tal:content="catalogInfo/domain"></td>
             <td tal:content="catalogInfo/language"></td>     
             <td>
-                <div tal:repeat="fileName catalogInfo/fileNames" tal:content="fileName"></div>
+                <div tal:repeat="fileName catalogInfo/fileNames" 
+                     tal:content="fileName"></div>
             </td>
             <td>
                 <a tal:attributes="href string:?RELOAD=&domain=${catalogInfo/domain}&language=${catalogInfo/language}"

@@ -13,7 +13,7 @@
 ##############################################################################
 """Application Control Interface
 
-$Id: interfaces.py,v 1.1 2004/03/01 13:43:24 philikon Exp $
+$Id: interfaces.py,v 1.2 2004/03/08 23:33:38 srichter Exp $
 """
 from zope.interface import Interface
 
@@ -110,12 +110,12 @@ class IZODBControl(Interface):
         """Pack the ZODB. Remove all entries that are older than 'days' days."""
 
 
-class IGlobalTSControl(Interface):
+class ITranslationDomainControl(Interface):
     """This control manages the state of the translation service."""
 
     def getCatalogsInfo():
         """Return the registered languages."""
 
-    def reloadCatalogs(catalogNames):
+    def reloadCatalogs(domain, language):
         """reload the named catalogs from file"""
 

@@ -5,37 +5,37 @@
     >
 
   <content
-      class="zope.app.applicationcontrol.applicationcontrol.ApplicationControl">
+      class=".applicationcontrol.ApplicationControl">
     <require
         permission="zope.ManageApplication"
-        interface="zope.app.applicationcontrol.interfaces.IApplicationControl"/>
+        interface=".interfaces.IApplicationControl"/>
   </content>
 
   <adapter 
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
-      provides="zope.app.applicationcontrol.interfaces.IRuntimeInfo"
-      factory="zope.app.applicationcontrol.runtimeinfo.RuntimeInfo"
+      for=".interfaces.IApplicationControl"
+      provides=".interfaces.IRuntimeInfo"
+      factory=".runtimeinfo.RuntimeInfo"
       permission="zope.ManageApplication" />
 
   <adapter 
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
-      provides="zope.app.applicationcontrol.interfaces.IZODBControl"
-      factory="zope.app.applicationcontrol.zodbcontrol.ZODBControl"
+      for=".interfaces.IApplicationControl"
+      provides=".interfaces.IZODBControl"
+      factory=".zodbcontrol.ZODBControl"
       permission="zope.ManageApplication" />
 
   <adapter 
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
-      provides="zope.app.applicationcontrol.interfaces.IGlobalTSControl"
-      factory="zope.app.applicationcontrol.globaltranslationservicecontrol.GlobalTSControl"
+      for=".interfaces.IApplicationControl"
+      provides=".interfaces.ITranslationDomainControl"
+      factory=".translationdomaincontrol.TranslationDomainControl"
       permission="zope.ManageApplication" />
 
   <utility 
-      component="zope.app.applicationcontrol.zopeversion.ZopeVersionUtility"
-      provides="zope.app.applicationcontrol.interfaces.IZopeVersion" />
+      component=".zopeversion.ZopeVersionUtility"
+      provides=".interfaces.IZopeVersion" />
 
   <utility 
-      provides="zope.app.applicationcontrol.interfaces.IServerControl"
-      factory="zope.app.applicationcontrol.servercontrol.ServerControl"
+      provides=".interfaces.IServerControl"
+      factory=".servercontrol.ServerControl"
       permission="zope.ManageApplication"/>
 
   <!-- Hint: Here you see how to register something on Zope shutdown -->

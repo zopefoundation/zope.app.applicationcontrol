@@ -5,8 +5,7 @@
   <pages
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
       permission="zope.ManageApplication"
-      class=
-         "zope.app.applicationcontrol.browser.servercontrol.ServerControlView">
+      class=".servercontrol.ServerControlView">
     
     <page name="ServerControlForm.html" template="server-control.pt" 
           menu="zmi_views" title="Server Control" />
@@ -19,24 +18,24 @@
       menu="zmi_views"
       title="Runtime Information"       
       template="runtimeinfo.pt"
-      class="zope.app.applicationcontrol.browser.runtimeinfo.RuntimeInfoView" 
+      class=".runtimeinfo.RuntimeInfoView" 
       permission="zope.ManageApplication"/>
 
   <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
       name="ZODBControl.html"
       template="zodbcontrol.pt"
-      class="zope.app.applicationcontrol.browser.zodbcontrol.ZODBControlView" 
+      class=".zodbcontrol.ZODBControlView" 
       permission="zope.ManageApplication"
       menu="zmi_views" title="ZODB Control"/>
 
   <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
-      name="GlobalTSControl.html"
-      template="globaltranslationservicecontrol.pt"
-      class="zope.app.applicationcontrol.browser.globaltranslationservicecontrol.GlobalTSControlView" 
+      name="TranslationDomain.html"
+      template="translationdomaincontrol.pt"
+      class=".translationdomaincontrol.TranslationDomainControlView" 
       permission="zope.ManageApplication"
-      menu="zmi_views" title="Global Translation Service Control"/>
+      menu="zmi_views" title="Translation Domain Control"/>
 
   <!-- add a action tab to the root folder for navigation -->
   <menuItem 
