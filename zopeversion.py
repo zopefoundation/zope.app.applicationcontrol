@@ -11,9 +11,10 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Zope version
+"""Utility to retrieve the Zope version.
 
-$Id: zopeversion.py,v 1.8 2004/04/30 14:58:35 fdrake Exp $"""
+$Id: zopeversion.py,v 1.9 2004/04/30 14:59:53 fdrake Exp $
+"""
 
 import os
 
