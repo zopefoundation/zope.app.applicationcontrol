@@ -69,7 +69,7 @@ class IZopeVersion(Interface):
 
     def getZopeVersion():
         """Return a string containing the Zope version (possibly including
-           CVS information)"""
+           SVN information)"""
 
 
 class IServerControl(Interface):
@@ -85,8 +85,8 @@ class IServerControl(Interface):
 
         The `time` should be greater-equal 0.
 
-        If the `time` is 0, the we do a hard shutdown, i.e. closing all sockets
-        without waiting for tasks to complete.
+        If the `time` is 0, then we do a hard shutdown, i.e. closing
+        all sockets without waiting for tasks to complete.
 
         If the `time` is not 0, then we will give the tasks `time` seconds to
         finish before shutting down.
@@ -97,8 +97,8 @@ class IServerControl(Interface):
 
         The `time` should be greater-equal 0.
 
-        If the `time` is 0, the we do a hard shutdown, i.e. closing all sockets
-        without waiting for tasks to complete.
+        If the `time` is 0, then we do a hard shutdown, i.e. closing
+        all sockets without waiting for tasks to complete.
 
         If the `time` is not 0, then we will give the tasks `time` seconds to
         finish before shutting down.
