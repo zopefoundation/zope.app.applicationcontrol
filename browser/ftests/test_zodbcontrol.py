@@ -30,20 +30,6 @@ class ZODBControlTest(BrowserTestCase):
         self.assert_('value="3"' in body)
         self.assert_('<em>Demo Storage</em>' in body)
         self.assert_('<em>100 Bytes</em>' in body)
-        
-    # XXX: Disabled test, since we cannot packe demo storages.
-    def _testPack(self):
-        response = self.publish('/++etc++process/@@ZODBControl.html',
-                                basic='mgr:mgrpw',
-                                form={'days': u'0',
-                                      'PACK': u'Pack'})
-        body = response.getBody()
-        self.assert_('value="0"' in body)
-        self.assert_('<em>Demo Storage</em>' in body)
-        self.assert_('<em>100 Bytes</em>' in body)
-        self.assert_('ZODB successfully packed.' in body)
-        
-
 
 
 def test_suite():
