@@ -1,4 +1,5 @@
-<html metal:use-macro="context/@@standard_macros/view">
+<html metal:use-macro="context/@@standard_macros/view"
+    i18n:domain="zope">
   <head>
     <title i18n:translate="">Translation Domains</title>
   </head>
