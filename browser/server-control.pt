@@ -1,0 +1,27 @@
+<html metal:use-macro="context/@@standard_macros/view" i18n:domain="zope">
+<head>
+  <title i18n:translate="">Zope Stub Server Controller</title>
+</head>
+<body>
+<div metal:fill-slot="body">
+
+  <form name="servercontrol" action="ServerControl.html" method="post">
+    <span i18n:translate="">Shutdown time:</span>&nbsp;
+    <input type="text" name="time:int" size="5" value="0" />
+    &nbsp;<span i18n:translate="">seconds</span>
+
+    <p i18n:translate="">
+      If you specify a time of 0 seconds, then the server will do a hard
+      shutdown.
+    </p> 
+
+    <input type="submit" name="restart" value="Restart server" 
+        i18n:attributes="value" />
+    &nbsp;
+    <input type="submit" name="shutdown" value="Shutdown server" 
+        i18n:attributes="value" />
+  </form>
+ 
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<html metal:use-macro="context/@@standard_macros/view">
+<head>
+  <title i18n:translate="">Zope Runtime Information</title>
+</head>
+<body>
+<div metal:fill-slot="body">
+
+  <ul tal:define="runtime_info view/runtimeInfo">
+     <li>
+       <span i18n:translate="">Zope version</span>:
+       <span tal:replace="runtime_info/ZopeVersion" />
+     </li>
+     <li>
+       <span i18n:translate="">Python version</span>:
+       <span tal:replace="runtime_info/PythonVersion" />
+     </li>
+     <li>
+       <span i18n:translate="">System platform</span>:
+       <span tal:replace="runtime_info/SystemPlatform" />
+     </li>
+     <li>
+       <span i18n:translate="">Preferred encoding</span>:
+       <span tal:replace="runtime_info/PreferredEncoding" />
+     </li>
+     <li>
+       <span i18n:translate="">FileSytem encoding</span>:
+       <span tal:replace="runtime_info/FileSystemEncoding" />
+     </li>
+     <li>
+       <span i18n:translate="">Command line</span>:
+       <span tal:replace="runtime_info/CommandLine" />
+     </li>
+     <li>
+       <span i18n:translate="">Process id</span>:
+       <span tal:replace="runtime_info/ProcessId" />
+     </li>
+     <li>
+       <span i18n:translate="">Uptime</span>:
+       <span tal:replace="runtime_info/Uptime" />
+     </li>
+     <li>
+       <span i18n:translate="">Python path</span>:
+       <ul>
+         <li tal:repeat="path runtime_info/PythonPath" 
+             tal:content="path">path</li>
+       </ul>
+     </li>
+
+     <!-- # XXX UI folks: following line wants special attention. The
+            hardcoding should be removed someday. -->
+     <li tal:condition="runtime_info/Hint | nothing" style="color:red;"
+         tal:content="runtime_info/Hint" i18n:translate="" />
+  </ul>
+
+</div>
+</body>
+</html>
