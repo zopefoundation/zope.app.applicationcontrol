@@ -13,7 +13,7 @@
 ##############################################################################
 """Zope version
 
-$Id: zopeversion.py,v 1.6 2004/03/01 13:43:24 philikon Exp $"""
+$Id: zopeversion.py,v 1.7 2004/04/30 14:30:42 fdrake Exp $"""
 
 import os
 
@@ -43,15 +43,17 @@ class ZopeVersion:
             # get the tag information
             if os.path.isfile(tagfile):
                 f = open(tagfile)
-                tag = f.read()
+                tag = f.readline().rstrip()
+                f.close()
                 if tag.startswith("T"):
-                    version_tag = " (%s)" % tag[1:-1]
+                    version_tag = " (%s)" % tag[1]
 
         # try to get official Zope release information
         versionfile = os.path.join(zopedir, "version.txt")
         if os.path.isfile(versionfile) and not is_cvs:
             f = open(versionfile)
-            version_id = f.readlines()[0] or version_id
+            version_id = f.readline().strip() or version_id
+            f.close()
 
         version = "%s%s" % (version_id, version_tag)
         return version
