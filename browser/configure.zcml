@@ -35,7 +35,7 @@
       template="translationdomaincontrol.pt"
       class=".translationdomaincontrol.TranslationDomainControlView" 
       permission="zope.ManageApplication"
-      menu="zmi_views" title="Translation Domain Control"/>
+      menu="zmi_views" title="Translation Domains"/>
 
   <!-- add a action tab to the root folder for navigation -->
   <menuItem 
