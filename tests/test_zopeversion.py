@@ -13,13 +13,14 @@
 ##############################################################################
 """Zope Version Tests
 
-$Id: test_zopeversion.py,v 1.5 2004/03/01 13:43:26 philikon Exp $
+$Id: test_zopeversion.py,v 1.6 2004/04/30 14:17:41 fdrake Exp $
 """
+import os
 import unittest
+
 from zope.interface.verify import verifyObject
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
-import os
 
 class Test(unittest.TestCase):
 
@@ -66,9 +67,7 @@ class Test(unittest.TestCase):
 
 
 def test_suite():
-    return unittest.TestSuite((
-        unittest.makeSuite(Test),
-        ))
+    return unittest.makeSuite(Test)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(defaultTest="test_suite")
