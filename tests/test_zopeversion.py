@@ -13,9 +13,11 @@
 ##############################################################################
 """Zope Version Tests
 
-$Id: test_zopeversion.py,v 1.6 2004/04/30 14:17:41 fdrake Exp $
+$Id: test_zopeversion.py,v 1.7 2004/05/03 14:18:25 fdrake Exp $
 """
 import os
+import shutil
+import tempfile
 import unittest
 
 from zope.interface.verify import verifyObject
@@ -24,46 +26,57 @@ from zope.app.applicationcontrol.zopeversion import ZopeVersion
 
 class Test(unittest.TestCase):
 
+    def setUp(self):
+        self.tmpdir = tempfile.mkdtemp(prefix="test-zopeversion-")
+
+    def tearDown(self):
+        shutil.rmtree(self.tmpdir)
+
+    def prepare(self, version, tag):
+        if version:
+            f = open(os.path.join(self.tmpdir, "version.txt"), "w")
+            f.write(version)
+            if not version.endswith("\n"):
+                f.write("\n")
+            f.close()
+        if tag:
+            os.mkdir(os.path.join(self.tmpdir, "CVS"))
+            f = open(os.path.join(self.tmpdir, "CVS", "Tag"), "w")
+            f.write(tag)
+            if not tag.endswith("\n"):
+                f.write("\n")
+            f.close()
+
     def _Test__new(self):
-        return ZopeVersion()
-
-    def _getZopeVersion(self):
-        """example zope version implementation"""
-        version_id = "Development/Unknown"
-        version_tag = ""
-        is_cvs = 0
-
-        import zope
-        zopedir = os.path.dirname(zope.__file__)
-
-        # is this a CVS checkout?
-        cvsdir = os.path.join(zopedir, "CVS" )
-        if os.path.isdir(cvsdir):
-            is_cvs = 1
-            tagfile = os.path.join(cvsdir, "Tag")
-
-            # get the tag information
-            if os.path.isfile(tagfile):
-                f = open(tagfile)
-                tag = f.read()
-                if tag.startswith("T"):
-                    version_tag = " (%s)" % tag[1:-1]
-
-        # try to get official Zope release information
-        versionfile = os.path.join(zopedir, "version.txt")
-        if os.path.isfile(versionfile) and not is_cvs:
-            f = open(versionfile)
-            version_id = f.read().split("\n")[0]
-
-        version = "%s%s" % (version_id, version_tag)
-        return version
+        return ZopeVersion(self.tmpdir)
 
     def test_IVerify(self):
         verifyObject(IZopeVersion, self._Test__new())
 
     def test_ZopeVersion(self):
+        self.prepare(None, None)
         zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(), self._getZopeVersion())
+        self.assertEqual(zope_version.getZopeVersion(), "Development/Unknown")
+
+    def test_ZopeVersion_cvstag(self):
+        self.prepare(None, "Tsome-tag")
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Development/Unknown (some-tag)")
+
+    def test_ZopeVersion_release(self):
+        self.prepare("Zope X3 1.0.1a1", None)
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Zope X3 1.0.1a1")
+
+    def test_ZopeVersion_release_cvstag(self):
+        # demonstrate that the version.txt data is discarded if
+        # there's revision-control metadata:
+        self.prepare("Zope X3 1.0.1a1", "Tsome-tag")
+        zope_version = self._Test__new()
+        self.assertEqual(zope_version.getZopeVersion(),
+                         "Development/Unknown (some-tag)")
 
 
 def test_suite():
