@@ -12,14 +12,14 @@
 ##############################################################################
 """Application Control Tests
 
-$Id: test_applicationcontrol.py,v 1.4 2003/07/31 21:37:23 srichter Exp $
+$Id: test_applicationcontrol.py,v 1.5 2004/03/01 13:43:26 philikon Exp $
 """
 import unittest
 from zope.interface.verify import verifyObject
 
 import time
 from zope.app.applicationcontrol.applicationcontrol import ApplicationControl
-from zope.app.interfaces.applicationcontrol import IApplicationControl
+from zope.app.applicationcontrol.interfaces import IApplicationControl
 
 # seconds, time values may differ in order to be assumed equal
 time_tolerance = 2

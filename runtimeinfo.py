@@ -13,11 +13,11 @@
 ##############################################################################
 """ Runtime Information
 
-$Id: runtimeinfo.py,v 1.4 2003/07/31 21:37:18 srichter Exp $
+$Id: runtimeinfo.py,v 1.5 2004/03/01 13:43:24 philikon Exp $
 """
 import sys, os, time
 
-from zope.app.interfaces.applicationcontrol import \
+from zope.app.applicationcontrol.interfaces import \
      IRuntimeInfo, IApplicationControl, IZopeVersion
 from zope.component import getUtility, ComponentLookupError
 from zope.interface import implements
@@ -31,7 +31,7 @@ class RuntimeInfo:
         self.context = context
 
     def getZopeVersion(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         try:
             version_utility = getUtility(self.context, IZopeVersion)
         except ComponentLookupError:
@@ -39,29 +39,29 @@ class RuntimeInfo:
         return version_utility.getZopeVersion()
 
     def getPythonVersion(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         return sys.version
 
     def getPythonPath(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         return tuple(map(str, sys.path))
 
     def getSystemPlatform(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         if hasattr(os, "uname"):
             return os.uname()
         else:
             return (sys.platform,)
 
     def getCommandLine(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         return sys.argv
 
     def getProcessId(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         return os.getpid()
 
     def getUptime(self):
-        """See zope.app.interfaces.applicationcontrol.IRuntimeInfo"""
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         return time.time() - self.context.getStartTime()
 

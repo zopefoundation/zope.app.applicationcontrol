@@ -13,7 +13,7 @@
 ##############################################################################
 """ Application Control
 
-$Id: applicationcontrol.py,v 1.8 2004/02/25 22:26:47 faassen Exp $"""
+$Id: applicationcontrol.py,v 1.9 2004/03/01 13:43:24 philikon Exp $"""
 
 import time
 
@@ -22,7 +22,7 @@ from zope.interface import implements
 
 from zope.app.location import Location
 from zope.app.folder import rootFolder
-from zope.app.interfaces.applicationcontrol import IApplicationControl
+from zope.app.applicationcontrol.interfaces import IApplicationControl
 
 class ApplicationControl(Location):
 

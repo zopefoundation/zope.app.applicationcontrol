@@ -12,7 +12,7 @@
 ##############################################################################
 """Runtime Info Tests
 
-$Id: test_runtimeinfo.py,v 1.5 2003/07/31 21:37:23 srichter Exp $
+$Id: test_runtimeinfo.py,v 1.6 2004/03/01 13:43:26 philikon Exp $
 """
 import unittest
 import os, sys, time
@@ -21,7 +21,7 @@ from zope.component import getService
 from zope.interface import implements
 from zope.interface.verify import verifyObject
 from zope.app.applicationcontrol.applicationcontrol import applicationController
-from zope.app.interfaces.applicationcontrol import IRuntimeInfo, IZopeVersion
+from zope.app.applicationcontrol.interfaces import IRuntimeInfo, IZopeVersion
 from zope.app.services.tests.placefulsetup import PlacefulSetup
 
 # seconds, time values may differ in order to be assumed equal

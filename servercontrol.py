@@ -13,11 +13,11 @@
 ##############################################################################
 """Server Control Implementation
 
-$Id: servercontrol.py,v 1.7 2003/07/31 21:37:18 srichter Exp $
+$Id: servercontrol.py,v 1.8 2004/03/01 13:43:24 philikon Exp $
 """
 import logging
 
-from zope.app.interfaces.applicationcontrol import \
+from zope.app.applicationcontrol.interfaces import \
      IServerControl, DoublePriorityError, NotCallableError
 from zope.interface import implements
 
@@ -33,7 +33,7 @@ class ServerControl:
         self._shutdown_reg = {}
 
     def shutdown(self):
-        """See zope.app.interfaces.applicationcontrol.IServerControl"""
+        """See zope.app.applicationcontrol.interfaces.IServerControl"""
         order = self._shutdown_reg.keys()
         order.sort()
 
@@ -42,11 +42,11 @@ class ServerControl:
             hook[0]()
 
     def restart(self):
-        """See zope.app.interfaces.applicationcontrol.IServerControl"""
+        """See zope.app.applicationcontrol.interfaces.IServerControl"""
         pass
 
     def registerShutdownHook(self, call, priority, name):
-        """See zope.app.interfaces.applicationcontrol.IServerControl"""
+        """See zope.app.applicationcontrol.interfaces.IServerControl"""
         priority = float(priority)
         if priority in self._shutdown_reg:
             raise DoublePriorityError, (call, priority, name)

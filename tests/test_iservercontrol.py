@@ -12,13 +12,13 @@
 ##############################################################################
 """IServerControl tests
 
-$Id: test_iservercontrol.py,v 1.4 2003/07/31 21:37:23 srichter Exp $
+$Id: test_iservercontrol.py,v 1.5 2004/03/01 13:43:26 philikon Exp $
 """
 import unittest
 from zope.interface.verify import verifyObject
 
-from zope.app.interfaces.applicationcontrol import \
- IServerControl, DoublePriorityError, NotCallableError
+from zope.app.applicationcontrol.interfaces import \
+     IServerControl, DoublePriorityError, NotCallableError
 
 def stub_callback():
     """stupid callable object"""

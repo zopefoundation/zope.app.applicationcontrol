@@ -13,10 +13,10 @@
 ##############################################################################
 """ZODB Control
 
-$Id: zodbcontrol.py,v 1.4 2004/02/25 22:26:47 faassen Exp $
+$Id: zodbcontrol.py,v 1.5 2004/03/01 13:43:24 philikon Exp $
 """
 from zope.interface import implements
-from zope.app.interfaces.applicationcontrol import \
+from zope.app.applicationcontrol.interfaces import \
      IApplicationControl, IZODBControl
 
 class ZODBControl:
@@ -28,7 +28,7 @@ class ZODBControl:
         self.context = context
 
     def getDatabaseSize(self, db):
-        """See zope.app.interfaces.applicationControl.IZODBControl"""
+        """See zope.app.applicationcontrol.interfaces.IZODBControl"""
         # XXX ZODB 4 doesn't support getting the database size
         # the original implementation (commnted out) depended on internal
         # file-storage implementation details.
@@ -37,5 +37,5 @@ class ZODBControl:
         return 0
 
     def pack(self, db, days):
-        """See zope.app.interfaces.applicationControl.IZODBControl"""
+        """See zope.app.applicationcontrol.interfaces.IZODBControl"""
         db.pack(days=days)

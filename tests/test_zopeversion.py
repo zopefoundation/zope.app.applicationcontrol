@@ -13,11 +13,11 @@
 ##############################################################################
 """Zope Version Tests
 
-$Id: test_zopeversion.py,v 1.4 2003/07/31 21:37:23 srichter Exp $
+$Id: test_zopeversion.py,v 1.5 2004/03/01 13:43:26 philikon Exp $
 """
 import unittest
 from zope.interface.verify import verifyObject
-from zope.app.interfaces.applicationcontrol import IZopeVersion
+from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 import os
 

@@ -13,11 +13,11 @@
 ##############################################################################
 """ZODB Control
 
-$Id: globaltranslationservicecontrol.py,v 1.2 2003/08/17 06:05:20 philikon Exp $
+$Id: globaltranslationservicecontrol.py,v 1.3 2004/03/01 13:43:24 philikon Exp $
 """
 
 from zope.interface import implements
-from zope.app.interfaces.applicationcontrol import \
+from zope.app.applicationcontrol.interfaces import \
      IApplicationControl, IGlobalTSControl
 from zope.i18n.globaltranslationservice import translationService
 
@@ -30,10 +30,10 @@ class GlobalTSControl:
         self.context = context
 
     def getCatalogsInfo(self):
-        """See zope.app.interfaces.applicationControl.IGlobalTSControl"""
+        """See zope.app.applicationcontrol.interfaces.IGlobalTSControl"""
         return translationService.getCatalogsInfo()
 
     def reloadCatalogs(self, catalogName):
-        """See zope.app.interfaces.applicationControl.IGlobalTSControl"""
+        """See zope.app.applicationcontrol.interfaces.IGlobalTSControl"""
         return translationService.reloadCatalogs(catalogName)
 
