@@ -19,7 +19,7 @@
          tal:condition="status"
          tal:content="status" />
 
-      <form action="." method="POST" tal:attributes="action request/URL">
+      <form action="." method="post" tal:attributes="action request/URL">
         <div class="row">
           <div class="label" i18n:translate="">Keep up to:</div>
           <div class="view">
