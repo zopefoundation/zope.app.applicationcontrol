@@ -13,10 +13,10 @@
 ##############################################################################
 """Translation Domain Control Tests
 
-$Id: test_translationdomaincontrol.py,v 1.1 2004/03/23 15:52:05 srichter Exp $
+$Id: test_translationdomaincontrol.py,v 1.2 2004/04/06 20:58:04 jim Exp $
 """
 import unittest
-from zope.testing.functional import BrowserTestCase
+from zope.app.tests.functional import BrowserTestCase
 
 class ZODBControlTest(BrowserTestCase):
 
