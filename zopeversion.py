@@ -13,7 +13,7 @@
 ##############################################################################
 """Utility to retrieve the Zope version.
 
-$Id: zopeversion.py,v 1.9 2004/04/30 14:59:53 fdrake Exp $
+$Id: zopeversion.py,v 1.10 2004/05/03 14:17:04 fdrake Exp $
 """
 
 import os
@@ -54,7 +54,7 @@ class ZopeVersion:
                 tag = f.readline().rstrip()
                 f.close()
                 if tag.startswith("T"):
-                    version_tag = " (%s)" % tag[1]
+                    version_tag = " (%s)" % tag[1:]
 
         # try to get official Zope release information
         versionfile = os.path.join(self.path, "version.txt")
