@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2001, 2002 Zope Corporation and Contributors.
+# Copyright (c) 2001,2002,2003 Zope Corporation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -11,15 +11,16 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-__doc__ = """ Server Control Implementation
+"""Server Control Implementation
 
-$Id: servercontrol.py,v 1.2 2002/12/25 14:12:25 jim Exp $"""
-
-from zope.app.interfaces.applicationcontrol.servercontrol import \
-  IServerControl, ServerControlError, DoublePriorityError, NotCallableError
-import logging
+$Id: servercontrol.py,v 1.3 2003/01/02 15:48:46 bwarsaw Exp $
+"""
 
 import sys
+import logging
+
+from zope.app.interfaces.applicationcontrol.servercontrol import \
+     IServerControl, ServerControlError, DoublePriorityError, NotCallableError
 
 
 class ServerControl:
@@ -27,12 +28,11 @@ class ServerControl:
     __implements__ = IServerControl
 
     def __init__(self):
-        self._shutdown_reg = {}    # This is the actual shutdown registry.
-                                   # It will hold the hooks accessible by their
-                                   # priority. The priority actually needs to be
-                                   # a floating point value, to allow most fine
-                                   # grained control on the priority.
-
+        # This is the actual shutdown registry.  It will hold the hooks
+        # accessible by their priority. The priority actually needs to be a
+        # floating point value, to allow most fine grained control on the
+        # priority.
+        self._shutdown_reg = {}
 
     def shutdown(self):
         text = ""
