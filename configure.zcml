@@ -23,6 +23,12 @@
       factory="zope.app.applicationcontrol.zodbcontrol.ZODBControl"
       permission="zope.ManageApplication" />
 
+  <adapter 
+      for="zope.app.interfaces.applicationcontrol.IApplicationControl"
+      provides="zope.app.interfaces.applicationcontrol.IGlobalTSControl"
+      factory="zope.app.applicationcontrol.globaltranslationservicecontrol.GlobalTSControl"
+      permission="zope.ManageApplication" />
+
   <utility 
       component="zope.app.applicationcontrol.zopeversion.ZopeVersionUtility"
       provides="zope.app.interfaces.applicationcontrol.IZopeVersion" />
