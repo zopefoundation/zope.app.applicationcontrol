@@ -24,6 +24,11 @@ try:
 except ImportError:
     locale = None
 
+try:
+    import platform
+except ImportError:
+    platform = None
+
 from zope.app.applicationcontrol.interfaces import \
      IRuntimeInfo, IApplicationControl, IZopeVersion
 from zope.component import getUtility, ComponentLookupError
@@ -71,12 +76,17 @@ class RuntimeInfo(object):
 
     def getSystemPlatform(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
-        # FIXME: platform.platform()?
-        if hasattr(os, "uname"):
-            info = os.uname()
+        if platform is not None:
+            info = " ".join(platform.uname())
+        elif hasattr(os, "uname"):
+            info = " ".join(os.uname())
         else:
-            info = (sys.platform,)
-        return unicode(" ".join(info), self.getPreferredEncoding())
+            info = sys.platform
+        try:
+            return unicode(info, self.getPreferredEncoding())
+        except ValueError:
+            pass
+        return unicode(info, "latin1")
 
     def getCommandLine(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
