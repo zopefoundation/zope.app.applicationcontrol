@@ -1,0 +1,31 @@
+<zopeConfigure xmlns="http://namespaces.zope.org/zope"
+               xmlns:server-control="http://namespaces.zope.org/server-control"
+               >
+
+  <content
+     class="zope.app.applicationcontrol.applicationcontrol.ApplicationControl">
+    <require
+        permission="zope.ManageApplication"
+        interface="zope.app.interfaces.applicationcontrol.applicationcontrol.IApplicationControl" />
+  </content>
+
+  <adapter factory="zope.app.applicationcontrol.runtimeinfo.RuntimeInfo"
+           permission="zope.ManageApplication"
+           provides="zope.app.interfaces.applicationcontrol.runtimeinfo.IRuntimeInfo"
+           for="zope.app.interfaces.applicationcontrol.applicationcontrol.IApplicationControl" />
+
+  <utility component="zope.app.applicationcontrol.zopeversion.ZopeVersionUtility"
+           provides="zope.app.interfaces.applicationcontrol.zopeversion.IZopeVersion" />
+
+  <utility factory="zope.app.applicationcontrol.servercontrol.ServerControl"
+           permission="zope.ManageApplication"
+           provides="zope.app.interfaces.applicationcontrol.servercontrol.IServerControl" />
+
+  <!-- Hint: Here you see how to register something on Zope shutdown -->
+  <server-control:registerShutdownHook
+       name="Shutdown logger"
+       priority="0"
+       call=".servercontrol.shutdownLogger"
+       />
+
+</zopeConfigure>
