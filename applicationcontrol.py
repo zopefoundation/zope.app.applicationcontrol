@@ -15,18 +15,19 @@
 
 $Id$"""
 
-import time
-
-from zope.security.checker import ProxyFactory, NamesChecker
-from zope.interface import implements
-
-from zope.app.location import Location
-from zope.app.folder import rootFolder
 from zope.app.applicationcontrol.interfaces import IApplicationControl
+from zope.app.location import Location
+from zope.security.checker import ProxyFactory, NamesChecker
+import time
+import zope.interface
+import zope.app.traversing.interfaces
+
+class ApplicationControllerRoot(Location):
+    zope.interface.implements(zope.app.traversing.interfaces.IContainmentRoot)
 
 class ApplicationControl(Location):
 
-    implements(IApplicationControl)
+    zope.interface.implements(IApplicationControl)
 
     def __init__(self):
         self.start_time = time.time()
@@ -35,7 +36,7 @@ class ApplicationControl(Location):
         return self.start_time
 
 applicationController = ApplicationControl()
-applicationControllerRoot = ProxyFactory(rootFolder(),
+applicationControllerRoot = ProxyFactory(ApplicationControllerRoot(),
                                          NamesChecker("__class__"))
 applicationController.__parent__ = applicationControllerRoot
 applicationController.__name__ = '++etc++process'
