@@ -13,7 +13,7 @@
 ##############################################################################
 """ZODB Control
 
-$Id: zodbcontrol.py,v 1.2 2003/11/25 15:55:28 jim Exp $
+$Id: zodbcontrol.py,v 1.3 2004/02/16 21:38:51 srichter Exp $
 """
 import os
 from zope.interface import implements
@@ -29,7 +29,6 @@ class ZODBControl:
         self.context = context
 
     def getDatabaseSize(self, db):
-        """See zope.app.interfaces.applicationControl.IZODBControl"""
         """See zope.app.interfaces.applicationControl.IZODBControl"""
         # XXX ZODB 4 doesn't support getting the database size
         # the original implementation (commnted out) depended on internal
