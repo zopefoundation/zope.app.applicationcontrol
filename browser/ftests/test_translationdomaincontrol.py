@@ -33,7 +33,7 @@ class ZODBControlTest(BrowserTestCase):
     def testReload(self):
         response = self.publish('/++etc++process/@@TranslationDomain.html',
                                 basic='mgr:mgrpw',
-                                form={'language': u'en',
+                                form={'language': u'de',
                                       'domain': u'zope',
                                       'RELOAD': u'Reload'})
         body = response.getBody()
