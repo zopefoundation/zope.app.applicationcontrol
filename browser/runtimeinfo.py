@@ -21,7 +21,7 @@ from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
 from zope.app.i18n import ZopeMessageIDFactory as _
 
-class RuntimeInfoView:
+class RuntimeInfoView(object):
 
     def runtimeInfo(self):
         formatted = {}  # will contain formatted runtime information
@@ -33,7 +33,8 @@ class RuntimeInfoView:
             formatted['PythonPath'] = runtime_info.getPythonPath()
             formatted['SystemPlatform'] = runtime_info.getSystemPlatform()
             formatted['PreferredEncoding'] = runtime_info.getPreferredEncoding()
-            formatted['FileSystemEncoding'] = runtime_info.getFileSystemEncoding()
+            formatted['FileSystemEncoding'] = \
+                                            runtime_info.getFileSystemEncoding()
             formatted['CommandLine'] = runtime_info.getCommandLine()
             formatted['ProcessId'] = runtime_info.getProcessId()
 

@@ -33,7 +33,7 @@ from zope.app.site.tests.placefulsetup import PlacefulSetup
 time_tolerance = 2
 stupid_version_string = "3085t0klvn93850voids"
 
-class TestZopeVersion:
+class TestZopeVersion(object):
     """A fallback implementation for the ZopeVersion utility."""
 
     implements(IZopeVersion)
