@@ -16,6 +16,7 @@
 $Id$
 """
 import os
+import re
 
 import zope
 from zope.app.applicationcontrol.interfaces import IZopeVersion
@@ -23,6 +24,9 @@ from zope.interface import implements
 
 class ZopeVersion(object):
     implements(IZopeVersion)
+
+    __entries = re.compile(r'(url|revision)\s*=\s*"([^"]+)"')
+    __tags = re.compile(r'/(tags|branches)/([^/]+)/')
 
     def __init__(self, path=None):
         if path is None:
@@ -35,33 +39,50 @@ class ZopeVersion(object):
         if self.result is not None:
             return self.result
 
-        version_id = "Development/Unknown"
-        version_tag = ""
-        is_cvs = False
+        self.result = "Development/Unknown"
 
-        # is this a CVS checkout?
-        # XXX need to change this when we move to Subversion
-        cvsdir = os.path.join(self.path, "CVS" )
-        if os.path.isdir(cvsdir):
-            is_cvs = True
-            tagfile = os.path.join(cvsdir, "Tag")
-
-            # get the tag information
-            if os.path.isfile(tagfile):
-                f = open(tagfile)
-                tag = f.readline().rstrip()
+        # is this a SVN checkout?
+        svndir = os.path.join(self.path, ".svn")
+        if os.path.isdir(svndir):
+            self.__setSVNVersion(svndir)
+        else:
+            # try to get official Zope release information
+            versionfile = os.path.join(self.path, "version.txt")
+            if os.path.isfile(versionfile):
+                f = file(versionfile)
+                self.result = f.readline().strip() or self.result
                 f.close()
-                if tag[:1] in ("D", "N", "T"):
-                    version_tag = " (%s)" % tag[1:]
-
-        # try to get official Zope release information
-        versionfile = os.path.join(self.path, "version.txt")
-        if os.path.isfile(versionfile) and not is_cvs:
-            f = open(versionfile)
-            version_id = f.readline().strip() or version_id
-            f.close()
-
-        self.result = "%s%s" % (version_id, version_tag)
         return self.result
+
+    def __setSVNVersion(self, svndir):
+            entriesfile = os.path.join(svndir, "entries")
+
+            # get the version information
+            if os.path.isfile(entriesfile):
+                f = file(entriesfile)
+                url, revision = "", ""
+                for line in f:
+                    match = self.__entries.search(line)
+                    if match is not None:
+                        name, value = match.group(1, 2)
+                        if name == "url":
+                            url = value
+                        elif name == "revision":
+                            revision = value
+                        if url and revision:
+                            break
+                f.close()
+
+                if revision and url:
+                    match = self.__tags.search(url)
+                    tag = ""
+                    if match is not None:
+                        type, value = match.group(1, 2)
+                        if type == "tags":
+                            tag = "/Tag: %s" % value
+                        elif type == "branches":
+                            tag = "/Branch: %s" % value
+                    self.result = "Development/Revision: %s%s" \
+                                  % (revision, tag)
 
 ZopeVersionUtility = ZopeVersion()
