@@ -13,11 +13,10 @@
 ##############################################################################
 """ Server Control View
 
-$Id: zodbcontrol.py,v 1.1 2004/03/01 13:43:25 philikon Exp $
+$Id: zodbcontrol.py,v 1.2 2004/03/06 16:50:12 jim Exp $
 """
 from ZODB.FileStorage.FileStorage import FileStorageError
 from zope.app.applicationcontrol.interfaces import IZODBControl
-from zope.component import getAdapter
 
 from zope.app.i18n import ZopeMessageIDFactory as _
 
@@ -25,7 +24,7 @@ class ZODBControlView:
 
     def getDatabaseSize(self):
         """Get the database size in a human readable format."""
-        zodbcontrol = getAdapter(self.context, IZODBControl)
+        zodbcontrol = IZODBControl(self.context)
         size = zodbcontrol.getDatabaseSize(self.request.publication.db)
         if size > 1024**2:
             size_str = _("${size} MB")
@@ -45,7 +44,7 @@ class ZODBControlView:
         status = ''
         
         if 'PACK' in self.request:
-            zodbcontrol = getAdapter(self.context, IZODBControl)
+            zodbcontrol = IZODBControl(self.context)
             try:
                 zodbcontrol.pack(self.request.publication.db,
                                  int(self.request.get('days', 0)))

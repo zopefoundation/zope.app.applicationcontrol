@@ -13,18 +13,17 @@
 ##############################################################################
 """ Server Control View
 
-$Id: globaltranslationservicecontrol.py,v 1.1 2004/03/01 13:43:25 philikon Exp $
+$Id: globaltranslationservicecontrol.py,v 1.2 2004/03/06 16:50:12 jim Exp $
 """
 
 from zope.app.applicationcontrol.interfaces import IGlobalTSControl
-from zope.component import getAdapter
 
 from zope.app.i18n import ZopeMessageIDFactory as _
 
 class GlobalTSControlView:
 
     def getCatalogsInfo(self):
-        globaltscontrol = getAdapter(self.context, IGlobalTSControl)
+        globaltscontrol = IGlobalTSControl(self.context)
         catalogsInfo = globaltscontrol.getCatalogsInfo()
         languages_domains = catalogsInfo.keys()
         domains_languages = []
@@ -46,7 +45,7 @@ class GlobalTSControlView:
         if 'RELOAD' in self.request:
             language = self.request.get('language')
             domain = self.request.get('domain')
-            globaltscontrol = getAdapter(self.context, IGlobalTSControl)
+            globaltscontrol = IGlobalTSControl(self.context)
             catalogs = globaltscontrol.getCatalogsInfo()
             catalogNames = catalogs[(language,domain)]
             globaltscontrol.reloadCatalogs(catalogNames)

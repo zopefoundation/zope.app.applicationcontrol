@@ -13,10 +13,9 @@
 ##############################################################################
 """Define runtime information view component for Application Control
 
-$Id: runtimeinfo.py,v 1.1 2004/03/01 13:43:25 philikon Exp $
+$Id: runtimeinfo.py,v 1.2 2004/03/06 16:50:12 jim Exp $
 """
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
-from zope.component import getAdapter
 from zope.component import ComponentLookupError
 
 from zope.app.i18n import ZopeMessageIDFactory as _
@@ -27,7 +26,7 @@ class RuntimeInfoView:
         formatted = {}  # will contain formatted runtime information
 
         try:
-            runtime_info = getAdapter(self.context, IRuntimeInfo)
+            runtime_info = IRuntimeInfo(self.context)
             formatted['ZopeVersion'] = runtime_info.getZopeVersion()
             formatted['PythonVersion'] = runtime_info.getPythonVersion()
             formatted['PythonPath'] = runtime_info.getPythonPath()
@@ -57,7 +56,7 @@ class RuntimeInfoView:
 
             formatted['Uptime'] = uptime
 
-        except ComponentLookupError:
+        except TypeError:
             # We avoid having errors in the ApplicationController,
             # because all those things need to stay accessible.
             formatted['ZopeVersion'] = "N/A"
