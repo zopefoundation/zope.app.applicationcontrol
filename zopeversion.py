@@ -11,16 +11,14 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-__doc__ = """Zope version
+"""Zope version
 
-$Id: zopeversion.py,v 1.2 2002/12/25 14:12:25 jim Exp $"""
+$Id: zopeversion.py,v 1.3 2002/12/30 21:42:06 jeremy Exp $"""
 
 import os
 
 import zope
-
 from zope.app.interfaces.applicationcontrol.zopeversion import IZopeVersion
-
 
 class ZopeVersion:
 

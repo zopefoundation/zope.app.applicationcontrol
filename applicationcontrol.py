@@ -11,30 +11,26 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-__doc__ = """ Application Control
+""" Application Control
 
-$Id: applicationcontrol.py,v 1.2 2002/12/25 14:12:25 jim Exp $"""
+$Id: applicationcontrol.py,v 1.3 2002/12/30 21:41:57 jeremy Exp $"""
 
-from zope.app.interfaces.applicationcontrol.applicationcontrol import IApplicationControl
+from zope.app.interfaces.applicationcontrol.applicationcontrol \
+     import IApplicationControl
 from zope.app.content.folder import RootFolder
 from zope.security.checker import ProxyFactory, NamesChecker
 
 import time
 
 class ApplicationControl:
-    """ """
 
     __implements__ = IApplicationControl
 
     def __init__(self):
         self.start_time = time.time()
 
-
     def getStartTime(self):
         return self.start_time
-
-    #
-    ############################################################
 
 applicationController = ApplicationControl()
 applicationControllerRoot = ProxyFactory(RootFolder(),
