@@ -23,7 +23,7 @@ class TranslationDomainControlView:
 
     def getCatalogsInfo(self):
         info = []
-        for name, domain in zapi.getUtilitiesFor(None, ITranslationDomain):
+        for name, domain in zapi.getUtilitiesFor(ITranslationDomain):
             if not hasattr(domain, 'getCatalogsInfo'):
                 continue
             for language, fileNames in domain.getCatalogsInfo().items():
