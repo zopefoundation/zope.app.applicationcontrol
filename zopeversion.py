@@ -13,17 +13,15 @@
 ##############################################################################
 """Utility to retrieve the Zope version.
 
-$Id: zopeversion.py,v 1.11 2004/05/03 15:13:02 fdrake Exp $
+$Id: zopeversion.py,v 1.12 2004/05/10 06:39:57 philikon Exp $
 """
-
 import os
 
 import zope
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implements
 
-class ZopeVersion:
-
+class ZopeVersion(object):
     implements(IZopeVersion)
 
     def __init__(self, path=None):

@@ -13,7 +13,7 @@
 ##############################################################################
 """ Runtime Information
 
-$Id: runtimeinfo.py,v 1.8 2004/03/25 14:37:08 hdima Exp $
+$Id: runtimeinfo.py,v 1.9 2004/05/10 06:39:57 philikon Exp $
 """
 import sys, os, time
 
@@ -27,8 +27,7 @@ from zope.app.applicationcontrol.interfaces import \
 from zope.component import getUtility, ComponentLookupError
 from zope.interface import implements
 
-class RuntimeInfo:
-
+class RuntimeInfo(object):
     implements(IRuntimeInfo)
     __used_for__ = IApplicationControl
 
@@ -88,4 +87,3 @@ class RuntimeInfo:
     def getUptime(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         return time.time() - self.context.getStartTime()
-
