@@ -15,6 +15,8 @@
 
 $Id$
 """
+__docformat__ = 'restructuredtext'
+
 from zope.app import zapi
 from zope.app.applicationcontrol.interfaces import IServerControl
 

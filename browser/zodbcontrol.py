@@ -15,6 +15,8 @@
 
 $Id$
 """
+__docformat__ = 'restructuredtext'
+
 from ZODB.FileStorage.FileStorage import FileStorageError
 from zope.app.i18n import ZopeMessageIDFactory as _
 

@@ -15,6 +15,8 @@
 
 $Id$
 """
+__docformat__ = 'restructuredtext'
+
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
 from zope.app.i18n import ZopeMessageIDFactory as _
