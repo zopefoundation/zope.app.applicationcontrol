@@ -1,6 +1,5 @@
 <configure 
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:server-control="http://namespaces.zope.org/server-control"
     i18n_domain="zope"
     >
 
@@ -17,34 +16,9 @@
       factory=".runtimeinfo.RuntimeInfo"
       permission="zope.ManageApplication" />
 
-  <adapter 
-      for=".interfaces.IApplicationControl"
-      provides=".interfaces.IZODBControl"
-      factory=".zodbcontrol.ZODBControl"
-      permission="zope.ManageApplication" />
-
-  <adapter 
-      for=".interfaces.IApplicationControl"
-      provides=".interfaces.ITranslationDomainControl"
-      factory=".translationdomaincontrol.TranslationDomainControl"
-      permission="zope.ManageApplication" />
-
   <utility 
       component=".zopeversion.ZopeVersionUtility"
       provides=".interfaces.IZopeVersion" />
-
-  <utility 
-      provides=".interfaces.IServerControl"
-      factory=".servercontrol.ServerControl"
-      permission="zope.ManageApplication"/>
-
-  <!-- Hint: Here you see how to register something on Zope shutdown -->
-  <server-control:registerShutdownHook
-       name="Shutdown logger"
-       priority="0"
-       call=".servercontrol.shutdownLogger"
-       />
-
 
   <!-- Include borwser package -->
 

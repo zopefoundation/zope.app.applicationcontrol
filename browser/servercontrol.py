@@ -11,29 +11,25 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-""" Server Control View
+"""Server Control View
 
-$Id: servercontrol.py,v 1.1 2004/03/01 13:43:25 philikon Exp $
+$Id: servercontrol.py,v 1.2 2004/03/23 15:52:11 srichter Exp $
 """
+from zope.app import zapi
 from zope.app.applicationcontrol.interfaces import IServerControl
-from zope.component import getUtility
 
 from zope.app.i18n import ZopeMessageIDFactory as _
 
 class ServerControlView:
 
     def serverControl(self):
-        # XXX Refactor alarm! This is *required*. We really
-        # rely on it being there. If it was a utility,
-        # we wouldn't care, if the ServerControl is gone,
-        # but actually we do. Maybe this should be a service ...
-        return getUtility(self.context, IServerControl)
+        return zapi.getUtility(self.context, IServerControl)
 
-    def action(self):
+    def action(self, time=0):
         """Do the shutdown/restart!"""
         if 'restart' in self.request:
-            return (self.serverControl().restart()
+            return (self.serverControl().restart(time)
                     or _(u"You restarted the server."))
         elif 'shutdown' in self.request:
-            return (self.serverControl().shutdown()
+            return (self.serverControl().shutdown(time)
                     or _("You shut down the server."))

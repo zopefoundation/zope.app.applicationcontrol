@@ -13,19 +13,9 @@
 ##############################################################################
 """Application Control Interface
 
-$Id: interfaces.py,v 1.3 2004/03/23 13:35:07 hdima Exp $
+$Id: interfaces.py,v 1.4 2004/03/23 15:52:10 srichter Exp $
 """
 from zope.interface import Interface
-
-class ServerControlError(Exception):
-    """Represents an error in the ServerControl."""
-
-class DoublePriorityError(ServerControlError):
-    """A second hook was registered for a priority."""
-
-class NotCallableError(ServerControlError):
-    """Raisen if a given object is not callable."""
-
 
 class IApplicationControl(Interface):
     """The application control instance is usually generated upon startup and
@@ -85,40 +75,26 @@ class IServerControl(Interface):
     ServerController instance.
     """
 
-    def shutdown():
-        """Shutdown the server gracefully
+    def shutdown(time=0):
+        """Shutdown the server.
 
-        Returns: Nothing
+        The time should be greater-equal 0.
+
+        If the time is 0, the we do a hard shutdown, i.e. closing all sockets
+        without waiting for tasks to complete.
+
+        If the time is not 0, then we will give the tasks 'time' seconds to
+        finish before shutting down.
         """
 
-    def restart():
-        """Restart the server gracefully
+    def restart(time=0):
+        """Restart the server.
 
-        Returns: Nothing
+        The time should be greater-equal 0.
+
+        If the time is 0, the we do a hard shutdown, i.e. closing all sockets
+        without waiting for tasks to complete.
+
+        If the time is not 0, then we will give the tasks 'time' seconds to
+        finish before shutting down.
         """
-
-    def registerShutdownHook(call, priority, name):
-        """Register a function that will be callen on server shutdown.
-
-        The function needs to takes no argument at all."""
-
-
-class IZODBControl(Interface):
-    """This control manages the state of the ZODB."""
-
-    def getDatabaseSize(db):
-        """Return the database size in bytes."""
-
-    def pack(db, days):
-        """Pack the ZODB. Remove all entries that are older than 'days' days."""
-
-
-class ITranslationDomainControl(Interface):
-    """This control manages the state of the translation service."""
-
-    def getCatalogsInfo():
-        """Return the registered languages."""
-
-    def reloadCatalogs(domain, language):
-        """reload the named catalogs from file"""
-

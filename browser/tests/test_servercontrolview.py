@@ -13,17 +13,30 @@
 ##############################################################################
 """Server Control View Tests
 
-$Id: test_servercontrolview.py,v 1.3 2004/03/13 23:54:57 srichter Exp $
+$Id: test_servercontrolview.py,v 1.4 2004/03/23 15:52:12 srichter Exp $
 """
 import unittest
 
+from zope.interface import implements
+from zope.app import zapi
 from zope.app.applicationcontrol.applicationcontrol import applicationController
-from zope.app.applicationcontrol.servercontrol import ServerControl
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
 from zope.app.servicenames import Utilities
 from zope.app.site.tests.placefulsetup import PlacefulSetup
 from zope.component import getService
+
+class ServerControlStub(object):
+    implements(IServerControl)
+    
+    did_restart = None
+    did_shutdown = None
+
+    def restart(self, time):
+        self.did_restart = time
+
+    def shutdown(self, time):
+        self.did_shutdown = time
 
 class Test(PlacefulSetup, unittest.TestCase):
 
@@ -34,20 +47,22 @@ class Test(PlacefulSetup, unittest.TestCase):
         return view
 
     def test_ServerControlView(self):
-        getService(None,Utilities).provideUtility(
-              IServerControl, ServerControl())
+        control = ServerControlStub()
+        zapi.getService(None, Utilities).provideUtility(IServerControl, control)
 
         test_serverctrl = self._TestView__newView(
             applicationController,
             {'shutdown': 1},
             )
-        test_serverctrl.action()
+        test_serverctrl.action(100)
+        self.assertEqual(control.did_shutdown, 100)
 
         test_serverctrl = self._TestView__newView(
             applicationController,
             {'restart': 1},
             )
-        test_serverctrl.action()
+        test_serverctrl.action(100)
+        self.assertEqual(control.did_restart, 100)
 
 
 def test_suite():
