@@ -22,9 +22,6 @@ import time
 import zope.interface
 import zope.app.traversing.interfaces
 
-class ApplicationControllerRoot(Location):
-    zope.interface.implements(zope.app.traversing.interfaces.IContainmentRoot)
-
 class ApplicationControl(Location):
 
     zope.interface.implements(IApplicationControl)
@@ -35,8 +32,15 @@ class ApplicationControl(Location):
     def getStartTime(self):
         return self.start_time
 
-applicationController = ApplicationControl()
-applicationControllerRoot = ProxyFactory(ApplicationControllerRoot(),
+
+applicationControllerRoot = Location()
+zope.interface.directlyProvides(
+    applicationControllerRoot,
+    zope.app.traversing.interfaces.IContainmentRoot,
+    )
+applicationControllerRoot = ProxyFactory(applicationControllerRoot,
                                          NamesChecker("__class__"))
+
+applicationController = ApplicationControl()
 applicationController.__parent__ = applicationControllerRoot
 applicationController.__name__ = '++etc++process'
