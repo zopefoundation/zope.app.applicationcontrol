@@ -84,17 +84,13 @@ class RuntimeInfo(object):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
         info = []
         enc = self.getPreferredEncoding()
-        for i in platform.uname():
+        for item in platform.uname():
             try:
-                t = unicode(i, enc)
+                t = unicode(item, enc)
             except ValueError:
                 continue
             info.append(t)
-        if info:
-            info = u" ".join(info)
-        else:
-            info = unicode(sys.platform, enc)
-        return info
+        return u" ".join(info)
 
     def getCommandLine(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
