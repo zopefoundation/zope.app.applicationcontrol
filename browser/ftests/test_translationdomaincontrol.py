@@ -37,7 +37,8 @@ class ZODBControlTest(BrowserTestCase):
                                       'domain': u'zope',
                                       'RELOAD': u'Reload'})
         body = response.getBody()
-        self.assert_('Message Catalog successfully reloaded.' in body)
+        self.assert_('Message Catalog for de language in zope domain'
+                     ' successfully reloaded.' in body)
 
 
 def test_suite():

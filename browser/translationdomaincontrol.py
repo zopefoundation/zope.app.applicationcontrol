@@ -21,6 +21,7 @@ from zope.i18n.interfaces import ITranslationDomain
 from zope.app import zapi
 from zope.app.i18n import ZopeMessageIDFactory as _
 
+
 class TranslationDomainControlView(object):
 
     def getCatalogsInfo(self):
@@ -28,17 +29,17 @@ class TranslationDomainControlView(object):
         for name, domain in zapi.getUtilitiesFor(ITranslationDomain):
             if not hasattr(domain, 'getCatalogsInfo'):
                 continue
+            lang_info = []
+            info.append({'domain': name, 'languagesInfo': lang_info})
             for language, fileNames in domain.getCatalogsInfo().items():
-                info.append({'domain': name,
-                             'language': language,
+                lang_info.append({'language': language,
                              'fileNames': fileNames})
         return info
-
 
     def reloadCatalogs(self):
         """Do the reloading !"""
         status = ''
-        
+
         if 'RELOAD' in self.request:
             language = self.request.get('language')
             domain = self.request.get('domain')
@@ -48,6 +49,9 @@ class TranslationDomainControlView(object):
                 if lang == language:
                     domain.reloadCatalogs(fileNames)
 
-            status = _('Message Catalog successfully reloaded.')
+            status = _('Message Catalog for ${language} language'
+                    ' in ${domain} domain successfully reloaded.')
+            status.mapping['language'] = language
+            status.mapping['domain'] = domain.domain
 
         return status
