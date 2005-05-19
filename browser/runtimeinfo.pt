@@ -10,7 +10,8 @@
      <div class="row">
        <div class="label" i18n:translate="">Uptime</div>
        <div class="field"
-            tal:content="runtime_info/Uptime">Time</div>
+            tal:content="runtime_info/Uptime"
+            i18n:translate="">Time</div>
      </div>
      <div class="row">
        <div class="label" i18n:translate="">System platform</div>

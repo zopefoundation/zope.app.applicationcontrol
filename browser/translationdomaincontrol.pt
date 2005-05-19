@@ -8,7 +8,7 @@
 
     <p tal:define="status view/reloadCatalogs"
          tal:condition="status"
-         tal:content="status" />
+         tal:content="status" i18n:translate=""/>
 
     <div tal:repeat="domainInfo view/getCatalogsInfo">
 
