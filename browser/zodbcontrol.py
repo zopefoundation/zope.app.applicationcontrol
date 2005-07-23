@@ -19,6 +19,7 @@ __docformat__ = 'restructuredtext'
 
 from ZODB.FileStorage.FileStorage import FileStorageError
 from zope.app.i18n import ZopeMessageIDFactory as _
+from zope.app.size import byteDisplay
 
 class ZODBControlView(object):
 
@@ -29,18 +30,9 @@ class ZODBControlView(object):
     def getSize(self):
         """Get the database size in a human readable format."""
         size = self.request.publication.db.getSize()
-        if size > 1024**2:
-            size_str = _("${size} MB")
-            size_str.mapping = {'size': "%.1f" %(float(size)/1024**2)}
-        elif size > 1024:
-            size_str = _("${size} kB")
-            size_str.mapping = {'size': "%.1f" %(float(size)/1024)}
-        else:
-            size_str = _("${size} Bytes")
-            size_str.mapping = {'size': "%i" %size}
-
-        return size_str
-        
+        if not isinstance(size, (int, long, float)):
+            return str(size)
+        return byteDisplay(size)        
 
     def pack(self):
         """Do the packing!"""

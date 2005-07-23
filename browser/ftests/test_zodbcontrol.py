@@ -29,8 +29,7 @@ class ZODBControlTest(BrowserTestCase):
         body = response.getBody()
         self.assert_('value="3"' in body)
         self.assert_('>Demo Storage</' in body)
-        self.assert_('>100 Bytes</' in body)
-
+        self.assert_('>1 KB</' in body)
 
 def test_suite():
     suite = unittest.TestSuite()
