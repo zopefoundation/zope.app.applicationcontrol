@@ -39,7 +39,7 @@
             tal:content="runtime_info/PreferredEncoding">Encoding</div>
      </div>
      <div class="row">
-       <div class="label" i18n:translate="">FileSytem encoding</div>
+       <div class="label" i18n:translate="">FileSystem encoding</div>
        <div class="field"
             tal:content="runtime_info/FileSystemEncoding">Encoding</div>
      </div>
