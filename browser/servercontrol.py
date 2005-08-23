@@ -34,4 +34,4 @@ class ServerControlView(object):
                     or _(u"You restarted the server."))
         elif 'shutdown' in self.request:
             return (self.serverControl().shutdown(time)
-                    or _("You shut down the server."))
+                    or _(u"You shut down the server."))
