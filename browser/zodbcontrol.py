@@ -21,6 +21,7 @@ from ZODB.FileStorage.FileStorage import FileStorageError
 from zope.app.i18n import ZopeMessageIDFactory as _
 from zope.app.size import byteDisplay
 
+
 class ZODBControlView(object):
 
     def getName(self):
@@ -32,7 +33,7 @@ class ZODBControlView(object):
         size = self.request.publication.db.getSize()
         if not isinstance(size, (int, long, float)):
             return str(size)
-        return byteDisplay(size)        
+        return byteDisplay(size)
 
     def pack(self):
         """Do the packing!"""
@@ -44,5 +45,4 @@ class ZODBControlView(object):
                 status = _('ZODB successfully packed.')
             except FileStorageError, err:
                 status = _(err)
-                
         return status
