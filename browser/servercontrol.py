@@ -20,7 +20,7 @@ __docformat__ = 'restructuredtext'
 from zope.app import zapi
 from zope.app.applicationcontrol.interfaces import IServerControl
 
-from zope.app.i18n import ZopeMessageIDFactory as _
+from zope.app.i18n import ZopeMessageFactory as _
 
 class ServerControlView(object):
 

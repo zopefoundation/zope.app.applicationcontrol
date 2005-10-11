@@ -19,7 +19,7 @@ __docformat__ = 'restructuredtext'
 
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
-from zope.app.i18n import ZopeMessageIDFactory as _
+from zope.app.i18n import ZopeMessageFactory as _
 
 
 class RuntimeInfoView(object):
@@ -64,9 +64,8 @@ class RuntimeInfoView(object):
         hours, minutes = divmod(minutes, 60)
         days, hours = divmod(hours, 24)
 
-        uptime = _('${days} day(s) ${hours}:${minutes}:${seconds}')
-        uptime.mapping = {'days': '%d' % days,
-                          'hours': '%02d' % hours,
-                          'minutes': '%02d' % minutes,
-                          'seconds': '%02d' % seconds}
-        return uptime
+        return _('${days} day(s) ${hours}:${minutes}:${seconds}',
+                 mapping = {'days': '%d' % days,
+                            'hours': '%02d' % hours,
+                            'minutes': '%02d' % minutes,
+                            'seconds': '%02d' % seconds})

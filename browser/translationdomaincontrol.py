@@ -19,7 +19,7 @@ __docformat__ = 'restructuredtext'
 
 from zope.i18n.interfaces import ITranslationDomain
 from zope.app import zapi
-from zope.app.i18n import ZopeMessageIDFactory as _
+from zope.app.i18n import ZopeMessageFactory as _
 
 
 class TranslationDomainControlView(object):
@@ -50,8 +50,8 @@ class TranslationDomainControlView(object):
                     domain.reloadCatalogs(fileNames)
 
             status = _('Message Catalog for ${language} language'
-                    ' in ${domain} domain successfully reloaded.')
-            status.mapping['language'] = language
-            status.mapping['domain'] = domain.domain
+                       ' in ${domain} domain successfully reloaded.',
+                       mapping = {u'language': language,
+                                  u'domain': domain.domain})
 
         return status

@@ -18,7 +18,7 @@ $Id$
 import unittest
 from zope.app.testing.functional import BrowserTestCase
 
-class ZODBControlTest(BrowserTestCase):
+class MessageCatalogControlTest(BrowserTestCase):
 
     def testDomainOverview(self):
         response = self.publish(
@@ -43,7 +43,7 @@ class ZODBControlTest(BrowserTestCase):
 
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(ZODBControlTest))
+    suite.addTest(unittest.makeSuite(MessageCatalogControlTest))
     return suite
 
 if __name__=='__main__':
