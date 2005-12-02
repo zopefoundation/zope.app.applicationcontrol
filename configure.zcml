@@ -20,7 +20,7 @@
       component=".zopeversion.ZopeVersionUtility"
       provides=".interfaces.IZopeVersion" />
 
-  <!-- Include borwser package -->
+  <!-- Include browser package -->
 
   <include package=".browser" />
 
