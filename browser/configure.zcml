@@ -2,14 +2,12 @@
    xmlns:zope="http://namespaces.zope.org/zope"
    xmlns="http://namespaces.zope.org/browser">
 
-  <pages
+   <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
-      permission="zope.ManageApplication"
-      class=".servercontrol.ServerControlView">
-
-    <page name="ServerControlForm.html" template="server-control.pt" />
-    <page name="ServerControl.html" attribute="action" />
-  </pages>
+      name="servercontrol.html"
+      template="servercontrol.pt"
+      class=".servercontrol.ServerControlView"
+      permission="zope.ManageApplication"/>
 
    <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"
@@ -29,7 +27,7 @@
     <menuItem
         order="-1"
         title="Server Control"
-        action="ServerControlForm.html" />
+        action="servercontrol.html" />
   </menuItems>
 
   <page

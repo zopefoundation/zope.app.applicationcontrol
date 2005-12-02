@@ -5,16 +5,22 @@
 <body>
 <div metal:fill-slot="body">
 
-  <form name="servercontrol" action="ServerControl.html" method="post">
+  <div class="message" 
+    tal:define="status view/action"
+    tal:condition="status"
+    tal:content="status">
+   </div>
+
+  <form name="servercontrol" action="servercontrol.html" method="post">
     <div class="row">
         <div class="label"
-            i18n:translate="">Shutdown time</div>
+            i18n:translate="">Countdown until restart or shutdown</div>
         <div class="field">
             <input type="text" name="time:int" size="5" value="0" />
             &nbsp;<span i18n:translate="">seconds</span>
             <p i18n:translate="">
               If you specify a time of 0 seconds, then the server
-              will do a hard shutdown.
+              will be shutdown or restarted immediately.
             </p>
         </div>
     </div>

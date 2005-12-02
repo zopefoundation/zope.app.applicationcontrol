@@ -50,16 +50,18 @@ class Test(PlacefulSetup, unittest.TestCase):
 
         test_serverctrl = self._TestView__newView(
             applicationController,
-            {'shutdown': 1},
+            {'shutdown': 1,
+             'time': 100},
             )
-        test_serverctrl.action(100)
+        test_serverctrl.action()
         self.assertEqual(control.did_shutdown, 100)
 
         test_serverctrl = self._TestView__newView(
             applicationController,
-            {'restart': 1},
+            {'restart': 1,
+             'time': 100},
             )
-        test_serverctrl.action(100)
+        test_serverctrl.action()
         self.assertEqual(control.did_restart, 100)
 
 

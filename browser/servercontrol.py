@@ -27,11 +27,18 @@ class ServerControlView(object):
     def serverControl(self):
         return zapi.getUtility(IServerControl)
 
-    def action(self, time=0):
+    def action(self):
         """Do the shutdown/restart!"""
+        # XXX I18N the responses
+        control = self.serverControl()
+
+        if 'time' in self.request:
+            time = self.request.get('time', 0)
+
         if 'restart' in self.request:
-            return (self.serverControl().restart(time)
-                    or _(u"You restarted the server."))
+            control.restart(time)
+            return u"The server will be restarted in %s seconds." % time
         elif 'shutdown' in self.request:
-            return (self.serverControl().shutdown(time)
-                    or _(u"You shut down the server."))
+            control.shutdown(time)
+            return u"The server will be shutdown in %s seconds." % time
+
