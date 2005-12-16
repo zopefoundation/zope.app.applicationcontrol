@@ -29,7 +29,7 @@ class ServerControlView(object):
 
     def action(self):
         """Do the shutdown/restart!"""
-        # XXX I18N the responses
+        # TODO I18N the responses
         control = self.serverControl()
 
         if 'time' in self.request:
@@ -41,4 +41,3 @@ class ServerControlView(object):
         elif 'shutdown' in self.request:
             control.shutdown(time)
             return u"The server will be shutdown in %s seconds." % time
-
