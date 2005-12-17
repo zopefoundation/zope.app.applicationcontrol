@@ -22,6 +22,7 @@ from zope.app.applicationcontrol.interfaces import IServerControl
 
 from zope.app.i18n import ZopeMessageFactory as _
 
+
 class ServerControlView(object):
 
     def serverControl(self):
@@ -29,15 +30,14 @@ class ServerControlView(object):
 
     def action(self):
         """Do the shutdown/restart!"""
-        # TODO I18N the responses
         control = self.serverControl()
-
-        if 'time' in self.request:
-            time = self.request.get('time', 0)
+        time = self.request.get('time', 0)
 
         if 'restart' in self.request:
             control.restart(time)
-            return u"The server will be restarted in %s seconds." % time
+            return _("The server will be restarted in ${number} seconds.",
+                mapping={"number": time})
         elif 'shutdown' in self.request:
             control.shutdown(time)
-            return u"The server will be shutdown in %s seconds." % time
+            return _("The server will be shutdown in ${number} seconds.",
+                mapping={"number": time})
