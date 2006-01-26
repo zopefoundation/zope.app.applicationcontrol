@@ -19,15 +19,17 @@ __docformat__ = 'restructuredtext'
 
 import os
 import re
+from xml.dom.minidom import parse
 
 import zope.app
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implements
 
+
 class ZopeVersion(object):
+
     implements(IZopeVersion)
 
-    __entries = re.compile(r'(url|revision)\s*=\s*"([^"]+)"')
     __tags = re.compile(r'/(tags|branches)/([^/]+)/')
 
     def __init__(self, path=None):
@@ -52,8 +54,10 @@ class ZopeVersion(object):
             versionfile = os.path.join(self.path, "version.txt")
             if os.path.isfile(versionfile):
                 f = file(versionfile)
-                self.result = f.readline().strip() or self.result
-                f.close()
+                try:
+                    self.result = f.readline().strip() or self.result
+                finally:
+                    f.close()
         return self.result
 
     def __setSVNVersion(self, svndir):
@@ -61,30 +65,23 @@ class ZopeVersion(object):
 
             # get the version information
             if os.path.isfile(entriesfile):
-                f = file(entriesfile)
-                url, revision = "", ""
-                for line in f:
-                    match = self.__entries.search(line)
-                    if match is not None:
-                        name, value = match.group(1, 2)
-                        if name == "url":
-                            url = value
-                        elif name == "revision":
-                            revision = value
-                        if url and revision:
-                            break
-                f.close()
+                doc = parse(entriesfile)
+                here = doc.getElementsByTagNameNS("svn:", "entry").item(0)
+                if here:
+                    url = here.getAttribute("url")
+                    revision = here.getAttribute("revision")
 
-                if revision and url:
-                    match = self.__tags.search(url)
-                    tag = ""
-                    if match is not None:
-                        type, value = match.group(1, 2)
-                        if type == "tags":
-                            tag = "/Tag: %s" % value
-                        elif type == "branches":
-                            tag = "/Branch: %s" % value
-                    self.result = "Development/Revision: %s%s" \
-                                  % (revision, tag)
+                    if revision and url:
+                        match = self.__tags.search(url)
+                        if match is None:
+                            tag = ""
+                        else:
+                            type, value = match.groups()
+                            if type == "tags":
+                                tag = "/Tag: %s" % value
+                            elif type == "branches":
+                                tag = "/Branch: %s" % value
+                        self.result = ("Development/Revision: %s%s"
+                                      % (revision, tag))
 
 ZopeVersionUtility = ZopeVersion()
