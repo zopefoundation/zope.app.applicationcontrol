@@ -3,12 +3,12 @@
     i18n_domain="zope"
     >
 
-  <content
+  <class
       class=".applicationcontrol.ApplicationControl">
     <require
         permission="zope.ManageApplication"
         interface=".interfaces.IApplicationControl"/>
-  </content>
+  </class>
 
   <adapter 
       for=".interfaces.IApplicationControl"
