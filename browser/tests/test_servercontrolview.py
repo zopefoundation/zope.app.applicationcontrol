@@ -46,7 +46,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
     def test_ServerControlView(self):
         control = ServerControlStub()
-        zapi.getGlobalSiteManager().provideUtility(IServerControl, control)
+        zapi.getGlobalSiteManager().registerUtility(control, IServerControl)
 
         test_serverctrl = self._TestView__newView(
             applicationController,

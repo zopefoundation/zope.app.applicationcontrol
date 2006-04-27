@@ -19,7 +19,7 @@ __docformat__ = 'restructuredtext'
 
 from ZODB.FileStorage.FileStorage import FileStorageError
 from zope.app.i18n import ZopeMessageFactory as _
-from zope.app.size import byteDisplay
+from zope.size import byteDisplay
 
 
 class ZODBControlView(object):

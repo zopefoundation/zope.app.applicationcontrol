@@ -16,12 +16,12 @@
 $Id$"""
 __docformat__ = 'restructuredtext'
 
-from zope.app.applicationcontrol.interfaces import IApplicationControl
-from zope.app.location import Location
-from zope.security.checker import ProxyFactory, NamesChecker
 import time
 import zope.interface
-import zope.app.traversing.interfaces
+import zope.traversing.interfaces
+from zope.location import Location
+from zope.security.checker import ProxyFactory, NamesChecker
+from zope.app.applicationcontrol.interfaces import IApplicationControl
 
 class ApplicationControl(Location):
 
@@ -37,7 +37,7 @@ class ApplicationControl(Location):
 applicationControllerRoot = Location()
 zope.interface.directlyProvides(
     applicationControllerRoot,
-    zope.app.traversing.interfaces.IContainmentRoot,
+    zope.traversing.interfaces.IContainmentRoot,
     )
 applicationControllerRoot = ProxyFactory(applicationControllerRoot,
                                          NamesChecker("__class__"))

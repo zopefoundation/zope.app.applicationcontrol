@@ -80,9 +80,9 @@ class Test(PlacefulSetup, unittest.TestCase):
         # we expect that there is no utility
         self.assertEqual(runtime_info.getZopeVersion(), u"Unavailable")
 
-        zapi.getSiteManager().provideUtility(IZopeVersion, TestZopeVersion())
-        self.assertEqual(runtime_info.getZopeVersion(),
-                                         stupid_version_string)
+        zapi.getSiteManager().registerUtility(TestZopeVersion(), IZopeVersion)
+        self.assertEqual(runtime_info.getZopeVersion(), stupid_version_string)
+
     def test_PythonVersion(self):
         runtime_info = self._Test__new()
         enc = self._getPreferredEncoding()

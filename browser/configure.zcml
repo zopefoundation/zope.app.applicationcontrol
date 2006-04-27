@@ -49,7 +49,7 @@
   <!-- add a action tab to the root folder for navigation -->
   <menuItem
       menu="zmi_actions"
-      for="zope.app.traversing.interfaces.IContainmentRoot"
+      for="zope.traversing.interfaces.IContainmentRoot"
       title="Manage Process"
       action="++etc++process/index.html" />
 
