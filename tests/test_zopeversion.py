@@ -19,17 +19,25 @@ import os
 import shutil
 import tempfile
 import unittest
-from xml.sax.saxutils import quoteattr
 
 from zope.interface.verify import verifyObject
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 
 
+class MockZopeVersion(ZopeVersion):
+
+    def setSVNInfoOutput(self, lines):
+        self.__lines = lines
+
+    def _getSVNInfoOutput(self):
+        return self.__lines
+
 class Test(unittest.TestCase):
 
     def setUp(self):
         self.tmpdir = tempfile.mkdtemp(prefix="test-zopeversion-")
+        self.zopeVersion = MockZopeVersion(self.tmpdir)
 
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
@@ -37,94 +45,72 @@ class Test(unittest.TestCase):
     def prepare(self, version, fields):
         if version:
             f = open(os.path.join(self.tmpdir, "version.txt"), "w")
-            f.write(version)
-            if not version.endswith("\n"):
-                f.write("\n")
-            f.close()
+            try:
+                f.write(version)
+                if not version.endswith("\n"):
+                    f.write("\n")
+            finally:
+                f.close()
         if fields:
             os.mkdir(os.path.join(self.tmpdir, ".svn"))
-            f = open(os.path.join(self.tmpdir, ".svn", "entries"), "w")
-            fields = ["%s=%s" % (key, quoteattr(val))
-                      for key, val in fields.items()]
-            text = ('<?xml version="1.0" encoding="utf-8"?>\n'
-                    '<wc-entries\n'
-                    '   xmlns="svn:">\n'
-                    '<entry\n'
-                    '   name=""\n'
-                    '   kind="dir"\n'
-                    '   %s/>\n'
-                    '</wc-entries>\n' % "\n   ".join(fields))
-            f.write(text)
-            f.close()
-
-    def _Test__new(self):
-        return ZopeVersion(self.tmpdir)
+            self.zopeVersion.setSVNInfoOutput(fields)
 
     def test_IVerify(self):
-        verifyObject(IZopeVersion, self._Test__new())
-
-    # In .svn/entries we check only two attributes:
-    #   'url' - repository path
-    #   'revision' - checked out revision number
+        verifyObject(IZopeVersion, self.zopeVersion)
 
     def test_ZopeVersion(self):
         self.prepare(None, None)
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(), "Development/Unknown")
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Unknown")
 
     def test_ZopeVersion_svntrunk(self):
-        self.prepare(None, {
-            "url": "svn+ssh://svn.zope.org/repos/main/Zope3/trunk/src/zope",
-            "revision": "10000"
-            })
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(),
-                        "Development/Revision: 10000")
+        self.prepare(None, [
+            "URL: svn+ssh://svn.zope.org/repos/main/Zope3/trunk/src/zope",
+            "Revision: 10000"
+            ])
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Revision: 10000")
 
     def test_ZopeVersion_svnbranch(self):
-        self.prepare(None, {
-            "url": "svn+ssh://svn.zope.org/repos/main/Zope3/branches/Zope3-1.0/src/zope",
-            "revision": "10000"
-            })
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(),
-                        "Development/Revision: 10000/Branch: Zope3-1.0")
+        self.prepare(None, [
+            "URL: svn+ssh://svn.zope.org/repos/main/Zope3/branches/Zope3-1.0/src/zope",
+            "Revision: 10000"
+            ])
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Revision: 10000/Branch: Zope3-1.0")
 
     def test_ZopeVersion_svntag(self):
-        self.prepare(None, {
-            "url": "svn+ssh://svn.zope.org/repos/main/Zope3/tags/Zope3-1.0/src/zope",
-            "revision": "10000"
-            })
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(),
-                        "Development/Revision: 10000/Tag: Zope3-1.0")
+        self.prepare(None, [
+            "URL: svn+ssh://svn.zope.org/repos/main/Zope3/tags/Zope3-1.0/src/zope",
+            "Revision: 10000"
+            ])
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Revision: 10000/Tag: Zope3-1.0")
 
     def test_ZopeVersion_svn_unknown(self):
-        self.prepare(None, {"uuid": ""})
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(), "Development/Unknown")
+        self.prepare(None, ["Nope: "])
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Unknown")
 
     def test_ZopeVersion_release(self):
         self.prepare("Zope 3 1.0.0", None)
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(),
-                         "Zope 3 1.0.0")
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Zope 3 1.0.0")
 
     def test_ZopeVersion_release_empty(self):
         self.prepare(" ", None)
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(), "Development/Unknown")
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Unknown")
 
     def test_ZopeVersion_release_svntrunk(self):
         # demonstrate that the version.txt data is discarded if
         # there's revision-control metadata:
-        self.prepare("Zope 3 1.0.0", {
-            "url": "svn+ssh://svn.zope.org/repos/main/Zope3/trunk/src/zope",
-            "revision": "10000"
-            })
-        zope_version = self._Test__new()
-        self.assertEqual(zope_version.getZopeVersion(),
-                        "Development/Revision: 10000")
+        self.prepare("Zope 3 1.0.0", [
+            "URL: svn+ssh://svn.zope.org/repos/main/Zope3/trunk/src/zope",
+            "Revision: 10000"
+            ])
+        self.assertEqual(self.zopeVersion.getZopeVersion(),
+            "Development/Revision: 10000")
 
 
 def test_suite():
