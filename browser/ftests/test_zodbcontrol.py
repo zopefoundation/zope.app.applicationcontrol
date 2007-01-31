@@ -16,25 +16,39 @@
 $Id$
 """
 import unittest
+import ZODB.tests.util
+from ZODB.interfaces import IDatabase
+from zope.app.testing import functional
+from zope import component
 
-from zope.app.testing.functional import BrowserTestCase
+
+functional.defineLayer('TestLayer', 'ftesting.zcml')
+
+def setUp(test):
+    test.databases = test.globs['getRootFolder']()._p_jar.db().databases
+    db2 = ZODB.tests.util.DB(databases=test.databases, database_name='2')
+
+    for name, db in test.databases.items():
+        component.provideUtility(db, IDatabase, name=name)
 
 
-class ZODBControlTest(BrowserTestCase):
+def tearDown(test):
+    for db in test.databases.values():
+        db.close()
 
-    def testZODBControlOverview(self):
-        response = self.publish('/++etc++process/@@ZODBControl.html',
-                                basic='globalmgr:globalmgrpw',
-                                form={'days': u'3'})
-        body = response.getBody()
-        self.assert_('value="3"' in body)
-        self.assert_('>Demo Storage</' in body)
-        self.assert_('>1 KB</' in body)
 
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(ZODBControlTest))
+    suites = (
+        functional.FunctionalDocFileSuite('zodb.txt',
+                                          setUp=setUp, tearDown=tearDown,
+                                         ),
+        )
+    for s in suites:
+        s.layer=TestLayer
+        suite.addTest(s)
     return suite
+
 
 if __name__=='__main__':
     unittest.main(defaultTest='test_suite')
