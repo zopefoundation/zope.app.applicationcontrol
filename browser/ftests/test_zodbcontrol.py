@@ -22,7 +22,7 @@ from zope.app.testing import functional
 from zope import component
 
 
-functional.defineLayer('TestLayer', 'ftesting.zcml')
+functional.defineLayer('ApplicationControlLayer', 'ftesting.zcml')
 
 def setUp(test):
     test.databases = test.globs['getRootFolder']()._p_jar.db().databases
@@ -45,7 +45,7 @@ def test_suite():
                                          ),
         )
     for s in suites:
-        s.layer=TestLayer
+        s.layer=ApplicationControlLayer
         suite.addTest(s)
     return suite
 
