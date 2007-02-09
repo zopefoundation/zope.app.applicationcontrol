@@ -21,8 +21,7 @@ from ZODB.interfaces import IDatabase
 from zope.app.testing import functional
 from zope import component
 
-
-functional.defineLayer('ApplicationControlLayer', 'ftesting.zcml')
+from zope.app.applicationcontrol.testing import ApplicationControlLayer
 
 def setUp(test):
     test.databases = test.globs['getRootFolder']()._p_jar.db().databases
@@ -39,14 +38,11 @@ def tearDown(test):
 
 def test_suite():
     suite = unittest.TestSuite()
-    suites = (
-        functional.FunctionalDocFileSuite('zodb.txt',
-                                          setUp=setUp, tearDown=tearDown,
-                                         ),
-        )
-    for s in suites:
-        s.layer=ApplicationControlLayer
-        suite.addTest(s)
+    zodb = functional.FunctionalDocFileSuite('zodb.txt',
+                                             setUp=setUp,
+                                             tearDown=tearDown)
+    zodb.layer = ApplicationControlLayer
+    suite.addTest(zodb)
     return suite
 
 

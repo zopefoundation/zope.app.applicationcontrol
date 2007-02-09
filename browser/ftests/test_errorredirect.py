@@ -18,7 +18,7 @@ $Id$
 import unittest
 
 from zope.app.testing.functional import BrowserTestCase
-
+from zope.app.applicationcontrol.testing import ApplicationControlLayer
 
 class ErrorRedirectTest(BrowserTestCase):
 
@@ -32,6 +32,7 @@ class ErrorRedirectTest(BrowserTestCase):
 
 def test_suite():
     suite = unittest.TestSuite()
+    ErrorRedirectTest.layer = ApplicationControlLayer
     suite.addTest(unittest.makeSuite(ErrorRedirectTest))
     return suite
 

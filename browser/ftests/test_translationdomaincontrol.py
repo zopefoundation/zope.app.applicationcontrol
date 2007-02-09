@@ -17,6 +17,7 @@ $Id$
 """
 import unittest
 from zope.app.testing.functional import BrowserTestCase
+from zope.app.applicationcontrol.testing import ApplicationControlLayer
 
 class MessageCatalogControlTest(BrowserTestCase):
 
@@ -43,6 +44,7 @@ class MessageCatalogControlTest(BrowserTestCase):
 
 def test_suite():
     suite = unittest.TestSuite()
+    MessageCatalogControlTest.layer = ApplicationControlLayer
     suite.addTest(unittest.makeSuite(MessageCatalogControlTest))
     return suite
 
