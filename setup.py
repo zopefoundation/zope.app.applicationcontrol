@@ -37,6 +37,8 @@ setup(name='zope.app.applicationcontrol',
                        "with methods for shutting down and"
                        "restarting the server.",
 
+      extras_require=dict(test=['zope.app.testing']),
+
       packages=['zope', 'zope.app',
                 'zope.app.applicationcontrol',
                 'zope.app.applicationcontrol.browser',
@@ -45,11 +47,9 @@ setup(name='zope.app.applicationcontrol',
                 'zope.app.applicationcontrol.tests'],
       package_dir = {'': 'src'},
 
-      namespace_packages=['zope',],
-      tests_require = ['zope.testing'],
+      namespace_packages=['zope', 'zope.app'],
       install_requires=['zope.interface',
                         'zope.i18n',
-                        'zope.app.i18n',
                         'zope.size'],
       include_package_data = True,
 
