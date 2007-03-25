@@ -31,7 +31,7 @@ import platform
 from zope.component import getUtility, ComponentLookupError
 from zope.interface import implements
 
-from zope.app.i18n import ZopeMessageFactory as _
+from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 from zope.app.applicationcontrol.interfaces import IApplicationControl

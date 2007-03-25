@@ -19,7 +19,7 @@ __docformat__ = 'restructuredtext'
 
 from zope.i18n.interfaces import ITranslationDomain
 from zope.app import zapi
-from zope.app.i18n import ZopeMessageFactory as _
+from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
 
 class TranslationDomainControlView(object):

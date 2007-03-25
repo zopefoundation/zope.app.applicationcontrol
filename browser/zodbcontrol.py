@@ -18,7 +18,7 @@ $Id$
 __docformat__ = 'restructuredtext'
 
 from ZODB.FileStorage.FileStorage import FileStorageError
-from zope.app.i18n import ZopeMessageFactory as _
+from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 from zope.size import byteDisplay
 from ZODB.interfaces import IDatabase
 from zope import component
