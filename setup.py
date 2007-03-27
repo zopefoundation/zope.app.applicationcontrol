@@ -17,11 +17,7 @@ $Id$
 """
 
 import os
-
-try:
-    from setuptools import setup, Extension
-except ImportError, e:
-    from distutils.core import setup, Extension
+from setuptools import setup, find_packages, Extension
 
 setup(name='zope.app.applicationcontrol',
       version='3.4-dev',
@@ -39,16 +35,12 @@ setup(name='zope.app.applicationcontrol',
 
       extras_require=dict(test=['zope.app.testing']),
 
-      packages=['zope', 'zope.app',
-                'zope.app.applicationcontrol',
-                'zope.app.applicationcontrol.browser',
-                'zope.app.applicationcontrol.browser.ftests',
-                'zope.app.applicationcontrol.browser.tests',
-                'zope.app.applicationcontrol.tests'],
       package_dir = {'': 'src'},
+	  packages=find_packages('src'),
 
       namespace_packages=['zope', 'zope.app'],
-      install_requires=['zope.interface',
+      install_requires=['setuptools',
+                        'zope.interface',
                         'zope.i18n',
                         'zope.size'],
       include_package_data = True,
