@@ -49,6 +49,11 @@
             tal:content="runtime_info/ProcessId">ID</div>
      </div>
      <div class="row">
+       <div class="label" i18n:translate="">Developer mode</div>
+       <div class="field"
+            tal:content="runtime_info/DeveloperMode">ID</div>
+     </div>
+     <div class="row">
        <div class="label" i18n:translate="">Python path</div>
        <div class="field">
         <ul>

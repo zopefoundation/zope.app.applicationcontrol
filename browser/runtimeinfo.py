@@ -32,7 +32,8 @@ class RuntimeInfoView(object):
         "PreferredEncoding",
         "FileSystemEncoding",
         "CommandLine",
-        "ProcessId"
+        "ProcessId",
+        "DeveloperMode",
         )
     _unavailable = _("Unavailable")
 

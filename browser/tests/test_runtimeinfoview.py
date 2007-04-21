@@ -43,7 +43,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
         assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
               'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
-              'CommandLine', 'ProcessId', 'Uptime' ]
+              'CommandLine', 'ProcessId', 'Uptime', 'DeveloperMode' ]
         test_keys = test_format.keys()
 
         assert_keys.sort()
@@ -60,7 +60,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
         assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
               'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
-              'CommandLine', 'ProcessId', 'Uptime']
+              'CommandLine', 'ProcessId', 'Uptime', 'DeveloperMode' ]
         test_keys = test_format.keys()
 
         assert_keys.sort()

@@ -37,6 +37,7 @@ from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 from zope.app.applicationcontrol.interfaces import IApplicationControl
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 
+from zope.app.appsetup import appsetup
 
 class RuntimeInfo(object):
     """Runtime information."""
@@ -46,6 +47,15 @@ class RuntimeInfo(object):
 
     def __init__(self, context):
         self.context = context
+
+    def getDeveloperMode(self):
+        """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
+        cc=appsetup.getConfigContext()
+        if cc == None:  # make the test run
+            return 'undefined'
+        if cc.hasFeature('devmode'): 
+            return 'On'
+        return 'Off'
 
     def getPreferredEncoding(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
