@@ -20,7 +20,7 @@ import os
 from setuptools import setup, find_packages, Extension
 
 setup(name='zope.app.applicationcontrol',
-      version='3.4-dev',
+      version = '3.4.0b1',
       url='http://svn.zope.org/zope.app.applicationcontrol',
       license='ZPL 2.1',
       description='Zope applicationcontrol',
