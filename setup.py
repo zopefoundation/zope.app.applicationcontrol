@@ -36,7 +36,7 @@ setup(name='zope.app.applicationcontrol',
       extras_require=dict(test=['zope.app.testing']),
 
       package_dir = {'': 'src'},
-	  packages=find_packages('src'),
+      packages=find_packages('src'),
 
       namespace_packages=['zope', 'zope.app'],
       install_requires=['setuptools',
