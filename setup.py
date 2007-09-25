@@ -24,7 +24,7 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(name='zope.app.applicationcontrol',
-    version = '3.4.0b1',
+    version = '3.4.0',
     author='Zope Corporation and Contributors',
     author_email='zope3-dev@zope.org',
     description='Zope applicationcontrol',
