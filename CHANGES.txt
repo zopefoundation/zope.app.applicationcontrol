@@ -1,2 +1,11 @@
-zope.app.applicationcontrol Package Changelog
-=============================================
+=======
+CHANGES
+=======
+
+
+Version 3.4.0 (2007/9/25)
+-------------------------
+
+- Initial documented release
+
+- Reflect changes form zope.app.error refactoring
