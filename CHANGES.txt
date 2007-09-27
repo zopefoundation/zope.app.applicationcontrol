@@ -2,9 +2,13 @@
 CHANGES
 =======
 
+Version 3.4.1 (2007-09-27)
+--------------------------
 
-Version 3.4.0 (2007/9/25)
--------------------------
+- rebumped to replace faulty egg
+
+Version 3.4.0 (2007-09-25)
+--------------------------
 
 - Initial documented release
 
