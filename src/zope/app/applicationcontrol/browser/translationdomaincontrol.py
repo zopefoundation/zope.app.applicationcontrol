@@ -17,8 +17,8 @@ $Id$
 """
 __docformat__ = 'restructuredtext'
 
+import zope.component
 from zope.i18n.interfaces import ITranslationDomain
-from zope.app import zapi
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
 
@@ -26,7 +26,7 @@ class TranslationDomainControlView(object):
 
     def getCatalogsInfo(self):
         info = []
-        for name, domain in zapi.getUtilitiesFor(ITranslationDomain):
+        for name, domain in zope.component.getUtilitiesFor(ITranslationDomain):
             if not hasattr(domain, 'getCatalogsInfo'):
                 continue
             lang_info = []
@@ -44,7 +44,7 @@ class TranslationDomainControlView(object):
             language = self.request.get('language')
             domain = self.request.get('domain')
 
-            domain = zapi.getUtility(ITranslationDomain, domain)
+            domain = zope.component.getUtility(ITranslationDomain, domain)
             for lang, fileNames in domain.getCatalogsInfo().items():
                 if lang == language:
                     domain.reloadCatalogs(fileNames)

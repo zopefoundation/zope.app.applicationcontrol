@@ -17,7 +17,7 @@ $Id$
 """
 __docformat__ = 'restructuredtext'
 
-from zope.app import zapi
+import zope.component
 from zope.app.applicationcontrol.interfaces import IServerControl
 
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
@@ -26,7 +26,7 @@ from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 class ServerControlView(object):
 
     def serverControl(self):
-        return zapi.getUtility(IServerControl)
+        return zope.component.getUtility(IServerControl)
 
     def action(self):
         """Do the shutdown/restart!"""

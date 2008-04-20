@@ -17,8 +17,8 @@ $Id$
 """
 import unittest
 
+import zope.component
 from zope.interface import implements
-from zope.app import zapi
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
@@ -46,7 +46,8 @@ class Test(PlacefulSetup, unittest.TestCase):
 
     def test_ServerControlView(self):
         control = ServerControlStub()
-        zapi.getGlobalSiteManager().registerUtility(control, IServerControl)
+        globalSiteManager = zope.component.getGlobalSiteManager()
+        globalSiteManager.registerUtility(control, IServerControl)
 
         test_serverctrl = self._TestView__newView(
             applicationController,

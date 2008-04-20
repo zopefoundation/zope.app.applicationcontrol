@@ -22,7 +22,7 @@ try:
 except ImportError:
     locale = None
 
-from zope.app import zapi
+import zope.component
 from zope.interface import implements
 from zope.interface.verify import verifyObject
 from zope.app.applicationcontrol.applicationcontrol import applicationController
@@ -80,7 +80,9 @@ class Test(PlacefulSetup, unittest.TestCase):
         # we expect that there is no utility
         self.assertEqual(runtime_info.getZopeVersion(), u"Unavailable")
 
-        zapi.getSiteManager().registerUtility(TestZopeVersion(), IZopeVersion)
+        siteManager = zope.component.getSiteManager()
+        siteManager.registerUtility(TestZopeVersion(), IZopeVersion)
+
         self.assertEqual(runtime_info.getZopeVersion(), stupid_version_string)
 
     def test_PythonVersion(self):
