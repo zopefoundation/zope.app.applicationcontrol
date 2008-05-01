@@ -63,7 +63,7 @@ class ZopeVersion(object):
     def _getSVNInfoOutput(self):
         try:
             proc = subprocess.Popen('svn info "%s"' % self.path,
-                shell=True, stdout=subprocess.PIPE)
+                shell=True, stdout=subprocess.PIPE, env={'LANG': 'C'})
         except OSError:
             pass
         else:

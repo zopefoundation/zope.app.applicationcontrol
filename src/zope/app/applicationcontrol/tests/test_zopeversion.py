@@ -17,6 +17,7 @@ $Id$
 """
 import os
 import shutil
+import subprocess
 import tempfile
 import unittest
 
@@ -24,6 +25,14 @@ from zope.interface.verify import verifyObject
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 
+
+def isSVNAvailable():
+    try:
+        proc = subprocess.Popen('svn help', shell=True, stdout=subprocess.PIPE)
+    except OSError:
+        return False
+    else:
+        return proc.wait() == 0
 
 class MockZopeVersion(ZopeVersion):
 
@@ -112,6 +121,14 @@ class Test(unittest.TestCase):
         self.assertEqual(self.zopeVersion.getZopeVersion(),
             "Development/Revision: 10000")
 
+    def test_WrongLocale(self):
+        """Demonstrate bug 177733"""
+        if isSVNAvailable():
+            currentPath = os.path.dirname(os.path.abspath(__file__))
+            zv = ZopeVersion(currentPath)
+            zv.getZopeVersion()
+            # check that we don't get a 'Development/Unknown' version
+            self.assert_(zv.result.startswith('Development/Revision: '))
 
 def test_suite():
     return unittest.makeSuite(Test)
