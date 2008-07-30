@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+Version 3.4.2 (unreleased)
+--------------------------
+
+- Fixed deprecation warning in ftesting.zcml: import ZopeSecurityPolicy from
+  the new location.
+
 Version 3.4.1 (2007-09-27)
 --------------------------
 
