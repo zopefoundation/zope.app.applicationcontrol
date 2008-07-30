@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-Version 3.4.3 (unreleased)
+Version 3.4.3 (2008-07-30)
 --------------------------
 
 - Make the test for the ZopeVersion bugfix in 3.4.2 not fail when run from an
