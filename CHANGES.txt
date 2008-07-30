@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-Version 3.4.2 (unreleased)
+Version 3.4.2 (2008-07-30)
 --------------------------
 
 - Substitute zope.app.zapi by direct calls to its wrapped apis.
