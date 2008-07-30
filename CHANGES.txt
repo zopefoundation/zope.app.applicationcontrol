@@ -5,6 +5,9 @@ CHANGES
 Version 3.4.3 (unreleased)
 --------------------------
 
+- Make the test for the ZopeVersion bugfix in 3.4.2 not fail when run from an
+  egg rather than a checkout.
+
 Version 3.4.2 (2008-07-30)
 --------------------------
 

@@ -34,6 +34,11 @@ def isSVNAvailable():
     else:
         return proc.wait() == 0
 
+
+def isSVNCheckout(dir):
+    return os.path.isdir(os.path.join(dir, '.svn'))
+
+
 class MockZopeVersion(ZopeVersion):
 
     def setSVNInfoOutput(self, lines):
@@ -123,8 +128,8 @@ class Test(unittest.TestCase):
 
     def test_WrongLocale(self):
         """Demonstrate bug 177733"""
-        if isSVNAvailable():
-            currentPath = os.path.dirname(os.path.abspath(__file__))
+        currentPath = os.path.dirname(os.path.abspath(__file__))
+        if isSVNAvailable() and isSVNCheckout(currentPath):
             zv = ZopeVersion(currentPath)
             zv.getZopeVersion()
             # check that we don't get a 'Development/Unknown' version
