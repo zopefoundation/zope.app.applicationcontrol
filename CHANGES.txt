@@ -2,8 +2,13 @@
 CHANGES
 =======
 
-Version 3.4.4 (unreleased)
+Version 3.5.0 (unreleased)
 --------------------------
+
+- The application controller is now registered as a utility so that other
+  packages like zope.traversing and zope.app.publication do not need
+  to depend on this package directly.  This also makes the application
+  controller pluggable.
 
 Version 3.4.3 (2008-07-30)
 --------------------------

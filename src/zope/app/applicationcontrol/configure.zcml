@@ -20,6 +20,18 @@
       component=".zopeversion.ZopeVersionUtility"
       provides=".interfaces.IZopeVersion" />
 
+  <utility
+      component=".applicationcontrol.applicationController"
+      provides="zope.traversing.interfaces.IEtcNamespace"
+      name="process"
+      />
+
+  <utility
+      component=".applicationcontrol.applicationController"
+      provides="zope.traversing.interfaces.IEtcNamespace"
+      name="ApplicationController"
+      />
+
   <!-- Include browser package -->
 
   <include package=".browser" />

@@ -24,7 +24,7 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(name='zope.app.applicationcontrol',
-    version = '3.4.4dev',
+    version = '3.5.0',
     author='Zope Corporation and Contributors',
     author_email='zope3-dev@zope.org',
     description='Zope applicationcontrol',
@@ -53,11 +53,14 @@ setup(name='zope.app.applicationcontrol',
     package_dir = {'': 'src'},
     packages=find_packages('src'),
     namespace_packages=['zope', 'zope.app'],
-    install_requires=['setuptools',
-                      'zope.error',
-                      'zope.interface',
-                      'zope.i18n',
-                      'zope.size',],
+    install_requires=[
+        'setuptools',
+        'zope.error',
+        'zope.interface',
+        'zope.i18n',
+        'zope.size',
+        'zope.traversing>=3.7.0',
+        ],
     include_package_data = True,
     zip_safe = False,
     )
