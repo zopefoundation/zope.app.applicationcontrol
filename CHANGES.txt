@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-Version 3.5.0 (unreleased)
+Version 3.5.0 (2009-05-23)
 --------------------------
 
 - The application controller is now registered as a utility so that other
