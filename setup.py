@@ -59,7 +59,7 @@ setup(name='zope.app.applicationcontrol',
     namespace_packages=['zope', 'zope.app'],
     install_requires=[
           'setuptools',
-          'zope.app.appsetuo'
+          'zope.app.appsetuo',
           'zope.error',
           'zope.i18n',
           'zope.interface',
