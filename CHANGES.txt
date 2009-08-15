@@ -2,10 +2,12 @@
 CHANGES
 =======
 
-Version 3.5.1 (unreleased)
+Version 3.5.1 (2009-08-15)
 --------------------------
 
-- ... -\|/- ...
+- Added missing (normal and test) dependencies.
+
+- Renenabled functional tests.
 
 Version 3.5.0 (2009-05-23)
 --------------------------

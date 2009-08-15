@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2006 Zope Corporation and Contributors.
+# Copyright (c) Zope Foundation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Setup for zope.app.applicationcontrol package
-
-$Id$
-"""
+version = '0'
 
 import os
 
@@ -24,7 +21,7 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(name='zope.app.applicationcontrol',
-    version = '3.5.1dev',
+    version = version,
     author='Zope Corporation and Contributors',
     author_email='zope3-dev@zope.org',
     description='Zope applicationcontrol',
@@ -49,17 +46,25 @@ setup(name='zope.app.applicationcontrol',
         'Framework :: Zope3'],
     url='http://cheeseshop.python.org/pypi/zope.app.applicationcontrol',
     extras_require=dict(
-        test=['zope.app.testing']),
+        test=['zope.app.authentication',
+              'zope.app.component',
+              'zope.app.securitypolicy',
+              'zope.app.testing',
+              'zope.app.zcmlfiles',
+              'zope.app.zptpage',
+              'zope.testbrowser',
+              ]),
     package_dir = {'': 'src'},
     packages=find_packages('src'),
     namespace_packages=['zope', 'zope.app'],
     install_requires=[
-        'setuptools',
-        'zope.error',
-        'zope.interface',
-        'zope.i18n',
-        'zope.size',
-        'zope.traversing>=3.7.0',
+          'setuptools',
+          'zope.app.appsetuo'
+          'zope.error',
+          'zope.i18n',
+          'zope.interface',
+          'zope.size',
+          'zope.traversing>=3.7.0',
         ],
     include_package_data = True,
     zip_safe = False,
