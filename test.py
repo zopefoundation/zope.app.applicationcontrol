@@ -38,4 +38,3 @@ defaults = [
     ]
 
 sys.exit(testrunner.run(defaults))
-

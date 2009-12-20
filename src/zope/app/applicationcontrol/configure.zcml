@@ -1,36 +1,42 @@
 <configure 
-    xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="zope"
-    >
+   xmlns="http://namespaces.zope.org/zope"
+   i18n_domain="zope"
+   >
 
-  <class
-      class=".applicationcontrol.ApplicationControl">
+  <permission
+     id="zope.ManageApplication"
+     title="[manage-application-permission] Manage Application"
+     description="Manage the Zope Application, such as Restart/Shutdown or
+                  packing the ZODB."
+     />
+
+  <class class=".applicationcontrol.ApplicationControl">
     <require
-        permission="zope.ManageApplication"
-        interface=".interfaces.IApplicationControl"/>
+       permission="zope.ManageApplication"
+       interface=".interfaces.IApplicationControl"/>
   </class>
-
+  
   <adapter 
-      for=".interfaces.IApplicationControl"
-      provides=".interfaces.IRuntimeInfo"
-      factory=".runtimeinfo.RuntimeInfo"
-      permission="zope.ManageApplication" />
-
+     for=".interfaces.IApplicationControl"
+     provides=".interfaces.IRuntimeInfo"
+     factory=".runtimeinfo.RuntimeInfo"
+     permission="zope.ManageApplication" />
+  
   <utility 
-      component=".zopeversion.ZopeVersionUtility"
-      provides=".interfaces.IZopeVersion" />
+     component=".zopeversion.ZopeVersionUtility"
+     provides=".interfaces.IZopeVersion" />
 
   <utility
-      component=".applicationcontrol.applicationController"
-      provides="zope.traversing.interfaces.IEtcNamespace"
-      name="process"
-      />
+     component=".applicationcontrol.applicationController"
+     provides="zope.traversing.interfaces.IEtcNamespace"
+     name="process"
+     />
 
   <utility
-      component=".applicationcontrol.applicationController"
-      provides="zope.traversing.interfaces.IEtcNamespace"
-      name="ApplicationController"
-      />
+     component=".applicationcontrol.applicationController"
+     provides="zope.traversing.interfaces.IEtcNamespace"
+     name="ApplicationController"
+     />
 
   <!-- Include browser package -->
 

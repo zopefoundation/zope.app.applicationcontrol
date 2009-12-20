@@ -30,7 +30,7 @@ class MessageCatalogControlTest(BrowserTestCase):
         self.checkForBrokenLinks(body,
                                  '/++etc++process/@@TranslationDomain.html',
                                  basic='globalmgr:globalmgrpw')
-        
+
     def testReload(self):
         response = self.publish('/++etc++process/@@TranslationDomain.html',
                                 basic='globalmgr:globalmgrpw',

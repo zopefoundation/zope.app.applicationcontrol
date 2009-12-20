@@ -31,7 +31,7 @@ class IRuntimeInfo(Interface):
     """Runtime Information Adapter for Application Control"""
 
     def getDeveloperMode():
-        """Return the current developer mode setting""" 
+        """Return the current developer mode setting"""
 
     def getPreferredEncoding():
         """Return the encoding used for text data, according

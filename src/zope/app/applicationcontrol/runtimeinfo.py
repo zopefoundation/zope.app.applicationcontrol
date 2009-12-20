@@ -37,7 +37,11 @@ from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 from zope.app.applicationcontrol.interfaces import IApplicationControl
 from zope.app.applicationcontrol.interfaces import IZopeVersion
 
-from zope.app.appsetup import appsetup
+try:
+    from zope.app.appsetup import appsetup
+except ImportError:
+    appsetup = None
+
 
 class RuntimeInfo(object):
     """Runtime information."""
@@ -50,10 +54,13 @@ class RuntimeInfo(object):
 
     def getDeveloperMode(self):
         """See zope.app.applicationcontrol.interfaces.IRuntimeInfo"""
+        if appsetup is None:
+            return 'undefined'
+
         cc=appsetup.getConfigContext()
         if cc == None:  # make the test run
             return 'undefined'
-        if cc.hasFeature('devmode'): 
+        if cc.hasFeature('devmode'):
             return 'On'
         return 'Off'
 

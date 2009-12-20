@@ -5,6 +5,11 @@ CHANGES
 Version 3.5.2 (unreleased)
 --------------------------
 
+- Move 'zope.ManageApplication' permission from zope.app.security package
+
+- Break dependency on ``zope.app.appsetup`` by using a conditional import
+
+
 Version 3.5.1 (2009-08-15)
 --------------------------
 

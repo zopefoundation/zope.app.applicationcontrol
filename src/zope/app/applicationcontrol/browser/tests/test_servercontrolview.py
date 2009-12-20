@@ -26,7 +26,7 @@ from zope.app.component.testing import PlacefulSetup
 
 class ServerControlStub(object):
     implements(IServerControl)
-    
+
     did_restart = None
     did_shutdown = None
 

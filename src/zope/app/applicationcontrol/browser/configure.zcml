@@ -1,6 +1,8 @@
 <zope:configure 
+   xmlns:zcml="http://namespaces.zope.org/zcml"
    xmlns:zope="http://namespaces.zope.org/zope"
-   xmlns="http://namespaces.zope.org/browser">
+   xmlns="http://namespaces.zope.org/browser"
+   zcml:condition="installed zope.browserpage">
 
    <page
       for="zope.app.applicationcontrol.interfaces.IApplicationControl"

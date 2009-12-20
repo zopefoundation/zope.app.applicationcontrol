@@ -26,7 +26,7 @@ from zope import component
 class ZODBControlView(object):
 
     status  = None
-    
+
     @property
     def databases(self):
         res = []
@@ -39,10 +39,10 @@ class ZODBControlView(object):
                 )
             res.append(d)
         return res
-            
+
     def _getSize(self, db):
         """Get the database size in a human readable format."""
-        size = db.getSize()        
+        size = db.getSize()
         if not isinstance(size, (int, long, float)):
             return str(size)
         return byteDisplay(size)
