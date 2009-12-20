@@ -2,7 +2,13 @@
 CHANGES
 =======
 
-Version 3.5.2 (unreleased)
+Version 3.5.3 (Unreleased)
+--------------------------
+
+- ...
+
+
+Version 3.5.2 (2009-12-19)
 --------------------------
 
 - Move 'zope.ManageApplication' permission from zope.app.security package
