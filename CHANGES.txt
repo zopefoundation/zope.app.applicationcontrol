@@ -5,7 +5,8 @@ CHANGES
 Version 3.5.3 (Unreleased)
 --------------------------
 
-- ...
+- Updated to use newer zope.publisher 3.12 and zope.login to make
+  tests work.
 
 
 Version 3.5.2 (2009-12-19)
