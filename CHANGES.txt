@@ -5,7 +5,7 @@ CHANGES
 3.5.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Test dependency on zptpage removed.
 
 
 3.5.3 (2010-01-05)
