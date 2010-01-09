@@ -22,7 +22,7 @@ import re
 import subprocess
 
 import zope.app
-from zope.app.applicationcontrol.interfaces import IZopeVersion
+from zope.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implements
 
 

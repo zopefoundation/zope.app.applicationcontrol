@@ -5,8 +5,9 @@ CHANGES
 3.5.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Extracted RuntimeInfo and ApplicationRoot functionality into
+  zope.applicationcontrol. Import this functionality from this package
+  instead (see BBB imports inside this package).
 
 3.5.4 (2010-01-08)
 ------------------

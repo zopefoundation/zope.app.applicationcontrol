@@ -16,32 +16,8 @@
 $Id$"""
 __docformat__ = 'restructuredtext'
 
-import time
-import zope.interface
-import zope.traversing.interfaces
-from zope.location import Location
-from zope.security.checker import ProxyFactory, NamesChecker
-from zope.app.applicationcontrol.interfaces import IApplicationControl
-
-class ApplicationControl(Location):
-
-    zope.interface.implements(IApplicationControl)
-
-    def __init__(self):
-        self.start_time = time.time()
-
-    def getStartTime(self):
-        return self.start_time
-
-
-applicationControllerRoot = Location()
-zope.interface.directlyProvides(
+# BBB
+from zope.applicationcontrol.applicationcontrol import (
+    ApplicationControl,
     applicationControllerRoot,
-    zope.traversing.interfaces.IContainmentRoot,
-    )
-applicationControllerRoot = ProxyFactory(applicationControllerRoot,
-                                         NamesChecker("__class__"))
-
-applicationController = ApplicationControl()
-applicationController.__parent__ = applicationControllerRoot
-applicationController.__name__ = '++etc++process'
+    applicationController)

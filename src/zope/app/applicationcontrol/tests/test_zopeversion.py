@@ -22,7 +22,7 @@ import tempfile
 import unittest
 
 from zope.interface.verify import verifyObject
-from zope.app.applicationcontrol.interfaces import IZopeVersion
+from zope.applicationcontrol.interfaces import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 
 

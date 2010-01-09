@@ -66,6 +66,7 @@ setup(name='zope.app.applicationcontrol',
     namespace_packages=['zope', 'zope.app'],
     install_requires=[
           'setuptools',
+          'zope.applicationcontrol',
           'zope.component',
           'zope.i18nmessageid',
           'zope.interface',
