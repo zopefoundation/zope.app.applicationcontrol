@@ -28,7 +28,7 @@ def read(*rnames):
 setup(name='zope.app.applicationcontrol',
     version = version,
     author='Zope Foundation and Contributors',
-    author_email='zope3-dev@zope.org',
+    author_email='zope-dev@zope.org',
     description='Zope applicationcontrol',
     long_description=(
         read('README.txt')
