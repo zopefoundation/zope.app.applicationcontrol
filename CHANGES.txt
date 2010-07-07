@@ -5,7 +5,8 @@ CHANGES
 3.5.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Bugfix: Launching ``svn`` replaced the whole environment instead of just
+  appending ``LANG``.
 
 
 3.5.5 (2010-01-09)
