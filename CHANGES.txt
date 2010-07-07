@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.5.6 (unreleased)
+3.5.6 (2010-07-07)
 ------------------
 
 - Bugfix: Launching ``svn`` replaced the whole environment instead of just
