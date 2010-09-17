@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.5.8 (unreleased)
+3.5.8 (2010-09-17)
 ------------------
 
 - Replaced a testing dependency on zope.app.securitypolicy with one on

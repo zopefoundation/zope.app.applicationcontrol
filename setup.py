@@ -16,11 +16,12 @@
 # When developing and releasing this package, please follow the documented
 # Zope Toolkit policies as described by this documentation.
 ##############################################################################
-version = '3.5.8dev'
 
 import os
 
 from setuptools import setup, find_packages
+
+version = '3.5.8'
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
