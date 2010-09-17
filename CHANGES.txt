@@ -5,7 +5,8 @@ CHANGES
 3.5.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Replaced a testing dependency on zope.app.securitypolicy with one on
+  zope.securitypolicy.
 
 
 3.5.7 (2010-07-08)
