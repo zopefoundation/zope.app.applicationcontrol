@@ -16,6 +16,7 @@
 $Id$
 """
 import os
+import sys
 import shutil
 import subprocess
 import tempfile
@@ -134,6 +135,10 @@ class Test(unittest.TestCase):
             zv.getZopeVersion()
             # check that we don't get a 'Development/Unknown' version
             self.assert_(zv.result.startswith('Development/Revision: '))
+
+    def test_ZopeVersion_no_path_specified(self):
+        zopeVersion = ZopeVersion(None)
+        self.assertEqual(zopeVersion.result, "Meaningless")
 
 def test_suite():
     return unittest.makeSuite(Test)

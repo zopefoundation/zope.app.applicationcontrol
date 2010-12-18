@@ -5,6 +5,12 @@ CHANGES
 3.5.9 (unreleased)
 ------------------
 
+- Bugfix: AttributeError: 'module' object has no attribute '__file__'
+  when you used ``pip install`` instead of ``easy_install``.
+
+  The IZopeVersion utility now returns "Meaningless", since there's no
+  monolithic Zope 3 in the modern eggified world.
+
 
 3.5.8 (2010-09-17)
 ------------------

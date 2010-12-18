@@ -21,7 +21,6 @@ import os
 import re
 import subprocess
 
-import zope.app
 from zope.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implements
 
@@ -34,9 +33,17 @@ class ZopeVersion(object):
 
     def __init__(self, path=None):
         if path is None:
-            path = os.path.dirname(os.path.abspath(zope.app.__file__))
-        self.path = path
-        self.result = None
+            # This used to look at zope.app.__file__.  But zope.app is a
+            # namespace package these days.
+            # easy_install makes zope.app.__file__ be something random, like
+            # /path/to/zope.app.renderer-x.y.z-py2.x.egg/zope/app/__init__.pyc
+            # pip install makes zope.app have no __file__ at all, breaking
+            # the old code.
+            self.path = None
+            self.result = "Meaningless"
+        else:
+            self.path = path
+            self.result = None
 
     def getZopeVersion(self):
         """See zope.app.applicationcontrol.interfaces.IZopeVersion"""
