@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.5.9 (unreleased)
+3.5.9 (2010-12-18)
 ------------------
 
 - Bugfix: AttributeError: 'module' object has no attribute '__file__'
