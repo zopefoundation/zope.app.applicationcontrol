@@ -7,6 +7,7 @@ CHANGES
 
 - Replaced a testing dependency on zope.app.authentication with
   zope.password.
+- Removed unneeded zope.app.appsetup test dependency.
 
 
 3.5.9 (2010-12-18)
