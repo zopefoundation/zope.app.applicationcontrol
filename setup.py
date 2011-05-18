@@ -30,7 +30,7 @@ setup(name='zope.app.applicationcontrol',
     version = version,
     author='Zope Foundation and Contributors',
     author_email='zope-dev@zope.org',
-    description='Zope applicationcontrol',
+    description='Zope application control',
     long_description=(
         read('README.txt')
         + '\n\n' +
