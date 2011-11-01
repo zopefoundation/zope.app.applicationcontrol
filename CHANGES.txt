@@ -5,8 +5,12 @@ CHANGES
 3.5.10 (unreleased)
 -------------------
 
+- Extended the locale-specific fix from version 3.5.6 for hosts
+  which set ``LC_*`` in the environment:  those variables shadow ``LANG``.
+
 - Replaced a testing dependency on zope.app.authentication with
   zope.password.
+
 - Removed unneeded zope.app.appsetup test dependency.
 
 
