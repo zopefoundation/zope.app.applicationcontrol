@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.5.10 (unreleased)
+3.5.10 (2011-11-02)
 -------------------
 
 - Extended the locale-specific fix from version 3.5.6 for hosts

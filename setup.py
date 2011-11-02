@@ -21,7 +21,7 @@ import os
 
 from setuptools import setup, find_packages
 
-version = '3.5.10dev'
+version = '3.5.10'
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
