@@ -1,5 +1,6 @@
 <configure
    xmlns="http://namespaces.zope.org/zope"
+   xmlns:browser="http://namespaces.zope.org/browser"
    i18n_domain="zope"
    package="zope.app.applicationcontrol"
    >
@@ -7,12 +8,107 @@
   <!-- This file is the equivalent of site.zcml and it is -->
   <!-- used for functional testing setup -->
 
+
   <include package="zope.securitypolicy" file="meta.zcml" />
 
-  <include package="zope.app.zcmlfiles" />
+  <include package="zope.component" file="meta.zcml" />
+  <include package="zope.security" file="meta.zcml" />
+  <include package="zope.app.container.browser" file="meta.zcml" />
+  <include package="zope.browserpage" file="meta.zcml" />
+  <include package="zope.app.publication" file="meta.zcml" />
+  <include package="zope.principalregistry" file="meta.zcml" />
+  <include package="zope.publisher" file="meta.zcml" />
+  <include package="zope.browserresource" file="meta.zcml" />
+  <include package="zope.browsermenu" file="meta.zcml" />
+  <include package="zope.securitypolicy" file="meta.zcml" />
+  <include package="zope.app.form.browser" file="meta.zcml" />
+
+
+  <include package="zope.annotation" />
+  <include package="zope.authentication" />
+  <include package="zope.browsermenu" />
+
+  <include package="zope.container" />
+  <include package="zope.component" />
+  <include package="zope.copypastemove" />
+  <include package="zope.dublincore" />
+  <include package="zope.location" />
   <include package="zope.login" />
   <include package="zope.password" />
+
+  <include package="zope.principalregistry" />
+  <include package="zope.publisher" />
+  <include package="zope.security" />
   <include package="zope.securitypolicy" />
+  <include package="zope.session" />
+  <include package="zope.i18n" />
+
+  <include package="zope.site" />
+  <include package="zope.traversing" />
+  <include package="zope.traversing.browser" />
+
+  <!-- These normally come from zope.app.zcmlfiles/menus.zcml -->
+  <browser:menu
+      id="zmi_views"
+      title="Views"
+      description="Menu for displaying alternate representations of an object"
+      />
+
+  <browser:menu
+      id="zmi_actions"
+      title="Actions"
+      description="Menu for displaying actions to be performed"
+      />
+
+
+  <!-- This sets up session and cookie handlers in its subscribers -->
+  <include package="zope.app.appsetup" />
+
+  <include package="zope.app.form.browser" />
+  <include package="zope.app.basicskin" />
+
+  <include package="zope.app.pagetemplate" />
+  <include package="zope.app.locales" />
+  <include package="zope.app.publication" />
+  <include package="zope.app.rotterdam" />
+
+  <include package="zope.applicationcontrol" />
+  <include package="zope.app.applicationcontrol" />
+
+  <include package="zope.app.authentication" />
+  <include package="zope.app.authentication.browser" />
+
+
+  <!-- Normally from zope.app.error -->
+  <include package="zope.error" />
+  <browser:page
+      for="*"
+      name="errorRedirect.html"
+      permission="zope.ManageServices"
+      class=".browser.tests.ErrorRedirect"
+      attribute="action"
+      menu="zmi_actions"
+      title="Errors"
+      />
+
+  <browser:defaultView name="index.html" />
+
+
+  <!-- Normally comes from zope.app.security; needed by Rotterdam -->
+  <browser:page
+      name="login_logout"
+      for="*"
+      class=".tests.LoginLogout"
+      permission="zope.Public"
+      />
+
+  <!-- Without Rotterdam configured, our zodbcontrol.update() method
+	   doesn't get called by POST -->
+  <browser:defaultSkin name="Rotterdam" />
+
+
+  <!-- This normally comes from zope.app.server -->
+  <utility factory=".tests.MockServerControl" />
 
   <securityPolicy
     component="zope.securitypolicy.zopepolicy.ZopeSecurityPolicy" />

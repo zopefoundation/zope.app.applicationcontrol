@@ -13,10 +13,9 @@
 ##############################################################################
 """Zope Version Tests
 
-$Id$
 """
 import os
-import sys
+
 import shutil
 import subprocess
 import tempfile
@@ -30,7 +29,7 @@ from zope.app.applicationcontrol.zopeversion import ZopeVersion
 def isSVNAvailable():
     try:
         proc = subprocess.Popen('svn help', shell=True, stdout=subprocess.PIPE)
-    except OSError:
+    except OSError: # pragma: no cover
         return False
     else:
         return proc.wait() == 0
@@ -130,7 +129,8 @@ class Test(unittest.TestCase):
     def test_WrongLocale(self):
         """Demonstrate bug 177733"""
         currentPath = os.path.dirname(os.path.abspath(__file__))
-        if isSVNAvailable() and isSVNCheckout(currentPath):
+        if isSVNAvailable() and isSVNCheckout(currentPath): # pragma: no cover
+            # We live in git now. This should never be the case.
             zv = ZopeVersion(currentPath)
             zv.getZopeVersion()
             # check that we don't get a 'Development/Unknown' version

@@ -13,11 +13,10 @@
 ##############################################################################
 """Translation Domain Control Tests
 
-$Id$
 """
 import unittest
-from zope.app.testing.functional import BrowserTestCase
-from zope.app.applicationcontrol.testing import ApplicationControlLayer
+from zope.app.applicationcontrol.browser.tests import BrowserTestCase
+
 
 class MessageCatalogControlTest(BrowserTestCase):
 
@@ -26,10 +25,11 @@ class MessageCatalogControlTest(BrowserTestCase):
             '/++etc++process/@@TranslationDomain.html',
             basic='globalmgr:globalmgrpw')
 
-        body = response.getBody()
-        self.checkForBrokenLinks(body,
-                                 '/++etc++process/@@TranslationDomain.html',
-                                 basic='globalmgr:globalmgrpw')
+        for link_name in ('servercontrol.html', '@@ZODBControl.html',
+                          'index.html'):
+            response.click(href=link_name,
+                           extra_environ={'wsgi.handleErrors': False})
+
 
     def testReload(self):
         response = self.publish('/++etc++process/@@TranslationDomain.html',
@@ -37,16 +37,13 @@ class MessageCatalogControlTest(BrowserTestCase):
                                 form={'language': u'de',
                                       'domain': u'zope',
                                       'RELOAD': u'Reload'})
-        body = response.getBody()
-        self.assert_('Message Catalog for de language in zope domain'
-                     ' successfully reloaded.' in body)
+        body = response.unicode_normal_body
+        self.assertIn('Message Catalog for de language in zope domain'
+                     ' successfully reloaded.',  body)
 
 
 def test_suite():
-    suite = unittest.TestSuite()
-    MessageCatalogControlTest.layer = ApplicationControlLayer
-    suite.addTest(unittest.makeSuite(MessageCatalogControlTest))
-    return suite
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

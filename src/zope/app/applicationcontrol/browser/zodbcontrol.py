@@ -13,7 +13,6 @@
 ##############################################################################
 """ Server Control View
 
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
@@ -23,9 +22,19 @@ from zope.size import byteDisplay
 from ZODB.interfaces import IDatabase
 from zope import component
 
+size_types = (int, float)
+try:
+    size_types += (long,)
+except NameError:
+    pass
+
 class ZODBControlView(object):
 
     status  = None
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
 
     @property
     def databases(self):
@@ -43,7 +52,7 @@ class ZODBControlView(object):
     def _getSize(self, db):
         """Get the database size in a human readable format."""
         size = db.getSize()
-        if not isinstance(size, (int, long, float)):
+        if not isinstance(size, size_types):
             return str(size)
         return byteDisplay(size)
 
@@ -59,13 +68,14 @@ class ZODBControlView(object):
                 status.append(_('Error: Invalid Number'))
                 self.status = status
                 return self.status
+
             for dbName in dbs:
                 db = component.getUtility(IDatabase, name=dbName)
                 try:
                     db.pack(days=days)
                     status.append(_('ZODB "${name}" successfully packed.',
                                mapping=dict(name=str(dbName))))
-                except FileStorageError, err:
+                except FileStorageError as err:
                     status.append(_('ERROR packing ZODB "${name}": ${err}',
                                     mapping=dict(name=str(dbName), err=err)))
         self.status = status

@@ -13,14 +13,20 @@
 ##############################################################################
 """zope.app.applicationcontrol common test related classes/functions/objects.
 
-$Id$
 """
 
 __docformat__ = "reStructuredText"
 
-import os
-from zope.app.testing.functional import ZCMLLayer
 
-ApplicationControlLayer = ZCMLLayer(
-    os.path.join(os.path.split(__file__)[0], 'ftesting.zcml'),
-    __name__, 'ApplicationControlLayer', allow_teardown=True)
+from zope.app.wsgi.testlayer import BrowserLayer
+from zope.testbrowser.wsgi import TestBrowserLayer
+
+import zope.app.applicationcontrol
+
+class _ApplicationControlLayer(TestBrowserLayer,
+                               BrowserLayer):
+    pass
+
+ApplicationControlLayer = _ApplicationControlLayer(
+    zope.app.applicationcontrol,
+    allowTearDown=True)

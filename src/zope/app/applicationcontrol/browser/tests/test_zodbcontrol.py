@@ -13,19 +13,19 @@
 ##############################################################################
 """ZODB Control Tests
 
-$Id$
 """
 import unittest
+import doctest
 import ZODB.tests.util
 from ZODB.interfaces import IDatabase
-from zope.app.testing import functional
+from zope.testing import cleanup
 from zope import component
 
 from zope.app.applicationcontrol.testing import ApplicationControlLayer
 
 def setUp(test):
     test.databases = test.globs['getRootFolder']()._p_jar.db().databases
-    db2 = ZODB.tests.util.DB(databases=test.databases, database_name='2')
+    _db2 = ZODB.tests.util.DB(databases=test.databases, database_name='2')
 
     for name, db in test.databases.items():
         component.provideUtility(db, IDatabase, name=name)
@@ -34,17 +34,19 @@ def setUp(test):
 def tearDown(test):
     for db in test.databases.values():
         db.close()
-
+    cleanup.cleanUp()
 
 def test_suite():
     suite = unittest.TestSuite()
-    zodb = functional.FunctionalDocFileSuite('zodb.txt',
-                                             setUp=setUp,
-                                             tearDown=tearDown)
+    zodb = doctest.DocFileSuite(
+        'zodb.rst',
+        setUp=setUp,
+        tearDown=tearDown,
+        globs={'getRootFolder': ApplicationControlLayer.getRootFolder})
     zodb.layer = ApplicationControlLayer
     suite.addTest(zodb)
     return suite
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

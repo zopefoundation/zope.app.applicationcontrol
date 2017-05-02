@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """Utility to retrieve the Zope version.
-
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
@@ -22,12 +20,10 @@ import re
 import subprocess
 
 from zope.applicationcontrol.interfaces import IZopeVersion
-from zope.interface import implements
+from zope.interface import implementer
 
-
+@implementer(IZopeVersion)
 class ZopeVersion(object):
-
-    implements(IZopeVersion)
 
     __tags = re.compile(r'/(tags|branches)/([^/]+)/')
 
@@ -60,11 +56,9 @@ class ZopeVersion(object):
             # try to get official Zope release information
             versionfile = os.path.join(self.path, "version.txt")
             if os.path.isfile(versionfile):
-                f = file(versionfile)
-                try:
+                with open(versionfile) as f:
                     self.result = f.readline().strip() or self.result
-                finally:
-                    f.close()
+
         return self.result
 
     def _getSVNInfoOutput(self):
@@ -72,7 +66,7 @@ class ZopeVersion(object):
             env = os.environ.copy()
             env['LANG'] = env['LC_ALL'] = env['LC_MESSAGES'] = 'C'
             proc = subprocess.Popen('svn info "%s"' % self.path,
-                shell=True, stdout=subprocess.PIPE, env=env)
+                                    shell=True, stdout=subprocess.PIPE, env=env)
         except OSError:
             pass
         else:

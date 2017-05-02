@@ -13,18 +13,27 @@
 ##############################################################################
 """Runtime View tests
 
-$Id$
 """
 import unittest
-from types import DictType
-from zope.app.testing import ztapi
 
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
 from zope.app.applicationcontrol.browser.runtimeinfo import RuntimeInfoView
 from zope.app.applicationcontrol.interfaces import \
      IApplicationControl, IRuntimeInfo
-from zope.app.component.testing import PlacefulSetup
+from zope.component.testing import PlacelessSetup as PlacefulSetup
+
+import zope.component
+
+stypes = list, tuple
+def provideAdapter(required, provided, factory, name='', **kw):
+
+    gsm = zope.component.getGlobalSiteManager()
+
+    if not isinstance(required, stypes):
+        required = (required,)
+
+    gsm.registerAdapter(factory, required, provided, name, event=False)
 
 class Test(PlacefulSetup, unittest.TestCase):
 
@@ -35,46 +44,42 @@ class Test(PlacefulSetup, unittest.TestCase):
         return view
 
     def test_RuntimeInfoView(self):
-        ztapi.provideAdapter(IApplicationControl, IRuntimeInfo, RuntimeInfo)
+        provideAdapter(IApplicationControl, IRuntimeInfo, RuntimeInfo)
         test_runtimeinfoview = self._TestView__newView(applicationController)
 
         test_format = test_runtimeinfoview.runtimeInfo()
-        self.failUnless(isinstance(test_format, DictType))
+        self.assertIsInstance(test_format, dict)
 
-        assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
-              'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
-              'CommandLine', 'ProcessId', 'Uptime', 'DeveloperMode' ]
+        assert_keys = [
+            'ZopeVersion', 'PythonVersion', 'PythonPath',
+            'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
+            'CommandLine', 'ProcessId', 'Uptime', 'DeveloperMode'
+        ]
         test_keys = test_format.keys()
 
-        assert_keys.sort()
-        test_keys.sort()
-        self.failUnlessEqual(assert_keys, test_keys)
+        self.assertEqual(sorted(assert_keys), sorted(test_keys))
 
-        self.failUnlessEqual("Unavailable", test_format["ZopeVersion"])
+        self.assertEqual("Unavailable", test_format["ZopeVersion"])
 
     def test_RuntimeInfoFailureView(self):
         test_runtimeinfoview = self._TestView__newView(applicationController)
 
         test_format = test_runtimeinfoview.runtimeInfo()
-        self.failUnless(isinstance(test_format, DictType))
+        self.assertIsInstance(test_format, dict)
 
         assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
               'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
               'CommandLine', 'ProcessId', 'Uptime', 'DeveloperMode' ]
         test_keys = test_format.keys()
 
-        assert_keys.sort()
-        test_keys.sort()
-        self.failUnlessEqual(assert_keys, test_keys)
+        self.assertEqual(sorted(assert_keys), sorted(test_keys))
 
         for key in assert_keys:
-            self.failUnlessEqual("Unavailable", test_format[key])
+            self.assertEqual("Unavailable", test_format[key])
 
 
 def test_suite():
-    return unittest.TestSuite((
-        unittest.makeSuite(Test),
-        ))
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
 if __name__ == '__main__':
     unittest.main()
