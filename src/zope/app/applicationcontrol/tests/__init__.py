@@ -15,9 +15,3 @@ class MockServerControl(object):
 
     def shutdown(self, time):
         self.did_shutdown = time
-
-class LoginLogout(object):
-    # Dummy implementation of zope.app.security.browser.auth.LoginLogout
-
-    def __call__(self):
-        return None
