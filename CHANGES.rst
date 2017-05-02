@@ -12,6 +12,8 @@ CHANGES
 
 - Change dependency on ``ZODB3`` to ``ZODB``.
 
+- Remove the ability of ``ZopeVersion``  to parse information from a
+  subversion checkout. zope.app packages are in git now.
 
 3.5.10 (2011-11-02)
 -------------------
