@@ -16,7 +16,7 @@
 """
 __docformat__ = 'restructuredtext'
 
-from ZODB.FileStorage.FileStorage import FileStorageError
+from ZODB.POSException import StorageError
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 from zope.size import byteDisplay
 from ZODB.interfaces import IDatabase
@@ -39,22 +39,20 @@ class ZODBControlView(object):
     @property
     def databases(self):
         res = []
-        for name, db in component.getUtilitiesFor(
-            IDatabase):
-            d = dict(
-                dbName = db.getName(),
-                utilName = str(name),
-                size = self._getSize(db),
-                )
+        for name, db in component.getUtilitiesFor(IDatabase):
+            d = {
+                'dbName': db.getName(),
+                'utilName': str(name),
+                'size': self._getSize(db)
+            }
             res.append(d)
         return res
 
     def _getSize(self, db):
         """Get the database size in a human readable format."""
-        size = db.getSize()
-        if not isinstance(size, size_types):
-            return str(size)
-        return byteDisplay(size)
+        size = db.getSize() # IDatabase requires this to return byte size
+        assert isinstance(size, size_types) or size is None
+        return byteDisplay(size or 0)
 
     def update(self):
         if self.status is not None:
@@ -75,7 +73,7 @@ class ZODBControlView(object):
                     db.pack(days=days)
                     status.append(_('ZODB "${name}" successfully packed.',
                                mapping=dict(name=str(dbName))))
-                except FileStorageError as err:
+                except StorageError as err:
                     status.append(_('ERROR packing ZODB "${name}": ${err}',
                                     mapping=dict(name=str(dbName), err=err)))
         self.status = status

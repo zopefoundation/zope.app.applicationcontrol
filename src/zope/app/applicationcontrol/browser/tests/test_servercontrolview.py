@@ -17,7 +17,7 @@
 import unittest
 
 import zope.component
-from zope.interface import implementer
+
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl

@@ -16,7 +16,6 @@
 __docformat__ = 'restructuredtext'
 
 import os
-import subprocess
 
 from zope.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implementer

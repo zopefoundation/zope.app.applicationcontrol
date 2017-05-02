@@ -12,12 +12,9 @@
 #
 ##############################################################################
 """ Runtime Information
-
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
 # BBB
 from zope.applicationcontrol.runtimeinfo import (
     RuntimeInfo)
-

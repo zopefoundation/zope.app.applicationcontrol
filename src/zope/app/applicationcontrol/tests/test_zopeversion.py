@@ -17,7 +17,6 @@
 import os
 
 import shutil
-import subprocess
 import tempfile
 import unittest
 
@@ -59,7 +58,7 @@ class Test(unittest.TestCase):
         self.assertEqual(zopeVersion.result, "Meaningless")
 
 def test_suite():
-    return unittest.makeSuite(Test)
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
 if __name__ == '__main__':
     unittest.main(defaultTest="test_suite")
