@@ -7,8 +7,10 @@ CHANGES
 
 - Add support for Python 3.42 3.5 and 3.6 and PyPy.
 
-- Remove test dependency on zope.app.testing and zope.app.zcmlfiles,
-  among others.
+- Remove test dependency on ``zope.app.testing`` and
+  ``zope.app.zcmlfiles``, among others.
+
+- Change dependency on ``ZODB3`` to ``ZODB``.
 
 
 3.5.10 (2011-11-02)
