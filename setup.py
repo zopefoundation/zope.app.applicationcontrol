@@ -21,7 +21,7 @@ import os
 
 from setuptools import setup, find_packages
 
-version = '4.0.0.dev0'
+version = '4.0.0'
 
 def read(*rnames):
     with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
