@@ -13,7 +13,6 @@
 ##############################################################################
 """Server Control View
 
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
@@ -36,8 +35,9 @@ class ServerControlView(object):
         if 'restart' in self.request:
             control.restart(time)
             return _("The server will be restarted in ${number} seconds.",
-                mapping={"number": time})
-        elif 'shutdown' in self.request:
+                     mapping={"number": time})
+
+        if 'shutdown' in self.request:
             control.shutdown(time)
             return _("The server will be shutdown in ${number} seconds.",
-                mapping={"number": time})
+                     mapping={"number": time})

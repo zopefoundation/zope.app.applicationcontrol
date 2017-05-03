@@ -13,7 +13,6 @@
 ##############################################################################
 """Server Control View
 
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
@@ -28,12 +27,12 @@ class TranslationDomainControlView(object):
         info = []
         for name, domain in zope.component.getUtilitiesFor(ITranslationDomain):
             if not hasattr(domain, 'getCatalogsInfo'):
-                continue
+                continue # pragma: no cover
             lang_info = []
             info.append({'domain': name, 'languagesInfo': lang_info})
             for language, fileNames in domain.getCatalogsInfo().items():
                 lang_info.append({'language': language,
-                             'fileNames': fileNames})
+                                  'fileNames': fileNames})
         return info
 
     def reloadCatalogs(self):

@@ -1,11 +1,11 @@
-<configure 
+<configure
    xmlns="http://namespaces.zope.org/zope"
    i18n_domain="zope"
    >
 
   <include package="zope.applicationcontrol" />
 
-  <utility 
+  <utility
      component=".zopeversion.ZopeVersionUtility"
      provides=".interfaces.IZopeVersion" />
 

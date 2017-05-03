@@ -12,15 +12,12 @@
 #
 ##############################################################################
 """Define runtime information view component for Application Control
-
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
-
 
 class RuntimeInfoView(object):
 
@@ -50,17 +47,18 @@ class RuntimeInfoView(object):
     def _getInfo(self, ri):
         formatted = {}
         for name in self._fields:
+            value = self._unavailable
             try:
                 value = getattr(ri, "get" + name)()
-            except ValueError:
-                value = self._unavailable
+            except ValueError: # pragma: no cover
+                pass
             formatted[name] = value
         formatted["Uptime"] = self._getUptime(ri)
         return formatted
 
     def _getUptime(self, ri):
         # make a unix "uptime" uptime format
-        uptime = long(ri.getUptime())
+        uptime = int(ri.getUptime())
         minutes, seconds = divmod(uptime, 60)
         hours, minutes = divmod(minutes, 60)
         days, hours = divmod(hours, 24)

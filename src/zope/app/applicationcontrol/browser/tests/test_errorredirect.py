@@ -13,28 +13,24 @@
 ##############################################################################
 """ZODB Control Tests
 
-$Id$
 """
 import unittest
 
-from zope.app.testing.functional import BrowserTestCase
-from zope.app.applicationcontrol.testing import ApplicationControlLayer
+from zope.app.applicationcontrol.browser.tests import BrowserTestCase
+
 
 class ErrorRedirectTest(BrowserTestCase):
 
     def testErrorRedirect(self):
         response = self.publish('/++etc++process/@@errorRedirect.html',
                                 basic='globalmgr:globalmgrpw')
-        self.failUnlessEqual('http://localhost/@@errorRedirect.html',
-                             response.getHeader('Location'))
-        self.failUnlessEqual(302, response.getStatus())
+        self.assertEqual('http://localhost/@@errorRedirect.html',
+                         response.location)
+        self.assertEqual(302, response.status_int)
 
 
 def test_suite():
-    suite = unittest.TestSuite()
-    ErrorRedirectTest.layer = ApplicationControlLayer
-    suite.addTest(unittest.makeSuite(ErrorRedirectTest))
-    return suite
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

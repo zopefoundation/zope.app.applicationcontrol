@@ -13,20 +13,19 @@
 ##############################################################################
 """Translation Domain Control View Tests
 
-$Id$
 """
 import unittest
 
 import zope.component
 
-from zope.interface import implements
+from zope.interface import implementer
 from zope.app.applicationcontrol.browser.translationdomaincontrol import (
     TranslationDomainControlView)
-from zope.app.component.testing import PlacefulSetup
+from zope.component.testing import PlacelessSetup as PlacefulSetup
 from zope.i18n.interfaces import ITranslationDomain
 
+@implementer(ITranslationDomain)
 class TranslationDomainStub(object):
-    implements(ITranslationDomain)
 
     def __init__(self, domain, languages):
         self.domain = domain
@@ -35,7 +34,7 @@ class TranslationDomainStub(object):
 
     def translate(self, msgid, mapping=None, context=None,
                   target_language=None, default=None):
-        return msgid
+        raise NotImplementedError()
 
     def getCatalogsInfo(self):
         template = 'locales/%s/LC_MESSAGES/%s.mo'
@@ -68,7 +67,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
         test_translationDomainView = self._TestView__newView({})
         catalogs = test_translationDomainView.getCatalogsInfo()
-
+        catalogs.sort(reverse=True, key=lambda x: x['domain'])
         self.assertEqual(len(catalogs), 2)
         for i, domain in enumerate(domains):
             catalog = catalogs[i]
@@ -105,9 +104,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
 
 def test_suite():
-    return unittest.TestSuite((
-        unittest.makeSuite(Test),
-        ))
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
 if __name__ == '__main__':
     unittest.main()

@@ -13,28 +13,17 @@
 ##############################################################################
 """Server Control View Tests
 
-$Id$
 """
 import unittest
 
 import zope.component
-from zope.interface import implements
+
 from zope.app.applicationcontrol.applicationcontrol import applicationController
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
-from zope.app.component.testing import PlacefulSetup
+from zope.component.testing import PlacelessSetup as PlacefulSetup
 
-class ServerControlStub(object):
-    implements(IServerControl)
-
-    did_restart = None
-    did_shutdown = None
-
-    def restart(self, time):
-        self.did_restart = time
-
-    def shutdown(self, time):
-        self.did_shutdown = time
+from zope.app.applicationcontrol.tests import MockServerControl
 
 class Test(PlacefulSetup, unittest.TestCase):
 
@@ -45,7 +34,7 @@ class Test(PlacefulSetup, unittest.TestCase):
         return view
 
     def test_ServerControlView(self):
-        control = ServerControlStub()
+        control = MockServerControl()
         globalSiteManager = zope.component.getGlobalSiteManager()
         globalSiteManager.registerUtility(control, IServerControl)
 
@@ -67,9 +56,7 @@ class Test(PlacefulSetup, unittest.TestCase):
 
 
 def test_suite():
-    return unittest.TestSuite((
-        unittest.makeSuite(Test),
-        ))
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
 if __name__ == '__main__':
     unittest.main()

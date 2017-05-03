@@ -13,7 +13,6 @@
 ##############################################################################
 """Customization of zope.i18n for the Zope application server
 
-$Id$
 """
 __docformat__ = 'restructuredtext'
 

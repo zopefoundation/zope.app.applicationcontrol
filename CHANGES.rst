@@ -2,11 +2,18 @@
 CHANGES
 =======
 
-3.5.11 (unreleased)
+4.0.0 (unreleased)
 -------------------
 
-- TBD
+- Add support for Python 3.42 3.5 and 3.6 and PyPy.
 
+- Remove test dependency on ``zope.app.testing`` and
+  ``zope.app.zcmlfiles``, among others.
+
+- Change dependency on ``ZODB3`` to ``ZODB``.
+
+- Remove the ability of ``ZopeVersion``  to parse information from a
+  subversion checkout. zope.app packages are in git now.
 
 3.5.10 (2011-11-02)
 -------------------

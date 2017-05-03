@@ -1,18 +1,18 @@
-<zope:configure 
+<zope:configure
    xmlns:zcml="http://namespaces.zope.org/zcml"
    xmlns:zope="http://namespaces.zope.org/zope"
    xmlns="http://namespaces.zope.org/browser"
    zcml:condition="installed zope.browserpage">
 
    <page
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
+      for="zope.applicationcontrol.interfaces.IApplicationControl"
       name="servercontrol.html"
       template="servercontrol.pt"
       class=".servercontrol.ServerControlView"
       permission="zope.ManageApplication"/>
 
    <page
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
+      for="zope.applicationcontrol.interfaces.IApplicationControl"
       name="index.html"
       template="runtimeinfo.pt"
       class=".runtimeinfo.RuntimeInfoView"
@@ -20,7 +20,7 @@
 
   <menuItems
       menu="zmi_views"
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl">
+      for="zope.applicationcontrol.interfaces.IApplicationControl">
 
     <menuItem
         order="-2"
@@ -33,7 +33,7 @@
   </menuItems>
 
   <page
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
+      for="zope.applicationcontrol.interfaces.IApplicationControl"
       name="ZODBControl.html"
       template="zodbcontrol.pt"
       class=".zodbcontrol.ZODBControlView"
@@ -41,7 +41,7 @@
       menu="zmi_views" title="ZODB Control"/>
 
   <page
-      for="zope.app.applicationcontrol.interfaces.IApplicationControl"
+      for="zope.applicationcontrol.interfaces.IApplicationControl"
       name="TranslationDomain.html"
       template="translationdomaincontrol.pt"
       class=".translationdomaincontrol.TranslationDomainControlView"

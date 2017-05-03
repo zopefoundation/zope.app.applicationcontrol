@@ -13,39 +13,46 @@
 ##############################################################################
 """ Server Control View
 
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
-from ZODB.FileStorage.FileStorage import FileStorageError
+from ZODB.POSException import StorageError
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 from zope.size import byteDisplay
 from ZODB.interfaces import IDatabase
 from zope import component
 
+size_types = (int, float)
+try:
+    size_types += (long,)
+except NameError:
+    pass
+
 class ZODBControlView(object):
 
     status  = None
 
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
     @property
     def databases(self):
         res = []
-        for name, db in component.getUtilitiesFor(
-            IDatabase):
-            d = dict(
-                dbName = db.getName(),
-                utilName = str(name),
-                size = self._getSize(db),
-                )
+        for name, db in component.getUtilitiesFor(IDatabase):
+            d = {
+                'dbName': db.getName(),
+                'utilName': str(name),
+                'size': self._getSize(db),
+            }
             res.append(d)
         return res
 
     def _getSize(self, db):
         """Get the database size in a human readable format."""
-        size = db.getSize()
-        if not isinstance(size, (int, long, float)):
-            return str(size)
-        return byteDisplay(size)
+        size = db.getSize() # IDatabase requires this to return byte size
+        assert isinstance(size, size_types) or size is None
+        return byteDisplay(size or 0)
 
     def update(self):
         if self.status is not None:
@@ -59,13 +66,14 @@ class ZODBControlView(object):
                 status.append(_('Error: Invalid Number'))
                 self.status = status
                 return self.status
+
             for dbName in dbs:
                 db = component.getUtility(IDatabase, name=dbName)
                 try:
                     db.pack(days=days)
                     status.append(_('ZODB "${name}" successfully packed.',
                                mapping=dict(name=str(dbName))))
-                except FileStorageError, err:
+                except StorageError as err:
                     status.append(_('ERROR packing ZODB "${name}": ${err}',
                                     mapping=dict(name=str(dbName), err=err)))
         self.status = status
