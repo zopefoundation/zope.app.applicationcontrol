@@ -43,7 +43,7 @@ class ZODBControlView(object):
             d = {
                 'dbName': db.getName(),
                 'utilName': str(name),
-                'size': self._getSize(db)
+                'size': self._getSize(db),
             }
             res.append(d)
         return res

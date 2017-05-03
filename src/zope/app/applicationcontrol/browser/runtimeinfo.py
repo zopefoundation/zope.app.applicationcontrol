@@ -19,11 +19,6 @@ from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
-try:
-    long
-except NameError:
-    long = int
-
 class RuntimeInfoView(object):
 
     _fields = (
@@ -63,7 +58,7 @@ class RuntimeInfoView(object):
 
     def _getUptime(self, ri):
         # make a unix "uptime" uptime format
-        uptime = long(ri.getUptime())
+        uptime = int(ri.getUptime())
         minutes, seconds = divmod(uptime, 60)
         hours, minutes = divmod(minutes, 60)
         days, hours = divmod(hours, 24)
