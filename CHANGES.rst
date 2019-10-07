@@ -11,7 +11,7 @@ CHANGES
 4.0.0 (2017-05-03)
 ------------------
 
-- Add support for Python 3.42 3.5 and 3.6 and PyPy.
+- Add support for Python 3.4, 3.5 and 3.6 and PyPy.
 
 - Remove test dependency on ``zope.app.testing`` and
   ``zope.app.zcmlfiles``, among others.
