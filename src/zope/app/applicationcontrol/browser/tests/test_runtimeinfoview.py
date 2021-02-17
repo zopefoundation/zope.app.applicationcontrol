@@ -16,24 +16,28 @@
 """
 import unittest
 
-from zope.app.applicationcontrol.applicationcontrol import applicationController
+from zope.app.applicationcontrol.applicationcontrol import (
+    applicationController)
 from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
 from zope.app.applicationcontrol.browser.runtimeinfo import RuntimeInfoView
 from zope.app.applicationcontrol.interfaces import \
-     IApplicationControl, IRuntimeInfo
+    IApplicationControl, IRuntimeInfo
 from zope.component.testing import PlacelessSetup as PlacefulSetup
 
 import zope.component
 
 stypes = list, tuple
+
+
 def provideAdapter(required, provided, factory, name='', **kw):
 
     gsm = zope.component.getGlobalSiteManager()
 
-    if not isinstance(required, stypes):
-        required = (required,)
+    assert not isinstance(required, stypes)
+    required = (required,)
 
     gsm.registerAdapter(factory, required, provided, name, event=False)
+
 
 class Test(PlacefulSetup, unittest.TestCase):
 
@@ -67,9 +71,17 @@ class Test(PlacefulSetup, unittest.TestCase):
         test_format = test_runtimeinfoview.runtimeInfo()
         self.assertIsInstance(test_format, dict)
 
-        assert_keys = ['ZopeVersion', 'PythonVersion', 'PythonPath',
-              'SystemPlatform', 'PreferredEncoding', 'FileSystemEncoding',
-              'CommandLine', 'ProcessId', 'Uptime', 'DeveloperMode' ]
+        assert_keys = [
+            'ZopeVersion',
+            'PythonVersion',
+            'PythonPath',
+            'SystemPlatform',
+            'PreferredEncoding',
+            'FileSystemEncoding',
+            'CommandLine',
+            'ProcessId',
+            'Uptime',
+            'DeveloperMode']
         test_keys = test_format.keys()
 
         self.assertEqual(sorted(assert_keys), sorted(test_keys))
@@ -80,6 +92,3 @@ class Test(PlacefulSetup, unittest.TestCase):
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-if __name__ == '__main__':
-    unittest.main()

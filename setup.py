@@ -21,11 +21,13 @@ import os
 
 from setuptools import setup, find_packages
 
-version = '4.0.1.dev0'
+version = '4.1.0.dev0'
+
 
 def read(*rnames):
     with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
         return f.read()
+
 
 tests_require = [
     'webtest',
@@ -67,45 +69,46 @@ tests_require = [
 ]
 
 setup(name='zope.app.applicationcontrol',
-    version = version,
-    author='Zope Foundation and Contributors',
-    author_email='zope-dev@zope.org',
-    description='Zope application control',
-    long_description=(
-        read('README.rst')
-        + '\n\n' +
-        read('CHANGES.rst')
-        ),
-    license='ZPL 2.1',
-    keywords="zope3 application control",
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: Zope Public License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
-        'Natural Language :: English',
-        'Operating System :: OS Independent',
-        'Topic :: Internet :: WWW/HTTP',
-        'Framework :: Zope :: 3',
-    ],
-    url='http://github.com/zopefoundation/zope.app.applicationcontrol',
-    extras_require={
-        'test': tests_require,
-    },
-    package_dir={'': 'src'},
-    packages=find_packages('src'),
-    namespace_packages=['zope', 'zope.app'],
-    install_requires=[
+      version=version,
+      author='Zope Foundation and Contributors',
+      author_email='zope-dev@zope.org',
+      description='Zope application control',
+      long_description=(
+          read('README.rst')
+          + '\n\n' +
+          read('CHANGES.rst')
+      ),
+      license='ZPL 2.1',
+      keywords="zope3 application control",
+      classifiers=[
+          'Development Status :: 5 - Production/Stable',
+          'Environment :: Web Environment',
+          'Intended Audience :: Developers',
+          'License :: OSI Approved :: Zope Public License',
+          'Programming Language :: Python',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.7',
+          'Programming Language :: Python :: 3.8',
+          'Programming Language :: Python :: 3.9',
+          'Programming Language :: Python :: Implementation :: CPython',
+          'Programming Language :: Python :: Implementation :: PyPy',
+          'Natural Language :: English',
+          'Operating System :: OS Independent',
+          'Topic :: Internet :: WWW/HTTP',
+          'Framework :: Zope :: 3',
+      ],
+      url='http://github.com/zopefoundation/zope.app.applicationcontrol',
+      extras_require={
+          'test': tests_require,
+      },
+      package_dir={'': 'src'},
+      packages=find_packages('src'),
+      namespace_packages=['zope', 'zope.app'],
+      install_requires=[
           'setuptools',
           'ZODB',
           'zope.applicationcontrol >= 4.0.1',
@@ -115,7 +118,7 @@ setup(name='zope.app.applicationcontrol',
           'zope.interface',
           'zope.size',
           'zope.traversing>=3.7.0',
-        ],
-    include_package_data=True,
-    zip_safe=False,
-)
+      ],
+      include_package_data=True,
+      zip_safe=False,
+      )
