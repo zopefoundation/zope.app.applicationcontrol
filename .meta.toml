@@ -1,0 +1,24 @@
+# Generated from:
+# https://github.com/zopefoundation/meta/tree/master/config/pure-python
+[meta]
+template = "pure-python"
+commit-id = "519ffffe1b360ede58b32a375b5f8b26059d8016"
+
+[python]
+with-appveyor = false
+with-pypy = true
+with-legacy-python = true
+with-docs = false
+with-sphinx-doctests = false
+
+[coverage]
+fail-under = 100
+
+[flake8]
+additional-config = [
+    "# F401 imported but unused",
+    "per-file-ignores =",
+    "    src/zope/app/applicationcontrol/applicationcontrol.py: F401",
+    "    src/zope/app/applicationcontrol/interfaces.py: F401",
+    "    src/zope/app/applicationcontrol/runtimeinfo.py: F401",
+    ]
