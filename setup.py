@@ -101,7 +101,7 @@ setup(name='zope.app.applicationcontrol',
           'Topic :: Internet :: WWW/HTTP',
           'Framework :: Zope :: 3',
       ],
-      url='http://github.com/zopefoundation/zope.app.applicationcontrol',
+      url='https://github.com/zopefoundation/zope.app.applicationcontrol',
       extras_require={
           'test': tests_require,
       },
