@@ -24,6 +24,7 @@ from zope.app.applicationcontrol.browser.translationdomaincontrol import (
 from zope.component.testing import PlacelessSetup as PlacefulSetup
 from zope.i18n.interfaces import ITranslationDomain
 
+
 @implementer(ITranslationDomain)
 class TranslationDomainStub(object):
 
@@ -49,12 +50,12 @@ class Test(PlacefulSetup, unittest.TestCase):
 
     def _TestView__newView(self, request):
         view = TranslationDomainControlView()
-        view.context = object() # the context does not matter in this view
+        view.context = object()  # the context does not matter in this view
         view.request = request
         return view
 
     def test_TranslationDomainControlView(self):
-        languages = ['de', 'en', 'es'] # these are sorted, see below
+        languages = ['de', 'en', 'es']  # these are sorted, see below
         domains = ['zope', 'plone']
         translationDomains = []
         globalSiteManager = zope.component.getGlobalSiteManager()
@@ -76,28 +77,27 @@ class Test(PlacefulSetup, unittest.TestCase):
             self.assertEqual(sorted(langs), languages)
             files = [li['fileNames'] for li in catalog['languagesInfo']]
             self.assertEqual(sorted(files), [
-                    'locales/de/LC_MESSAGES/%s.mo' % domain,
-                    'locales/en/LC_MESSAGES/%s.mo' % domain,
-                    'locales/es/LC_MESSAGES/%s.mo' % domain,
-                    ])
-
+                'locales/de/LC_MESSAGES/%s.mo' % domain,
+                'locales/en/LC_MESSAGES/%s.mo' % domain,
+                'locales/es/LC_MESSAGES/%s.mo' % domain,
+            ])
 
         # test catalog reloading
         translationDomain = translationDomains[0]
         test_translationDomainView = self._TestView__newView({
-                'RELOAD': 1,
-                'domain': 'zope',
-                'language': 'fr' # fr is not in languages list
-                })
+            'RELOAD': 1,
+            'domain': 'zope',
+            'language': 'fr'  # fr is not in languages list
+        })
 
         test_translationDomainView.reloadCatalogs()
         self.assertEqual(translationDomain.reloadDone, False)
 
         test_translationDomainView = self._TestView__newView({
-                'RELOAD': 1,
-                'domain': 'zope',
-                'language': 'en' # en is in languages list
-                })
+            'RELOAD': 1,
+            'domain': 'zope',
+            'language': 'en'  # en is in languages list
+        })
 
         test_translationDomainView.reloadCatalogs()
         self.assertEqual(translationDomain.reloadDone, True)
@@ -105,6 +105,3 @@ class Test(PlacefulSetup, unittest.TestCase):
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-if __name__ == '__main__':
-    unittest.main()

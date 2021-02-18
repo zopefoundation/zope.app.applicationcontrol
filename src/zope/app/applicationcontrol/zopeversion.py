@@ -20,6 +20,7 @@ import os
 from zope.applicationcontrol.interfaces import IZopeVersion
 from zope.interface import implementer
 
+
 @implementer(IZopeVersion)
 class ZopeVersion(object):
 

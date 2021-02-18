@@ -28,8 +28,10 @@ class BrowserTestCase(unittest.TestCase):
             response = self._testapp.post(path, params=form,
                                           extra_environ=env, headers=headers)
         else:
-            response = self._testapp.get(path, extra_environ=env, headers=headers)
+            response = self._testapp.get(
+                path, extra_environ=env, headers=headers)
         return response
+
 
 class ErrorRedirect(BrowserView):
     # copied from zope.app.error

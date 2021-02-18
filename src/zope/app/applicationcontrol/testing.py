@@ -23,9 +23,11 @@ from zope.testbrowser.wsgi import TestBrowserLayer
 
 import zope.app.applicationcontrol
 
+
 class _ApplicationControlLayer(TestBrowserLayer,
                                BrowserLayer):
     pass
+
 
 ApplicationControlLayer = _ApplicationControlLayer(
     zope.app.applicationcontrol,

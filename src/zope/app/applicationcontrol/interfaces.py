@@ -14,9 +14,6 @@
 """Application Control Interface
 
 """
-__docformat__ = 'restructuredtext'
-
-from zope.interface import Interface
 # BBB
 from zope.applicationcontrol.interfaces import (
     IApplicationControl,

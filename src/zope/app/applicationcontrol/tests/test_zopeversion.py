@@ -24,6 +24,7 @@ from zope.interface.verify import verifyObject
 from zope.applicationcontrol.interfaces import IZopeVersion
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 
+
 class Test(unittest.TestCase):
 
     def setUp(self):
@@ -35,10 +36,10 @@ class Test(unittest.TestCase):
 
     def prepare(self, version):
         if version:
+            assert not version.endswith("\n")
             with open(os.path.join(self.tmpdir, "version.txt"), "w") as f:
                 f.write(version)
-                if not version.endswith("\n"):
-                    f.write("\n")
+                f.write("\n")
 
     def test_IVerify(self):
         verifyObject(IZopeVersion, self.zopeVersion)
@@ -46,7 +47,7 @@ class Test(unittest.TestCase):
     def test_ZopeVersion(self):
         self.prepare(None)
         self.assertEqual(self.zopeVersion.getZopeVersion(),
-            "Development/Unknown")
+                         "Development/Unknown")
 
     def test_ZopeVersion_release(self):
         self.prepare("Zope 3 1.0.0")
@@ -57,8 +58,6 @@ class Test(unittest.TestCase):
         zopeVersion = ZopeVersion(None)
         self.assertEqual(zopeVersion.result, "Meaningless")
 
+
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-if __name__ == '__main__':
-    unittest.main(defaultTest="test_suite")

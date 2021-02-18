@@ -30,7 +30,6 @@ class MessageCatalogControlTest(BrowserTestCase):
             response.click(href=link_name,
                            extra_environ={'wsgi.handleErrors': False})
 
-
     def testReload(self):
         response = self.publish('/++etc++process/@@TranslationDomain.html',
                                 basic='globalmgr:globalmgrpw',
@@ -39,11 +38,8 @@ class MessageCatalogControlTest(BrowserTestCase):
                                       'RELOAD': u'Reload'})
         body = response.unicode_normal_body
         self.assertIn('Message Catalog for de language in zope domain'
-                     ' successfully reloaded.',  body)
+                      ' successfully reloaded.', body)
 
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

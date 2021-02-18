@@ -18,12 +18,14 @@ import unittest
 
 import zope.component
 
-from zope.app.applicationcontrol.applicationcontrol import applicationController
+from zope.app.applicationcontrol.applicationcontrol import (
+    applicationController)
 from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
 from zope.app.applicationcontrol.interfaces import IServerControl
 from zope.component.testing import PlacelessSetup as PlacefulSetup
 
 from zope.app.applicationcontrol.tests import MockServerControl
+
 
 class Test(PlacefulSetup, unittest.TestCase):
 
@@ -42,7 +44,7 @@ class Test(PlacefulSetup, unittest.TestCase):
             applicationController,
             {'shutdown': 1,
              'time': 100},
-            )
+        )
         test_serverctrl.action()
         self.assertEqual(control.did_shutdown, 100)
 
@@ -50,13 +52,10 @@ class Test(PlacefulSetup, unittest.TestCase):
             applicationController,
             {'restart': 1,
              'time': 100},
-            )
+        )
         test_serverctrl.action()
         self.assertEqual(control.did_restart, 100)
 
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-if __name__ == '__main__':
-    unittest.main()

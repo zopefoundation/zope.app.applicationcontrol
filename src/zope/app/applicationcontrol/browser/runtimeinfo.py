@@ -19,6 +19,7 @@ from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
+
 class RuntimeInfoView(object):
 
     _fields = (
@@ -31,7 +32,7 @@ class RuntimeInfoView(object):
         "CommandLine",
         "ProcessId",
         "DeveloperMode",
-        )
+    )
     _unavailable = _("Unavailable")
 
     def runtimeInfo(self):
@@ -50,7 +51,7 @@ class RuntimeInfoView(object):
             value = self._unavailable
             try:
                 value = getattr(ri, "get" + name)()
-            except ValueError: # pragma: no cover
+            except ValueError:  # pragma: no cover
                 pass
             formatted[name] = value
         formatted["Uptime"] = self._getUptime(ri)
@@ -64,7 +65,7 @@ class RuntimeInfoView(object):
         days, hours = divmod(hours, 24)
 
         return _('${days} day(s) ${hours}:${minutes}:${seconds}',
-                 mapping = {'days': '%d' % days,
-                            'hours': '%02d' % hours,
-                            'minutes': '%02d' % minutes,
-                            'seconds': '%02d' % seconds})
+                 mapping={'days': '%d' % days,
+                          'hours': '%02d' % hours,
+                          'minutes': '%02d' % minutes,
+                          'seconds': '%02d' % seconds})

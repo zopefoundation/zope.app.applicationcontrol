@@ -27,7 +27,7 @@ class TranslationDomainControlView(object):
         info = []
         for name, domain in zope.component.getUtilitiesFor(ITranslationDomain):
             if not hasattr(domain, 'getCatalogsInfo'):
-                continue # pragma: no cover
+                continue  # pragma: no cover
             lang_info = []
             info.append({'domain': name, 'languagesInfo': lang_info})
             for language, fileNames in domain.getCatalogsInfo().items():
@@ -50,7 +50,7 @@ class TranslationDomainControlView(object):
 
             status = _('Message Catalog for ${language} language'
                        ' in ${domain} domain successfully reloaded.',
-                       mapping = {u'language': language,
-                                  u'domain': domain.domain})
+                       mapping={u'language': language,
+                                u'domain': domain.domain})
 
         return status

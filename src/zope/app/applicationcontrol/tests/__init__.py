@@ -4,6 +4,7 @@
 from zope.interface import implementer
 from zope.applicationcontrol.interfaces import IServerControl
 
+
 @implementer(IServerControl)
 class MockServerControl(object):
 

@@ -28,9 +28,10 @@ try:
 except NameError:
     pass
 
+
 class ZODBControlView(object):
 
-    status  = None
+    status = None
 
     def __init__(self, context, request):
         self.context = context
@@ -50,7 +51,7 @@ class ZODBControlView(object):
 
     def _getSize(self, db):
         """Get the database size in a human readable format."""
-        size = db.getSize() # IDatabase requires this to return byte size
+        size = db.getSize()  # IDatabase requires this to return byte size
         assert isinstance(size, size_types) or size is None
         return byteDisplay(size or 0)
 
@@ -61,7 +62,7 @@ class ZODBControlView(object):
         if 'PACK' in self.request.form:
             dbs = self.request.form.get('dbs', [])
             try:
-                days = int(self.request.form.get('days','').strip() or 0)
+                days = int(self.request.form.get('days', '').strip() or 0)
             except ValueError:
                 status.append(_('Error: Invalid Number'))
                 self.status = status
@@ -72,7 +73,7 @@ class ZODBControlView(object):
                 try:
                     db.pack(days=days)
                     status.append(_('ZODB "${name}" successfully packed.',
-                               mapping=dict(name=str(dbName))))
+                                    mapping=dict(name=str(dbName))))
                 except StorageError as err:
                     status.append(_('ERROR packing ZODB "${name}": ${err}',
                                     mapping=dict(name=str(dbName), err=err)))

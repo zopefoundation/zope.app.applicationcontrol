@@ -16,13 +16,14 @@
 """
 import unittest
 import doctest
-import ZODB.tests.util
+import ZODB.MappingStorage
 from ZODB.interfaces import IDatabase
 from zope.testing import cleanup
 from zope import component
 
 from zope.app.applicationcontrol.browser.zodbcontrol import ZODBControlView
 from zope.app.applicationcontrol.testing import ApplicationControlLayer
+
 
 class TestZODBControlView(cleanup.CleanUp,
                           unittest.TestCase):
@@ -77,15 +78,17 @@ class TestZODBControlView(cleanup.CleanUp,
 
 def setUp(test):
     test.databases = test.globs['getRootFolder']()._p_jar.db().databases
-    _db2 = ZODB.tests.util.DB(databases=test.databases, database_name='2')
+    ZODB.MappingStorage.DB(databases=test.databases, database_name='2')
 
     for name, db in test.databases.items():
         component.provideUtility(db, IDatabase, name=name)
+
 
 def tearDown(test):
     for db in test.databases.values():
         db.close()
     cleanup.cleanUp()
+
 
 def test_suite():
     suite = unittest.TestSuite()
@@ -98,7 +101,3 @@ def test_suite():
     suite.addTest(zodb)
     suite.addTest(unittest.defaultTestLoader.loadTestsFromName(__name__))
     return suite
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
