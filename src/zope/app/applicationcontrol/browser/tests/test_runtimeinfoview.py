@@ -16,15 +16,16 @@
 """
 import unittest
 
-from zope.app.applicationcontrol.applicationcontrol import (
-    applicationController)
-from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
-from zope.app.applicationcontrol.browser.runtimeinfo import RuntimeInfoView
-from zope.app.applicationcontrol.interfaces import \
-    IApplicationControl, IRuntimeInfo
+import zope.component
 from zope.component.testing import PlacelessSetup as PlacefulSetup
 
-import zope.component
+from zope.app.applicationcontrol.applicationcontrol import \
+    applicationController
+from zope.app.applicationcontrol.browser.runtimeinfo import RuntimeInfoView
+from zope.app.applicationcontrol.interfaces import IApplicationControl
+from zope.app.applicationcontrol.interfaces import IRuntimeInfo
+from zope.app.applicationcontrol.runtimeinfo import RuntimeInfo
+
 
 stypes = list, tuple
 

@@ -17,7 +17,7 @@
 __docformat__ = 'restructuredtext'
 
 # BBB
-from zope.applicationcontrol.applicationcontrol import (
-    ApplicationControl,
-    applicationControllerRoot,
-    applicationController)
+from zope.applicationcontrol.applicationcontrol import ApplicationControl
+from zope.applicationcontrol.applicationcontrol import applicationController
+from zope.applicationcontrol.applicationcontrol import \
+    applicationControllerRoot

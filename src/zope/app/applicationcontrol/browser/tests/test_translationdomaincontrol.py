@@ -17,12 +17,12 @@
 import unittest
 
 import zope.component
-
-from zope.interface import implementer
-from zope.app.applicationcontrol.browser.translationdomaincontrol import (
-    TranslationDomainControlView)
 from zope.component.testing import PlacelessSetup as PlacefulSetup
 from zope.i18n.interfaces import ITranslationDomain
+from zope.interface import implementer
+
+from zope.app.applicationcontrol.browser.translationdomaincontrol import \
+    TranslationDomainControlView
 
 
 @implementer(ITranslationDomain)

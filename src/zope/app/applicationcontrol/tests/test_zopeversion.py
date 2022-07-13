@@ -15,13 +15,13 @@
 
 """
 import os
-
 import shutil
 import tempfile
 import unittest
 
-from zope.interface.verify import verifyObject
 from zope.applicationcontrol.interfaces import IZopeVersion
+from zope.interface.verify import verifyObject
+
 from zope.app.applicationcontrol.zopeversion import ZopeVersion
 
 

@@ -14,13 +14,14 @@
 """ZODB Control Tests
 
 """
-import unittest
 import doctest
+import unittest
+
 import ZODB.MappingStorage
 from ZODB.interfaces import IDatabase
 from zope.testing import cleanup
-from zope import component
 
+from zope import component
 from zope.app.applicationcontrol.browser.zodbcontrol import ZODBControlView
 from zope.app.applicationcontrol.testing import ApplicationControlLayer
 

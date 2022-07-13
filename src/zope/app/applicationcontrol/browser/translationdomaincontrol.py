@@ -18,6 +18,7 @@ __docformat__ = 'restructuredtext'
 
 import zope.component
 from zope.i18n.interfaces import ITranslationDomain
+
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
 
