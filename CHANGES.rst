@@ -9,6 +9,8 @@ CHANGES
 
 - Drop support for Python 3.3 and 3.4.
 
+- Make tests compatible with ``zope.app.locales >= 4.2``.
+
 
 4.0.0 (2017-05-03)
 ------------------
