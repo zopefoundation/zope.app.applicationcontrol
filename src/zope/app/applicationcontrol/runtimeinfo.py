@@ -16,5 +16,4 @@
 __docformat__ = 'restructuredtext'
 
 # BBB
-from zope.applicationcontrol.runtimeinfo import (
-    RuntimeInfo)
+from zope.applicationcontrol.runtimeinfo import RuntimeInfo

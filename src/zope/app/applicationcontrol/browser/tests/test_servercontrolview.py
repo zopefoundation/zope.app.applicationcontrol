@@ -17,13 +17,12 @@
 import unittest
 
 import zope.component
-
-from zope.app.applicationcontrol.applicationcontrol import (
-    applicationController)
-from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
-from zope.app.applicationcontrol.interfaces import IServerControl
 from zope.component.testing import PlacelessSetup as PlacefulSetup
 
+from zope.app.applicationcontrol.applicationcontrol import \
+    applicationController
+from zope.app.applicationcontrol.browser.servercontrol import ServerControlView
+from zope.app.applicationcontrol.interfaces import IServerControl
 from zope.app.applicationcontrol.tests import MockServerControl
 
 

@@ -1,12 +1,10 @@
 import unittest
-from webtest import TestApp
 
+from webtest import TestApp
 from zope.component import getUtility
+from zope.error.interfaces import IErrorReportingUtility
 from zope.publisher.browser import BrowserView
 from zope.traversing.browser.absoluteurl import absoluteURL
-
-from zope.error.interfaces import IErrorReportingUtility
-
 
 from zope.app.applicationcontrol.testing import ApplicationControlLayer
 

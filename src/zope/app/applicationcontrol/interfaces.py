@@ -15,8 +15,7 @@
 
 """
 # BBB
-from zope.applicationcontrol.interfaces import (
-    IApplicationControl,
-    IRuntimeInfo,
-    IZopeVersion,
-    IServerControl)
+from zope.applicationcontrol.interfaces import IApplicationControl
+from zope.applicationcontrol.interfaces import IRuntimeInfo
+from zope.applicationcontrol.interfaces import IServerControl
+from zope.applicationcontrol.interfaces import IZopeVersion

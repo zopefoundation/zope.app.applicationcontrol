@@ -16,11 +16,13 @@
 """
 __docformat__ = 'restructuredtext'
 
-from ZODB.POSException import StorageError
-from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
-from zope.size import byteDisplay
 from ZODB.interfaces import IDatabase
+from ZODB.POSException import StorageError
+from zope.size import byteDisplay
+
 from zope import component
+from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
+
 
 size_types = (int, float)
 try:
