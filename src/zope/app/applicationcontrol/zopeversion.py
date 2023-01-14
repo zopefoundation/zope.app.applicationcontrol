@@ -22,7 +22,7 @@ from zope.interface import implementer
 
 
 @implementer(IZopeVersion)
-class ZopeVersion(object):
+class ZopeVersion:
 
     def __init__(self, path=None):
         if path is None:

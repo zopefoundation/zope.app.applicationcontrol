@@ -31,7 +31,7 @@ except NameError:
     pass
 
 
-class ZODBControlView(object):
+class ZODBControlView:
 
     status = None
 

@@ -37,7 +37,7 @@ class TestZODBControlView(cleanup.CleanUp,
         self.assertIs(self, view.update())
 
     def test_invalid_days(self):
-        class MockRequest(object):
+        class MockRequest:
             def __init__(self, **kwargs):
                 self.form = kwargs
 
@@ -47,22 +47,22 @@ class TestZODBControlView(cleanup.CleanUp,
                                    PACK=True))
 
         result = view.update()
-        self.assertEqual([u'Error: Invalid Number'], result)
+        self.assertEqual(['Error: Invalid Number'], result)
 
         del view.request.form['PACK']
         result = view.update()
-        self.assertEqual([u'Error: Invalid Number'], result)
+        self.assertEqual(['Error: Invalid Number'], result)
 
     def test_pack_error(self):
         from ZODB.POSException import StorageError
 
-        class Database(object):
+        class Database:
             def pack(self, days=None):
                 raise StorageError()
 
         component.provideUtility(Database(), IDatabase)
 
-        class MockRequest(object):
+        class MockRequest:
             def __init__(self, **kwargs):
                 self.form = kwargs
 

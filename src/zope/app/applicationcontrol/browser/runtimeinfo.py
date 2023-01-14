@@ -19,7 +19,7 @@ from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 from zope.app.applicationcontrol.interfaces import IRuntimeInfo
 
 
-class RuntimeInfoView(object):
+class RuntimeInfoView:
 
     _fields = (
         "ZopeVersion",

@@ -22,7 +22,7 @@ from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 from zope.app.applicationcontrol.interfaces import IServerControl
 
 
-class ServerControlView(object):
+class ServerControlView:
 
     def serverControl(self):
         return zope.component.getUtility(IServerControl)

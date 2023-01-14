@@ -22,7 +22,7 @@ from zope.i18n.interfaces import ITranslationDomain
 from zope.app.applicationcontrol.i18n import ZopeMessageFactory as _
 
 
-class TranslationDomainControlView(object):
+class TranslationDomainControlView:
 
     def getCatalogsInfo(self):
         info = []
@@ -51,7 +51,7 @@ class TranslationDomainControlView(object):
 
             status = _('Message Catalog for ${language} language'
                        ' in ${domain} domain successfully reloaded.',
-                       mapping={u'language': language,
-                                u'domain': domain.domain})
+                       mapping={'language': language,
+                                'domain': domain.domain})
 
         return status
