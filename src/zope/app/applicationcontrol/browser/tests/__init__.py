@@ -14,7 +14,7 @@ class BrowserTestCase(unittest.TestCase):
     layer = ApplicationControlLayer
 
     def setUp(self):
-        super(BrowserTestCase, self).setUp()
+        super().setUp()
         self._testapp = TestApp(self.layer.make_wsgi_app())
 
     def publish(self, path, basic=None, form=None, headers=None):

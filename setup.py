@@ -108,6 +108,7 @@ setup(name='zope.app.applicationcontrol',
       package_dir={'': 'src'},
       packages=find_packages('src'),
       namespace_packages=['zope', 'zope.app'],
+      python_requires='>=3.7',
       install_requires=[
           'setuptools',
           'ZODB',

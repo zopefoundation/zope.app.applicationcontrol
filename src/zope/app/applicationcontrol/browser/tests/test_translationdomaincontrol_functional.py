@@ -34,9 +34,9 @@ class MessageCatalogControlTest(BrowserTestCase):
     def testReload(self):
         response = self.publish('/++etc++process/@@TranslationDomain.html',
                                 basic='globalmgr:globalmgrpw',
-                                form={'language': u'de',
-                                      'domain': u'zope',
-                                      'RELOAD': u'Reload'})
+                                form={'language': 'de',
+                                      'domain': 'zope',
+                                      'RELOAD': 'Reload'})
         body = response.unicode_normal_body
         self.assertIn('Message Catalog for de language in zope domain'
                       ' successfully reloaded.', body)

@@ -6,7 +6,7 @@ from zope.interface import implementer
 
 
 @implementer(IServerControl)
-class MockServerControl(object):
+class MockServerControl:
 
     did_restart = None
     did_shutdown = None

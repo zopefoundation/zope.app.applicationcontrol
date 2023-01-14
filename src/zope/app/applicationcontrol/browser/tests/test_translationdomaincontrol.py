@@ -26,7 +26,7 @@ from zope.app.applicationcontrol.browser.translationdomaincontrol import \
 
 
 @implementer(ITranslationDomain)
-class TranslationDomainStub(object):
+class TranslationDomainStub:
 
     def __init__(self, domain, languages):
         self.domain = domain
@@ -39,8 +39,8 @@ class TranslationDomainStub(object):
 
     def getCatalogsInfo(self):
         template = 'locales/%s/LC_MESSAGES/%s.mo'
-        return dict([(lang, template % (lang, self.domain))
-                     for lang in self.languages])
+        return {lang: template % (lang, self.domain)
+                for lang in self.languages}
 
     def reloadCatalogs(self, fileNames):
         self.reloadDone = True
