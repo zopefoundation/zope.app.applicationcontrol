@@ -2,8 +2,7 @@
 # https://github.com/zopefoundation/meta/tree/master/config/pure-python
 name: meta
 
-permissions:
-  contents: write
+permissions: write-all
 
 env:
   GH_TOKEN: ${{ github.token }}
