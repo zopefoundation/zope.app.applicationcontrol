@@ -4,7 +4,6 @@ name: meta
 
 permissions:
   contents: write
-  workflows: write
 
 env:
   GH_TOKEN: ${{ github.token }}
