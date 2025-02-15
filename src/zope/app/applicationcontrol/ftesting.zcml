@@ -86,7 +86,7 @@
       template="tests/view_macros.pt" />
 
 
-  <!-- This normally comes from zope.app.server -->
+  <!-- This used to come from zope.app.server but we are here in tests. -->
   <utility factory=".tests.MockServerControl" />
 
   <securityPolicy
